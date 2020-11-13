@@ -1,0 +1,31 @@
+Known Synergy Effects
+
+Thick Tail
+
+rough scales - (+2 AV + toughness /3)), grants shield block ability to tail, shield adds strength modifier to AC on successful blocks.
+light manipulation - grants static ambient light effect up 3 spaces, you also gain electricity resistance equal to 10 + (5 * your Toughness modifier)
+Amphibious - swimming speed increased by 50%, you also gain acid resistance equal to 10 + (5 * your Toughness modifier)
+Thick Fur - (+1 DV + (agility /3)), you also gain fire and cold resistance equal to 10 + (5 * your Toughness modifier)
+Quills - tail strike attacks deal extra damage and bonus pen up to strength modifier = DAMAGE CALCULATING INCREASES PER LEVEL , check thicktail.cs and look for the BonusDamage variables
+
+Serpentine Form
+Quills - Increased constriction damage
+Gelatinous Forms Poison/Acid: Extra elemental based damage on constriction
+
+
+Psybrachiomancy
+
+Spend maximum charges to summon psionic arms, psionic arms are immune to all damage unless it is phase or null and limit weapon's penetration to your ego modiifer, your chane to hit is also efected by your ego modifier.
+
+The first arm cost 2 Psi Points. The Next arm should cost 4, then 8, etc.
+I need to make a void method that will generate the arm and do all of the calculations right there for the arms. 
+I may need to make a part, or something that will be what catches attacks so I can limit penetration
+
+Psi arms will arms but have, hoppefully, no hit points.However, they will shwo that you have psionic arms "equipped" as a way to show the arms are there.
+you get a pop up. Popup gives you an option. it will show the amount to get your new psi arm which updates as you get each new arm. and then the other option is to remove a psi arm.
+
+Focus Psi
+Focus Psi is getting a big update, since its essentially a new system to work mutations around, I decided to make it a little more gritty by adding some new mechanics to it.
+Most of the mutations that utilize Focus Psi are powerful, Combustion Blast and Psybrachiomancy are definitely pretty powerful in comparison to some of the other abilities. 
+To rectify this, Your Willpower is now *dependent* on your psi-pool. The lower your maximum psi-pool gets(say the trigger could be falling below 30%), the lower your willpower will become a maximum loss of 60% in response. 
+This encourages careful use of some of the more powerful abilities, while scaling into higher play smoothly enough that it feels rewarding.

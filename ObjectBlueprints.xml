@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Mutation Items -->
+<objects>
+        <object Name="OvipositorEgg" Inherits="Item">
+                <part Name="Render" DisplayName="{{fleshy|strange}} egg" RenderString="]" ColorString="&amp;M" DetailColor="M" Tile="Items/sw_egg.bmp"></part>
+                <part Name="Commerce" Value="0"></part>
+                <part Name="Physics" Weight="40" Category="Miscellaneous" Takeable="false"></part>
+                <part Name="Description" Short="The shell of this cumbersome egg oozes congealed-waste filtering from inside, holding it in your hands, it pulsates softly, a hint something is growing inside."></part>
+                <part Name="OvipositorEgg"></part>
+        </object>
+
+        <object Name="GamerGirlMoltShoddy" Inherits="Item">
+                <part Name="Render" DisplayName="shoddy {{brown|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="w" Tile="Items/sw_skinsuit.bmp"></part>
+                <part Name="Commerce" Value="250"></part>
+                <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
+                <part Name="Description" Short="What you might mistaken as a dried, mangled carcass is instead the ominous remains of an insectoid's or mutant's husk, pure chitin held stiff by the shedded membranous cuticle of the creature's ligaments."></part>
+        </object>
+        <object Name="GamerGirlMoltQuality" Inherits="Item">
+                <part Name="Render" DisplayName="quality {{yellow|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="W" Tile="Items/sw_skinsuit.bmp"></part>
+                <part Name="Commerce" Value="500"></part>
+                <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
+                <part Name="Description" Short="The quality of chitin is measured against its flexibility, durability and its ability to be mended into armor. This particular specimen shows a strong sheen to its layers and typical thickness relevant to its shedder’s age."></part>
+        </object>
+        <object Name="GamerGirlMoltHighQuality" Inherits="Item">
+                <part Name="Render" DisplayName="high-quality {{green|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="g" Tile="Items/sw_skinsuit.bmp"></part>
+                <part Name="Commerce" Value="750"></part>
+                <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
+                <part Name="Description" Short="Comparatively, higher-quality chitin such as this is incredibly flexible and glances all but the heaviest blows. It is often used in the crafting of chelibrium garb."></part>
+        </object>
+        <object Name="GamerGirlMoltDeluxe" Inherits="Item">
+                <part Name="Render" DisplayName="deluxe {{m|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="m" Tile="Items/sw_skinsuit.bmp"></part>
+                <part Name="Commerce" Value="1000"></part>
+                <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
+                <part Name="Description" Short="Insectoids who manage to reach adulthood and maintain a proper diet produce 'exodus shells,' chitin-husk of incredible quality."></part>
+        </object>
+
+
+        <object Name="poisonichorpool" Inherits="Water">
+                <part Name="LiquidVolume" MaxVolume="-1" Volume="10" StartVolume="10d10" InitialLiquid="poisonichor-25"></part>
+        </object>
+
+        <object Name="PlayerTile" Inherits="Object">
+                <part Name="Render" DisplayName="PlayerTile" Tile="creatures/buggotile.png"></part>
+        </object>
+
+        <!-- Mutation Parts -->
+        <object Name="BaseCat" Inherits="BaseAnimal" Load="Merge">
+                <part Name="NineLivesPetter"></part>
+        </object>
+
+        <object Name="SlimeMutant_Pseudopod(poison)" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{poisonous|poisonous pseudopod}}" />
+                <part Name="MeleeWeapon" HitBonus="6" MaxStrengthBonus="5" BaseDamage="0" ElementalDamage="1d8+20" Element="Poison" Skill="Cudgel" Stat="Strength" />
+        </object>
+
+        <!-- Mutation 'Equipment' -->
+        <object Name="PsionicFist" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="psionic fist" />
+                <part Name="MaxEgoBonus" />
+                <part Name="MeleeWeapon" MaxStrengthBonus="1000" BaseDamage="1d3+1" Skill="Cudgel" Stat="Ego" />
+                <part Name="Psionic" />
+                <tag Name="BaseObject" Value="*noinherit" />
+                <tag Name="UndesireableWeapon" />
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <intproperty Name="Inorganic" Value="1" />
+        </object>
+
+        <object Name="Focus Glyph" Inherits="Armor">
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <part Name="Armor" WornOn="Head" />
+                <part Name="Render" DisplayName="psionic glyph" RenderString="*" Tile="Items/sw_diamond_thing.bmp" TileColor="&amp;r" DetailColor="w" />
+                <part Name="Description" Short="Manifested as either a tattoo, a ritual scar, or a psionic glyph against the forehead, an upended eye marks the focal point of an ancient technique where its practitioners draw their psionic vigor. They unleash a beam of violent combustible energy, capable of laying waste to anything unfortunate enough to be in its path. It requires extreme focus and discipline to wield this power, and practitioners who followed this way oft earn their pages in history as victims to their own careless hubris and wild negligence." />
+                <part Name="NaturalEquipment" />
+                <intproperty Name="Natural" Value="1" />
+        </object>
+
+        <object Name="Serpentine Tail" Inherits="Armor">
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <part Name="Armor" AV="0" DV="0" WornOn="Feet" />
+                <part Name="Render" DisplayName="serpentine tail" RenderString="~" Tile="Items/sw_dawnglider_tail.bmp" ColorString="&amp;b" TileColor="&amp;b" DetailColor="B" />
+                <part Name="Description" Short="Your lower half. A long, thick tail of muscle and flesh marking your slithering movement as you undulate along." />
+                <part Name="NaturalEquipment" />
+                <intproperty Name="Natural" Value="1" />
+        </object>
+
+        <object Name="Ovipositor" Inherits="Armor">
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <part Name="Armor" AV="0" DV="0" WornOn="Tail" />
+                <part Name="Render" DisplayName="{{fleshy|ovipositor}}" RenderString="~" Tile="Items/sw_stinger.bmp" ColorString="&amp;M" DetailColor="m" />
+                <part Name="Description" Short="A long, hollow shaft of stretchy flesh protrudes from your back, its motions harking to a stinger. The end sports a globulous extractor to which guided-eggs are carefully birthed." />
+                <part Name="NaturalEquipment" />
+                <intproperty Name="Natural" Value="1" />
+        </object>
+
+        <object Name="BaseThickTail" Inherits="Armor">
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <part Name="Render" DisplayName="{{fleshy|thick}} tail" RenderString="\" Tile="Items/sw_dawnglider_tail.bmp" TileColor="&amp;r" DetailColor="w"/>
+                <part Name="Armor" AV="0" DV="0" WornOn="Tail" />
+                <part Name="NaturalEquipment" />
+                <intproperty Name="Natural" Value="1" />
+                <tag Name="ExcludeFromDynamicEncounters" />
+                <part Name="Description" Short="A weighty, muscly extension of the spine in the form of a tail." />
+                <part Name="WMTailMutator" />
+                <part Name="Physics" Weight="0"></part>
+        </object>
+</objects>

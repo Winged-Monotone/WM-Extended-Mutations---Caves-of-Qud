@@ -1,0 +1,18 @@
+{
+    "spice": {
+        "extradimensional": {
+            "CombustionBlast": [
+                "*cult*, the Fire-Eyed",
+                "mind-blast *cult*"
+            ],
+            "MindEater": [
+                "*cult*, the Soul-Eaters",
+                "Thought-Hunter *cult*"
+            ],
+            "Psybrachiomancy": [
+                "*cult*, the Asuran",
+                "Many-Armed *cult*"
+            ]
+        }
+    }
+}

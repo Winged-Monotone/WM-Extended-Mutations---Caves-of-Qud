@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mutations>
+  <category Name="Metaphysical" DisplayName="&amp;BMetaphysical Mutations">
+    <mutation Code="mw" BearerDescription="those who are blessed by cats" Exclusions="" Class="NineLivesParadox" MaxSelected="1" Cost="5" Name="Nine-Lives Paradox"></mutation>
+    <mutation Code="nm" BearerDescription="Those who are caught in the void" Exclusions="" Class="IncorporealForm" MaxSelected="1" Cost="5" Name="Incorporeal Form"></mutation>
+  </category>
+
+  <category Name="Hybrid" DisplayName="&amp;MHybrid">
+    <mutation Code="num" BearerDescription="those who are gifted by the anima" Exclusions="" Class="Animancy" MaxSelected="1" Cost="3" Name="Ancestral Scionasia"></mutation>
+    <mutation Code="bds" BearerDescription="the ones trapped in hollow husk" Exclusions="Incorporeal Form,Domination,Ego Projection" Class="PsychoplethoricDeterioration" MaxSelected="1" Cost="-4" Name="Psychoplethoric Deterioration"></mutation>
+
+  </category>
+
+  <category Name="PhysicalDefects" DisplayName="{{R|Physical Defects}}">
+    <mutation Name="Immunocompromised" Cost="-4" MaxSelected="1" Exclusions="Regeneration" Class="Immunocompromised" BearerDescription="Immunocompromised" Code="cm"></mutation>
+  </category>
+
+  <category Name="MentalDefects" DisplayName="{{R|Mental Defects}}">
+  </category>
+
+  <category Name="Physical">
+    <mutation Code="fu" BearerDescription="those with flesh as hard as chitin" Exclusions="Gelatinous Form (Acid),Gelatinous Form (Poison)" Class="ChitinousSkin" MaxSelected="1" Cost="3" Name="Chitinous Skin"></mutation>
+    <mutation Load="Merge" Name="Multiple Legs" Cost="4" MaxSelected="1" Class="MultipleLegs" Exclusions="SerpentineForm" BearerDescription="the many-legged" Code="bo"></mutation>
+    <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
+    <mutation Code="sm" BearerDescription="those who are covered in scales" Exclusions="Chitinous Skin" Class="RoughScales" MaxSelected="1" Cost="1" Name="Rough Scales"></mutation>
+    <mutation Code="se" BearerDescription="those with the progenitor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
+    <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
+    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
+    <mutation Code="tt" BearerDescription="those who have thick tails" Exclusions="Ovipositor,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="ThickTail" MaxSelected="1" Cost="2" Name="Thick Tail"></mutation>
+    <mutation Code="tit" BearerDescription="those who bleed acid" Exclusions="Gelatinous Form (Acid)" Class="AcidicBlood" MaxSelected="1" Cost="2" Name="Acidic Blood"></mutation>
+  </category>
+
+  <category Name="Mental" DisplayName="&amp;GMental Mutations" Stat="Ego" Property="MentalMutationShift" ForceProperty="MentalMutationForceShift">
+    <mutation Code="f1" BearerDescription="those with the stalker's eye." Exclusions="" Class="CombustionBlast" MaxSelected="1" Cost="5" Name="Combustion Blast"></mutation>
+    <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="MindEater" MaxSelected="1" Cost="4" Name="Mind Eater"></mutation>
+    <mutation Code="bud" BearerDescription="those who manifest limbs" Exclusions="" Class="Psybrachiomancy" MaxSelected="1" Cost="4" Name="Psybrachiomancy"></mutation>
+  </category>
+
+</mutations>
