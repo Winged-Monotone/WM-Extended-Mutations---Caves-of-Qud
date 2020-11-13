@@ -291,27 +291,27 @@ namespace XRL.World.Parts.Mutation
 
                 if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.7)
                 {
-                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.05)), false);
-                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.05)), false);
-                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.05)), false);
+                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.7)), false);
+                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.7)), false);
+                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.7)), false);
                 }
                 else if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.3)
-                {
-                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.1)), false);
-                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.1)), false);
-                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.3)), false);
-                }
-                else if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.1)
                 {
                     StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.3)), false);
                     StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.3)), false);
                     StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.3)), false);
                 }
+                else if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.1)
+                {
+                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.1)), false);
+                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.1)), false);
+                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.1)), false);
+                }
                 else if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.05)
                 {
-                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.7)), false);
-                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.7)), false);
-                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.7)), false);
+                    StatShifter.SetStatShift(ParentObject, "Strength", -((int)Math.Round(OwnersStrength * 0.05)), false);
+                    StatShifter.SetStatShift(ParentObject, "Toughness", -((int)Math.Round(OwnersToughness * 0.05)), false);
+                    StatShifter.SetStatShift(ParentObject, "Agility", -((int)Math.Round(OwnersAgility * 0.05)), false);
                 }
                 else if (HuskWeakeningDuration >= HuskWeakeningDuration * 0.03)
                 {
