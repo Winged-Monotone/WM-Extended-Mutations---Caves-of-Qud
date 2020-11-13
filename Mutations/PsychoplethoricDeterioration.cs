@@ -43,9 +43,11 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 400, false);
-
+            if (ParentObject != null)
+            {
+                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
+                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 400, false);
+            }
             // Set-Stats for Dust-Witch
             if (StartingBody)
             {
@@ -106,7 +108,7 @@ namespace XRL.World.Parts.Mutation
             if (DecayingFormDurationCycle <= 0)
             {
                 ParentObject.FireEvent(Event.New("DamageFromDecay"));
-                DecayingFormDurationCycle = 300;
+                DecayingFormDurationCycle = 600;
             }
         }
 
@@ -116,7 +118,7 @@ namespace XRL.World.Parts.Mutation
             if (DecayingFormDurationCycle <= 0)
             {
                 ParentObject.FireEvent(Event.New("DamageFromDecay"));
-                DecayingFormDurationCycle = 300;
+                DecayingFormDurationCycle = 600;
 
             }
         }
@@ -127,7 +129,7 @@ namespace XRL.World.Parts.Mutation
             if (DecayingFormDurationCycle <= 0)
             {
                 ParentObject.FireEvent(Event.New("DamageFromDecay"));
-                DecayingFormDurationCycle = 300;
+                DecayingFormDurationCycle = 600;
             }
         }
 
@@ -195,8 +197,6 @@ namespace XRL.World.Parts.Mutation
 
                     game.Player.Body = TargetHusk;
                     TargetHusk.FireEvent(Event.New("SuccessfulDethroning", "OriginalBody", ParentObject));
-                    ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-                    activatedAbilities.GetAbility(ActivatedAbilityID).Cooldown = 2400;
                     UbernostrumScaling = 0;
                 }
                 else
@@ -277,8 +277,9 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "CommandSoulShunt")
             {
+                ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
+                activatedAbilities.GetAbility(ActivatedAbilityID).Cooldown = 24000;
                 SoulShunt();
-
                 var HuskCurrentToughness = ParentObject.Stat("Toughness");
                 HuskWeakeningDuration = 1200 * HuskCurrentToughness;
             }

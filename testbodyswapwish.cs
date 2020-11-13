@@ -26,6 +26,9 @@ public class MyWishHandler
             XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(PrimaryFaction, -CreatureTier * 50, true);
         }
 
+        
+
+
 
         return true;
     }
