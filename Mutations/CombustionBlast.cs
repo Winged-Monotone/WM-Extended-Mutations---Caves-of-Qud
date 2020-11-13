@@ -75,64 +75,8 @@ namespace XRL.World.Parts.Mutation
 
         public void CombustionBeamQuickFire()
         {
-            FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
-            int Charges = 1;
-            if (IsPlayer() && Charges <= 0)
-            {
-                AddPlayerMessage("That's not a valid amount of charges.");
-                return;
-            }
-            // Shows the line picker interface for the player.
-            TextConsole _TextConsole = UI.Look._TextConsole;
-            ScreenBuffer Buffer = TextConsole.ScrapBuffer;
-            Core.XRLCore.Core.RenderMapToBuffer(Buffer);
-            List<GameObject> hit = new List<GameObject>(1);
-            List<Cell> usedCells = new List<Cell>(1);
-            var line = PickLine(20, AllowVis.Any, null, false, null);
-            Cell targetCell = line[line.Count - 1];
-            if (!PsiMutation.usePsiCharges(Charges))
-            {
-                AddPlayerMessage("You do not have enough psi-charges!");
-                return;
-            }
-            if (ParentObject.HasEffect("Dazed") || ParentObject.HasEffect("Confused"))
-            {
-                Physics.ApplyExplosion(currentCell, GetForce(Level, Charges), usedCells, hit, true, true, ParentObject, GetDamage(Level, Charges), 1, false, 2);
-                AddPlayerMessage("You lack the concentration to hold your focus! The collected energy explodes in your face!");
-                return;
-            }
-
-            ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            activatedAbilities.GetAbility(CombustionBlastActivatedAbilityID).Cooldown = (Charges - 1) * 100;
-            // Loop through each cell of the line in order.
-            List<string> SparkySparkyChars = new List<string>() { "\xf8", "*", "." };
-            List<Point> Beamline = Zone.Line(line[0].X, line[0].Y, targetCell.X, targetCell.Y);
-            for (int index = 1; index < line.Count; index++)
-            {
-                Cell cell = line[index];
-                char DisplayBeam = Beamline[index].DisplayChar;
-                Buffer.Goto(cell.X, cell.Y);
-                Buffer.Write("&Y^r" + DisplayBeam);
-
-                Cell SparkyBeam = cell.GetRandomLocalAdjacentCell();
-                Buffer.Goto(SparkyBeam.X, SparkyBeam.Y);
-                Buffer.Write("&W" + SparkySparkyChars.GetRandomElement());
-                _TextConsole.DrawBuffer(Buffer);
-                System.Threading.Thread.Sleep(18);
-                // Find a solid object and combat id on obj in line, to hit in this cell.
-                GameObject obj = cell.FindObject(o => o.HasPart("Combat") || o.IsWall());
-
-                if (obj != null)
-                {
-                    targetCell = cell;
-                    break;
-                }
-            }
-            base.PlayWorldSound("grenade_handENuke", 100f, 4f, true, null);
-            ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
-            ParentObject.UseEnergy(1000);
+            ActuallyFire(1);
         }
-
         public void CombustionBeam()
         {
             FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
@@ -161,14 +105,18 @@ namespace XRL.World.Parts.Mutation
                 int fatigueVar = 25;
                 ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
             }
+            ActuallyFire(Charges);
+        }
+        public void ActuallyFire(int Charges)
+        {
+            FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
             // Shows the line picker interface for the player.
-
             TextConsole _TextConsole = UI.Look._TextConsole;
             ScreenBuffer Buffer = TextConsole.ScrapBuffer;
             Core.XRLCore.Core.RenderMapToBuffer(Buffer);
             List<GameObject> hit = new List<GameObject>(1);
             List<Cell> usedCells = new List<Cell>(1);
-            var line = PickLine(20, AllowVis.Any, null, false, null);
+            var line = PickLine(20, AllowVis.Any, null, false, ParentObject);
             Cell targetCell = line[line.Count - 1];
             if (!PsiMutation.usePsiCharges(Charges))
             {
@@ -200,7 +148,8 @@ namespace XRL.World.Parts.Mutation
                 _TextConsole.DrawBuffer(Buffer);
                 System.Threading.Thread.Sleep(18);
                 // Find a solid object and combat id on obj in line, to hit in this cell.
-                GameObject obj = cell.FindObject(o => o.HasPart("Combat") || o.IsWall());
+                GameObject obj = cell.FindObject(o => o.ConsiderSolidFor(ParentObject, ParentObject) || (o.HasPart("Combat") && !o.pPhysics.Solid));
+
 
                 if (obj != null)
                 {
@@ -212,6 +161,7 @@ namespace XRL.World.Parts.Mutation
             ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
             ParentObject.UseEnergy(1000);
         }
+
 
         public bool ComExplode(int Force, Cell TargetCell, GameObject Owner = null, string BonusDamage = null, bool Neutron = false)
         {
