@@ -84,13 +84,11 @@ namespace XRL.World.Parts.Mutation
         {
             try
             {
-                MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + focusPsiCurrentMaximumCharges + " charges)";
+                UpdateCharges();
             }
             catch
             {
-                MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + focusPsiCurrentMaximumCharges + " charges)";
+                UpdateCharges();
             }
             return true;
         }
@@ -128,9 +126,9 @@ namespace XRL.World.Parts.Mutation
         {
             return "You have the ability to focus on your psionic energy and manifest it into powerful effects:\n"
             + "\n"
-            + "Activating Focus Psi will allow you to gather psionic energy into {{lightblue|Charges}} which can be utilized by other psionic abilities.\n"
+            + "Activating Focus Psi will allow you to gather psionic energy into {{light blue|Charges}} which can be utilized by other psionic abilities.\n"
             + "\n"
-            + "While Focus Psi is active, you will have a {{purple|'charging psi'}} effect in your status. You generate psi Charges equal to ((1) + your [Ego Modifier]), per turn. Your maximum psi charges is calculated by your ego-modifer, level and toughness modifer.\n"
+            + "While Focus Psi is active, you will have a {{purple|'charging psi'}} effect in your status. You generate psi Charges equal to ({{light blue|(1)}} + your [Ego Modifier]), per turn. Your maximum psi charges is calculated by your ego-modifer, level and toughness modifer.\n"
             + "\n"
             + "After charging your psionic energy, charges will decay at an amount determined by your Willpower modifier.";
         }
@@ -321,9 +319,6 @@ namespace XRL.World.Parts.Mutation
                     ParentObject.RemoveEffect(PsiburdeningCatch);
                 }
 
-                //  AddPlayerMessage(maximumPsiCharge().ToString());
-                //  AddPlayerMessage(focusPsiCurrentCharges.ToString());
-
                 UpdateCharges();
 
             }
@@ -334,6 +329,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     focusPsiCurrentCharges -= E.GetIntParameter("Amount", (int)0); // Current default value is zero, change default value to something more appropriate later
                 }
+
                 UpdateCharges();
             }
 
@@ -346,7 +342,7 @@ namespace XRL.World.Parts.Mutation
                 }
             }
 
-            return true;
+            return base.FireEvent(E);
         }
 
         public override bool ChangeLevel(int NewLevel)

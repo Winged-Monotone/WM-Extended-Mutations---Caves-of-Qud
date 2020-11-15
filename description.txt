@@ -33,6 +33,7 @@ Thought it would be great to add some more mutations to choose from in the game�
 
 [h1]Hybrid Mutations[/h1]
 [*][b]Ancestral Scionasia – v.1.0[/b]
+[*][b]Psychoplethoric Deterioration – v.1.0[/b]
 
 [h1]Upcoming Mutations and Changes:[/h1]
 [list]

@@ -32,7 +32,6 @@
 
   <category Name="Mental" DisplayName="&amp;GMental Mutations" Stat="Ego" Property="MentalMutationShift" ForceProperty="MentalMutationForceShift">
     <mutation Code="f1" BearerDescription="those with the stalker's eye." Exclusions="" Class="CombustionBlast" MaxSelected="1" Cost="5" Name="Combustion Blast"></mutation>
-    <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="MindEater" MaxSelected="1" Cost="4" Name="Mind Eater"></mutation>
     <mutation Code="bud" BearerDescription="those who manifest limbs" Exclusions="" Class="Psybrachiomancy" MaxSelected="1" Cost="4" Name="Psybrachiomancy"></mutation>
   </category>
 
