@@ -36,18 +36,14 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "Your physical form {{red|rapidly disintegrates}}, every day, you must pass a {{light blue|Toughness Saving Throw}} at difficulty {{light blue|28 + " + Level + "}} or lose {{light blue|0-3}} points of your maximum HP. Using an ubernostrum injector will partially regenerate your lost maximum HP, however continued use on the same husk becomes less effective. Your Strength, Toughness and Agility are reduced by {{light blue|-6}}, and your mental stats are increased by {{light blue|+6}}.\n\n"
+            return "Your physical form {{red|rapidly disintegrates}}, every {{light blue|600}} turns, you must pass a {{light blue|Toughness Saving Throw}} at difficulty {{light blue|28 + " + Level + "}} or lose {{light blue|0-3}} points of your maximum HP. Using an ubernostrum injector will partially regenerate your lost maximum HP, however continued use on the same husk becomes less effective. Your Strength, Toughness and Agility are reduced by {{light blue|-6}}, and your mental stats are increased by {{light blue|+6}}.\n\n"
             + "{{purple|Soulshunt (Cooldown 2 days - 2400 turns)\n}}"
             + "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n";
         }
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            if (ParentObject != null)
-            {
-                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
-                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 400, false);
-            }
+
             // Set-Stats for Dust-Witch
             if (StartingBody)
             {
@@ -64,6 +60,17 @@ namespace XRL.World.Parts.Mutation
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
             this.ActivatedAbilityID = activatedAbilities.AddAbility("Soulshunt", "CommandSoulShunt", "Mental Mutation", "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{light blue|(+10)}} or be shunted from its body; you assume control of the target's body permanently. Your new husk will wither over time. On a successful soulshunt you gain a 10% chance to increase your ego score by {{light blue|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", "(O)", null, false, false, false, false, false, false, false, false, -1);
             return base.Mutate(GO, Level);
+        }
+
+        public override bool ChangeLevel(int NewLevel)
+        {
+            if (ParentObject != null)
+            {
+                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
+                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 400, false);
+            }
+
+            return base.ChangeLevel(NewLevel);
         }
 
         public override bool Unmutate(GameObject GO)
@@ -331,7 +338,14 @@ namespace XRL.World.Parts.Mutation
 
                 if (FactionVar.Visible)
                 {
-                    XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(PrimaryFaction, -CreatureTier * 50, true);
+                    try
+                    {
+                        XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(PrimaryFaction, -CreatureTier * 50, true);
+                    }
+                    catch
+                    {
+                        return true;
+                    }
                 }
 
                 if (OriginalBody != null)
