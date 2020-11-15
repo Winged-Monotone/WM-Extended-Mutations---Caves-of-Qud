@@ -116,7 +116,7 @@ namespace XRL.World.Parts.Mutation
                     AddPsionicArms();
                     AddPlayerMessage(ParentObject.It + " manifest psionic limbs.");
                     UseEnergy(500);
-                    PsiMutation.DisplayCurrentCharges();
+                    PsiMutation.UpdateCharges();
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
                 else if (NewArmCost > PsiMutation.maximumPsiCharge() || PsiMutation.maximumPsiCharge() <= 0)
@@ -130,7 +130,7 @@ namespace XRL.World.Parts.Mutation
                 FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
                 if (ArmCounter >= 1)
                 {
-                    PsiMutation.DisplayCurrentCharges();
+                    PsiMutation.UpdateCharges();
                     RemovePsionicArms();
                     AddPlayerMessage(ParentObject.It + " dismiss " + ParentObject.its + " psionic arms.");
                     ArmCounter -= 1;
@@ -149,7 +149,7 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "EndTurn")
             {
                 FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
-                PsiMutation.DisplayCurrentCharges();
+                PsiMutation.UpdateCharges();
                 // AddPlayerMessage("ArmCounter: " + ArmCounter);
                 // AddPlayerMessage("CurrentID: " + ManagerID + ArmCounter);
                 // AddPlayerMessage("ArmCost: " + ArmCost);

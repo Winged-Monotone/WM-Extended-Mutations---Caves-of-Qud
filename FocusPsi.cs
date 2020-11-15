@@ -19,7 +19,42 @@ namespace XRL.World.Parts.Mutation
         public const string VERB_4 = "cannot accumulate anymore";
         public const string EXTRA_1 = "psionic energy";
         public const string TERMPUNC_1 = "!";
-        public int focusPsiCurrentCharges;
+        public int focusPsiCurrentCharges
+        {
+            get
+            {
+                return GetPsiCharges(ParentObject)?.Value ?? 0;
+            }
+            set
+            {
+                PsiCounter = 0;
+
+                Statistic Charges = GetPsiCharges(ParentObject);
+                int Max = Charges.BaseValue;
+                int difference = value - Max;
+                if (difference >= 0)
+                {
+                    Charges.Penalty = 0;
+                }
+                else
+                {
+                    Charges.Penalty = -difference;
+                }
+            }
+        }
+        public int focusPsiCurrentMaximumCharges
+        {
+            get
+            {
+                return GetPsiCharges(ParentObject)?.BaseValue ?? 0;
+            }
+            set
+            {
+                Statistic Charges = GetPsiCharges(ParentObject);
+                Charges.BaseValue = value;
+            }
+        }
+        public int PsiCounter = 0;
         public bool isCharging;
         public int turnsTilPsiDecay;
         public int effectiveSaveTarget;
@@ -35,6 +70,11 @@ namespace XRL.World.Parts.Mutation
             effectiveSaveTarget = 15;
             isCharging = false;
         }
+        //method gets charge descriptor to render for player and shows current charges
+        public override bool CanLevel()
+        {
+            return false;
+        }
         public override bool WantEvent(int ID, int cascade)
         {
             return base.WantEvent(ID, cascade) || ID == GetShortDisplayNameEvent.ID;
@@ -45,42 +85,40 @@ namespace XRL.World.Parts.Mutation
             try
             {
                 MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + Math.Max(0, (maximumPsiCharge())) + " charges)";
+                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + focusPsiCurrentMaximumCharges + " charges)";
             }
             catch
             {
                 MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + Math.Max(0, (maximumPsiCharge())) + " charges)";
+                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + focusPsiCurrentMaximumCharges + " charges)";
             }
             return true;
         }
 
-        //method gets charge descriptor to render for player and shows current charges
-        public override bool CanLevel()
+
+
+
+
+
+
+
+
+        public void UpdateCharges()
         {
-            return false;
-        }
-        public void DisplayCurrentCharges()
-        {
-            if (ArmCounter >= 1)
+            focusPsiCurrentMaximumCharges = maximumPsiCharge();
+            var AA = MyActivatedAbility(this.PsiFocusActivatedAbilityID);
+            if (AA != null)
             {
-                try
-                {
-                    MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                    = "Psi (" + (this.focusPsiCurrentCharges) + "/" + Math.Max(0, (maximumPsiCharge())) + " charges)";
-                }
-                catch
-                {
-                    MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-                = "Psi (" + (this.focusPsiCurrentCharges) + "/" + Math.Max(0, (maximumPsiCharge())) + " charges)";
-                }
-            }
-            else
-            {
-                MyActivatedAbility(this.PsiFocusActivatedAbilityID).DisplayName
-            = "Psi (" + (this.focusPsiCurrentCharges) + "/" + Math.Max(0, (maximumPsiCharge())) + " charges)";
+                AA.DisplayName = "Psi {{purple|(" + (focusPsiCurrentCharges) + "/" + focusPsiCurrentMaximumCharges + " charges)}}";
             }
         }
+
+
+
+
+
+
+
 
         public override string GetDescription()
         {
@@ -116,15 +154,10 @@ namespace XRL.World.Parts.Mutation
             if (psiabilitycost <= focusPsiCurrentCharges)
             {
                 focusPsiCurrentCharges -= psiabilitycost;
-                DisplayCurrentCharges();
+                UpdateCharges();
                 return true;
             }
             return false;
-        }
-
-        public int focusPsiCharges()
-        {
-            return (Stat.Random(0, 2));
         }
 
         // public void FocusPsiDeficiency()
@@ -179,13 +212,6 @@ namespace XRL.World.Parts.Mutation
             }
         }
 
-        public int FinalizeMaximumCharges()
-        {
-            Psybrachiomancy BrachMutation = ParentObject.GetPart<Psybrachiomancy>();
-            int BrachMath = (2 + (BrachMutation.ArmCounter * 2));
-            int differenceSum = -BrachMath;
-            return maximumPsiCharge() - differenceSum;
-        }
 
         public override void Register(GameObject Object)
         {
@@ -206,14 +232,14 @@ namespace XRL.World.Parts.Mutation
             {
                 ArmCost = (2 + ArmCounter) + (2 * ArmCounter) - 1;
                 NewArmCost = ArmCost;
-                if (NewArmCost <= maximumPsiCharge())
+                if (NewArmCost <= focusPsiCurrentMaximumCharges)
                 {
-                    DisplayCurrentCharges();
+                    UpdateCharges();
                     ArmCounter += 1;
                 }
-                else if (NewArmCost > maximumPsiCharge())
+                else if (NewArmCost > focusPsiCurrentMaximumCharges)
                 {
-                    DisplayCurrentCharges();
+                    UpdateCharges();
                     return true;
                 }
             }
@@ -224,7 +250,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     ArmCounter -= 1;
                 }
-                DisplayCurrentCharges();
+                UpdateCharges();
             }
 
             if (E.ID == "AIGetPassiveMutationList")
@@ -232,13 +258,13 @@ namespace XRL.World.Parts.Mutation
                 // AddPlayerMessage("Hey prepare, to eat my combustion blast.");
                 // AddPlayerMessage($"Currentcharges: {focusPsiCurrentCharges}");
                 // AddPlayerMessage($"MaximumPsi: {maximumPsiCharge()}");
-                if (focusPsiCurrentCharges < Math.Max(0, (maximumPsiCharge()) / 2) && !HandlingCharging())
+                if (focusPsiCurrentCharges < focusPsiCurrentMaximumCharges / 2 && !HandlingCharging())
                 {
                     E.AddAICommand("CommandFocusPsi");
                     // AddPlayerMessage($"Currentcharges: {focusPsiCurrentCharges}");
                     AddPlayerMessage("Something is gathering psionic energy ...");
                 }
-                else if (focusPsiCurrentCharges >= Math.Max(0, (maximumPsiCharge()) - 1) && HandlingCharging())
+                else if (focusPsiCurrentCharges >= focusPsiCurrentMaximumCharges - 1 && HandlingCharging())
                 {
                     E.AddAICommand("CommandFocusPsi");
                     // AddPlayerMessage($"Currentcharges: {focusPsiCurrentCharges}");
@@ -267,41 +293,39 @@ namespace XRL.World.Parts.Mutation
                     isCharging = false;
                     UseEnergy(1000);
                 }
-                DisplayCurrentCharges();
+                UpdateCharges();
                 return false;
             }
 
             else if (E.ID == "EndTurn")
             {
-                try
+                Psybrachiomancy BrachMutation = ParentObject.GetPart<Psybrachiomancy>();
+                var PsiburdeningCatch = ParentObject.GetEffect<Psiburdening>();
+                if (base.IsMyActivatedAbilityToggledOn(this.PsiFocusActivatedAbilityID) && (focusPsiCurrentCharges < focusPsiCurrentMaximumCharges))
                 {
-                    Psybrachiomancy BrachMutation = ParentObject.GetPart<Psybrachiomancy>();
-                    var PsiburdeningCatch = ParentObject.GetEffect<Psiburdening>();
-                    if (base.IsMyActivatedAbilityToggledOn(this.PsiFocusActivatedAbilityID) && focusPsiCurrentCharges < Math.Max(0, (maximumPsiCharge())))
+                    int chanceforpsi = (ParentObject.StatMod("Willpower") + 3) * PsiCounter;
+                    if (chanceforpsi.in100())
                     {
-                        focusPsiCurrentCharges = Math.Max(focusPsiCurrentCharges + focusPsiCharges(), (Math.Max(0, (maximumPsiCharge()))));
-                        turnsTilPsiDecay++;
-                        // string verb3 = "are";
-                        // string extra3 = "charging psi energy";
-                        // string termiPun3 = ".";
-                        AddPlayerMessage(ParentObject.Is + " charging psi energy.");
+                        focusPsiCurrentCharges++;
+                        DidX("charge", "psi energy", ".", ColorAsGoodFor: ParentObject);
                     }
-                    else if (BrachMutation.ArmCounter <= Math.Min(1, ParentObject.StatMod("Willpower")) && ParentObject.HasEffect("Psiburdening"))
+                    else
                     {
-                        ParentObject.RemoveEffect(PsiburdeningCatch);
+                        PsiCounter++;
                     }
-
-                    //  AddPlayerMessage(maximumPsiCharge().ToString());
-                    //  AddPlayerMessage(focusPsiCurrentCharges.ToString());
-
-                    DisplayCurrentCharges();
-                }
-                catch
-                {
+                    turnsTilPsiDecay++;
 
                 }
+                else if (BrachMutation.ArmCounter <= Math.Min(1, ParentObject.StatMod("Willpower")) && ParentObject.HasEffect("Psiburdening"))
+                {
+                    ParentObject.RemoveEffect(PsiburdeningCatch);
+                }
 
-                return true;
+                //  AddPlayerMessage(maximumPsiCharge().ToString());
+                //  AddPlayerMessage(focusPsiCurrentCharges.ToString());
+
+                UpdateCharges();
+
             }
 
             else if (E.ID == "PsionicDecay")
@@ -310,7 +334,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     focusPsiCurrentCharges -= E.GetIntParameter("Amount", (int)0); // Current default value is zero, change default value to something more appropriate later
                 }
-                DisplayCurrentCharges();
+                UpdateCharges();
             }
 
             else if (E.ID == "FireEventDebuffSystem")
@@ -327,17 +351,36 @@ namespace XRL.World.Parts.Mutation
 
         public override bool ChangeLevel(int NewLevel)
         {
-            DisplayCurrentCharges();
+            UpdateCharges();
             return base.ChangeLevel(NewLevel);
+        }
+
+
+        public Statistic GetPsiCharges(GameObject GO)
+        {
+            Statistic Result;
+            {
+                if (GO.Statistics.TryGetValue("PsiCharges", out Result))
+                {
+
+                    return Result;
+
+                }
+
+                Result = new Statistic("PsiCharges", 0, 40, maximumPsiCharge(), GO);
+            }
+            GO.Statistics.Add("PsiCharges", Result);
+            return Result;
         }
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            focusPsiCurrentCharges += focusPsiCharges();
             this.PsiFocusActivatedAbilityID = base.AddMyActivatedAbility("Focus Psi", "CommandFocusPsi", "Mental Mutation", "Focus your psionic energy, channel it to manifest other psionic abilities that require Psi Charges.", "*", null, false, false, true);
+
             this.ChangeLevel(Level);
-            return true;
+            return base.Mutate(GO, Level);
         }
+
 
         public override bool Unmutate(GameObject GO)
         {
@@ -345,10 +388,7 @@ namespace XRL.World.Parts.Mutation
             {
                 base.RemoveMyActivatedAbility(ref this.PsiFocusActivatedAbilityID);
             }
-            return true;
+            return base.Unmutate(GO);
         }
-
-
-
     }
 }
