@@ -11,21 +11,24 @@ namespace XRL.World.Parts.Mutation
 {
 
     [Serializable]
-    public class MindEater : BaseMutation
+    public class Sciophagia : BaseMutation
     {
         //Properties/Member Variables / Not Static, Exist on the Instance of this Class
         public Guid ActivatedAbilitiesID;
         public int HealthIncrease;
         public int PermCurrentBonus;
-        public MindEater()
+        public Sciophagia()
         {
-            this.DisplayName = "Mind Eater";
+            this.DisplayName = "Sciophagia";
             this.Type = "Mental";
 
             //Intialization Assignment
             HealthIncrease = 0;
             PermCurrentBonus = 0;
         }
+
+
+
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "CommandDevourMind");
@@ -34,7 +37,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
-            this.ActivatedAbilitiesID = base.AddMyActivatedAbility("Devour Mind", "CommandDevourMind", "Mental Mutation", "Devour the mind of an enemy.", "U", null, false, false, false, false, false, false, false, 40, null);
+            this.ActivatedAbilitiesID = base.AddMyActivatedAbility("Masticate", "CommandDevourMind", "Mental Mutation", "Devour the mind of an enemy.", "U", null, false, false, false, false, false, false, false, 40, null);
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }
@@ -46,29 +49,18 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool CanLevel()
         {
-            return true;
-        }
-        public override int GetMaxLevel()
-        {
-            return 9999;
+            return false;
         }
         public override string GetDescription()
         {
-            return "Your consciousness predates on other minds, devour the ego of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds.\n"
-                    + "\n{{white|-400 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
+            return "Your consciousness predates on other minds, devour the animuses of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds.\n"
+                    + "\n{{white|-200 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
         }
         public override string GetLevelText(int Level)
         {
-            return "{{gray|Make a psychic attack that deals {{astral|psionic damage}} to sentient creatures, if the creature dies from the attack, you devour their mind:\n"
-            + "\n"
-            + "{{white|Gain Health =}} Creatures with larger egos regenerate more health.\n"
-            + "{{white|Permanent Ego Boost =}} +1 per Ego Modifier of highest overall creature's ego you've devoured.\n"
-            + "\n"
-            + "{{white|Devour Attack DC:}} Increases via your Level, Mutation Level and {{light blue|Ego Modifier.}}\n"
-            + "{{white|Devour Attack Damage:}} " + Level + " + Ego Modifier + " + 5
-            + "\n"
-            + "Injured creatures are easier to devour. Lower level Creatures are also easier to devour. \n";
-
+            return "{{gray|Whenever you slay creatures with ego more potent than your own or a creature dies in a space around you, there is a chance you may absorb its animus, permanently increasing your own:\n"
+            + "{{white|Upon defeating an enemy with higher ego than your own, there is a 10% chance you will encode that creature's ahnimus, gaining +1 to your ego score permanently. This will \n"
+            + "\n";
         }
         public int DevourerDamage(int MutationLevel, int CasterEgo, GameObject Target)
         {
@@ -95,7 +87,7 @@ namespace XRL.World.Parts.Mutation
                 }
             }
         }
-        public int MindEaterSaveDC(int MutationLevel, int TargetHealthPercent, GameObject Target)
+        public int SciophagiaSaveDC(int MutationLevel, int TargetHealthPercent, GameObject Target)
         {
             int EgoMod = ParentObject.Statistics["Ego"].Modifier;
             int UserLevel = ParentObject.Statistics["Level"].Value / 2;
@@ -107,11 +99,7 @@ namespace XRL.World.Parts.Mutation
         {
             return CreaturesEgo;
         }
-        public int PermanentMindEaterBonus(int CreaturesEgo)
-        {
-            return CreaturesEgo;
-        }
-        private List<Action<MindEater, GameObject>> VividChoices = new List<Action<MindEater, GameObject>>()
+        private List<Action<Sciophagia, GameObject>> VividChoices = new List<Action<Sciophagia, GameObject>>()
         {
             (ME, Target) =>
             {
@@ -126,22 +114,24 @@ namespace XRL.World.Parts.Mutation
                 ME.DidXToY("absorb", "the consciousness of", Target, ColorAsGoodFor: ME.ParentObject, ColorAsBadFor: Target, terminalPunctuation: "!");
             },
         };
+
         public void DevourStatGains(GameObject Target)
         {
-            int PermNextBonus = PermanentMindEaterBonus(Target.Statistics["Ego"].Modifier);
+            bool AborptionChance = Stat.Random(0, 100) <= 10;
 
-            if (PermCurrentBonus < PermNextBonus)
+            if (AborptionChance)
             {
-                PermCurrentBonus = PermNextBonus;
+                if (Popup.ShowYesNo("You feel the remnants of tender light pulsating within your new husk, would you like to imprint these codings upon your own animus?", false, DialogResult.Yes) == DialogResult.Yes)
+                {
+                    StatShifter.SetStatShift(ParentObject, "Ego", 1, true);
+                }
+                else
+                {
+                    Popup.Show("You cast the remnants away.");
+                }
             }
-
-            StatShifter.SetStatShift("Ego", PermCurrentBonus);
-            ParentObject.Heal(HealthBoostIncrease(Target.Statistics["Ego"].Modifier * 3 + 1));
-            VividChoices.GetRandomElement()(this, Target);
-            ParentObject.UseEnergy(1000);
-            //this.DevourPsychicPulse(Target.CurrentCell);
-            //Target.CurrentCell.GetRandomLocalAdjacentCell().PsychicPulse();
         }
+        
         public void DevourMinds()
         {
             TextConsole _TextConsole = UI.Look._TextConsole;
@@ -171,7 +161,7 @@ namespace XRL.World.Parts.Mutation
             {
                 TargetHealthPercent = Target.hitpoints * 100 / Target.baseHitpoints;
             }
-            if (!Target.MakeSave("Willpower", MindEaterSaveDC(this.Level, TargetHealthPercent, Target), ParentObject, "Ego"))
+            if (!Target.MakeSave("Willpower", SciophagiaSaveDC(this.Level, TargetHealthPercent, Target), ParentObject, "Ego"))
             {
                 int CreaturesLevelVS = (int)Math.Min(1, (Stats.GetCombatMA(Target)));
                 if ((Target.Stat("Level") + CreaturesLevelVS) < ParentObject.Stat("Level") && Target.Die(ParentObject, "", "Your mind was devoured and assimilated.", false))

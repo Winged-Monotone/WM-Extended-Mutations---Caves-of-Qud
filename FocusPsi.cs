@@ -369,6 +369,7 @@ namespace XRL.World.Parts.Mutation
             return Result;
         }
 
+
         public override bool Mutate(GameObject GO, int Level)
         {
             this.PsiFocusActivatedAbilityID = base.AddMyActivatedAbility("Focus Psi", "CommandFocusPsi", "Mental Mutation", "Focus your psionic energy, channel it to manifest other psionic abilities that require Psi Charges.", "*", null, false, false, true);
@@ -376,6 +377,11 @@ namespace XRL.World.Parts.Mutation
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }
+
+
+
+
+
 
 
         public override bool Unmutate(GameObject GO)

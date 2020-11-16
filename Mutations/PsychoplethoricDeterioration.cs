@@ -16,7 +16,6 @@ namespace XRL.World.Parts.Mutation
         public int UbernostrumScaling = 0;
         public Guid ActivatedAbilityID;
 
-        public bool StartingBody = true;
         public PsychoplethoricDeterioration()
         {
             this.DisplayName = "Psychoplethoric Deterioration ({{purple|H}})";
@@ -43,9 +42,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-
-            // Set-Stats for Dust-Witch
-            if (StartingBody)
+            if (!ParentObject.HasPart("NotOriginalEntity"))
             {
                 // Statshifter - Setting all stats for starting husk
                 StatShifter.SetStatShift(ParentObject, "Ego", 6, true);
@@ -54,7 +51,6 @@ namespace XRL.World.Parts.Mutation
                 StatShifter.SetStatShift(ParentObject, "Strength", -6, true);
                 StatShifter.SetStatShift(ParentObject, "Toughness", -6, true);
                 StatShifter.SetStatShift(ParentObject, "Agility", -6, true);
-                StartingBody = false;
             }
 
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
@@ -86,7 +82,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool HandleEvent(GetShortDescriptionEvent E)
         {
-            string Glyph = "{{dark gray|Atomized dust wafts from disir lesions riddling " + ParentObject.its + " form, this husk won't last ...}}";
+            string Glyph = "{{dark gray|Atomized dust wafts from disir lesions riddling " + ParentObject.its + " withering form, this husk won't last ...}}";
             if (E.Postfix.Length > 0 && E.Postfix[E.Postfix.Length - 1] != '\n')
             {
                 E.Postfix.Append('\n');
@@ -172,13 +168,17 @@ namespace XRL.World.Parts.Mutation
                 int OwnersLevel = ParentObject.Stat("Level");
                 int TargetsLevel = TargetHusk.Stat("Level");
 
-                AddPlayerMessage("owners level: " + OwnersLevel);
-                AddPlayerMessage("targets level: " + TargetsLevel);
+                // AddPlayerMessage("owners level: " + OwnersLevel);
+                // AddPlayerMessage("targets level: " + TargetsLevel);
 
                 var LevelDifference = OwnersLevel - TargetsLevel;
 
                 if (!TargetHusk.MakeSave("Willpower", 8 + LevelDifference, ParentObject, "Ego", ParentObject.It + " attempted to shunt " + TargetHusk.Its + " mind from " + TargetHusk.Its + " body.", false, false, false, false))
                 {
+                    if (!TargetHusk.HasPart("NotOriginalEntity"))
+                    {
+                        TargetHusk.AddPart<NotOriginalEntity>();
+                    }
 
                     TargetsEgo.BaseValue = OwnersEgo.BaseValue;
                     TargetsIntelligence.BaseValue = OwnersIntelligence.BaseValue;
@@ -203,6 +203,8 @@ namespace XRL.World.Parts.Mutation
                     }
 
                     game.Player.Body = TargetHusk;
+
+
                     TargetHusk.FireEvent(Event.New("SuccessfulDethroning", "OriginalBody", ParentObject));
                     UbernostrumScaling = 0;
                 }
@@ -288,7 +290,7 @@ namespace XRL.World.Parts.Mutation
                 activatedAbilities.GetAbility(ActivatedAbilityID).Cooldown = 24000;
                 SoulShunt();
                 var HuskCurrentToughness = ParentObject.Stat("Toughness");
-                HuskWeakeningDuration = 1200 * HuskCurrentToughness;
+                HuskWeakeningDuration = 1200 * Math.Min(1, HuskCurrentToughness);
             }
             else if (E.ID == "DebuffsFromDecay")
             {
@@ -324,9 +326,14 @@ namespace XRL.World.Parts.Mutation
                 {
 
                 }
+                else if (HuskWeakeningDuration <= 0)
+                {
+                    HuskWeakeningDuration = (int)Math.Round(HuskWeakeningDuration * 0.7);
+                }
             }
             else if (E.ID == "SuccessfulDethroning")
             {
+
                 GameObject OriginalBody = E.GetGameObjectParameter("OriginalBody");
 
                 var CreatureTier = OriginalBody.GetTier();
@@ -334,6 +341,8 @@ namespace XRL.World.Parts.Mutation
                 var FactionVar = Factions.get(PrimaryFaction);
 
                 var NewBodyPrimaryFaction = OriginalBody.GetPrimaryFaction();
+
+                ParentObject.FireEvent(Event.New("EntityHasSwappedBodies"));
 
 
                 if (FactionVar.Visible)
