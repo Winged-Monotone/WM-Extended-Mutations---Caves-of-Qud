@@ -598,29 +598,35 @@ namespace XRL.World.Parts.Mutation
 
         public override void HundredTurnTick(long TurnNumber)
         {
-            // AddPlayerMessage("This is Working: Sorta");
-            Body pBody = ParentObject.GetPart("Body") as Body;
-            if (pBody != null)
-            {
-                BodyPart Part = pBody.GetFirstPart(BodyPartType);
-                if (Part != null)
+            try
+            {// AddPlayerMessage("This is Working: Sorta");
+                Body pBody = ParentObject.GetPart("Body") as Body;
+                if (pBody != null)
                 {
-                    ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", Part));
-                    if (BaseTail == null)
+                    BodyPart Part = pBody.GetFirstPart(BodyPartType);
+                    if (Part != null)
                     {
-                        BaseTail = GameObject.create("BaseThickTail");
-                    }
+                        ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", Part));
+                        if (BaseTail == null)
+                        {
+                            BaseTail = GameObject.create("BaseThickTail");
+                        }
 
-                    Armor armor = BaseTail.GetPart("Armor") as Armor;
-                    armor.WornOn = Part.Type;
-                    Event @event = Event.New("CommandForceEquipObject");
-                    @event.SetParameter("Object", BaseTail);
-                    @event.SetParameter("BodyPart", Part);
-                    @event.SetSilent(Silent: true);
-                    ParentObject.FireEvent(@event);
+                        Armor armor = BaseTail.GetPart("Armor") as Armor;
+                        armor.WornOn = Part.Type;
+                        Event @event = Event.New("CommandForceEquipObject");
+                        @event.SetParameter("Object", BaseTail);
+                        @event.SetParameter("BodyPart", Part);
+                        @event.SetSilent(Silent: true);
+                        ParentObject.FireEvent(@event);
+                    }
                 }
             }
-        }
+            catch
+            {
 
+            }
+        }
     }
+
 }
