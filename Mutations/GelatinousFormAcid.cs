@@ -75,7 +75,7 @@ namespace XRL.World.Parts.Mutation
             string text = string.Empty;
             if (Level == base.Level)
             {
-                text += "You gain a 25% damage resistance bonus to melee weapons and immunity from the element associated with your gelatinous type, but take more damage from projectiles and explosives.\n";
+                text += "You gain a 25% damage resistance bonus to melee weapons and immunity from the element acid, but take more damage from projectiles and explosives.\n";
                 text += "\n";
                 text += "When dealt damage or struck from a melee weapon, there's a random chance you bleed acid in a random square around you, dealing damage to your enemies.\n";
                 text += "\nYou can spit acid at your foes.\n";
