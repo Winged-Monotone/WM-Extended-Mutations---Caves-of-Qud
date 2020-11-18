@@ -39,18 +39,11 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "You can manifest psionic arm's with your thoughtstuff.\n"
-                    + "\n{{white|+100 Reputation with}} {{orange|highly entropic beings.}}\n"
-                    + "\n";
+                    + "\n{{white|+100 Reputation with}} {{orange|highly entropic beings.}}\n";
         }
         public override string GetLevelText(int Level)
         {
-            return "{{gray|You can weave psionic arms into reality, they function like any other arm, but dissipate entirely upon being dismembered. Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value. \n"
-            + "\n"
-            + "{{white|Materialize Arms:}} Create two arms. {{lightblue|Cost: 4}}, reduces maximum psi, increases dramatically per weaved psionic arm. \n"
-            + "\n"
-            + "{{orange|Maximum Psi-Points}} needed for Next Arm: {{orange|" + ArmCost + "}}\n\n"
-            + "{{orange|(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)}}"
-            + "{{red|if the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-burdening' effect temporarily.}}";
+            return "{{gray|You can weave psionic arms into reality, they function like any other arm, but dissipate entirely upon being dismembered.";
         }
         public override bool Mutate(GameObject GO, int Level)
         {
@@ -59,8 +52,12 @@ namespace XRL.World.Parts.Mutation
             {
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
-            this.ActivatedAbilityID = base.AddMyActivatedAbility("Manifest Limb", "CommandManifestLimb", "Mental Mutation", "Manifest a psychic arm.", ">", null, false, false, false, false, false, false, false, 10, null);
-            this.ActivatedAbilityID = base.AddMyActivatedAbility("Dismiss Limb", "CommandDismissLimb", "Mental Mutation", "Dismiss a psychic arm.", "<", null, false, false, false, false, false, false, false, 10, null);
+            this.ActivatedAbilityID = base.AddMyActivatedAbility("Manifest Limb", "CommandManifestLimb", "Mental Mutation", "Manifest a psychic arm.\n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value. \n"
+            + "{{orange|(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)}}\n"
+            + "{{red|If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-exhaustion' effect temporarily.}}", ">", null, false, false, false, false, false, false, false, 10, null);
+            this.ActivatedAbilityID = base.AddMyActivatedAbility("Dismiss Limb", "CommandDismissLimb", "Mental Mutation", "Dismiss a psychic arm.\n\n \n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value. \n"
+            + "{{orange|(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)}}\n"
+            + "{{red|If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-burdening' effect temporarily.}}", "<", null, false, false, false, false, false, false, false, 10, null);
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }
@@ -108,18 +105,18 @@ namespace XRL.World.Parts.Mutation
             {
                 ArmCost = (2 + ArmCounter) + (2 * ArmCounter) - 1;
                 NewArmCost = ArmCost;
-                FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
-                if (NewArmCost <= PsiMutation.maximumPsiCharge())
+                FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
+                if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)
                 {
                     ArmCounter += 1;
-                    PsiMutation.focusPsiCurrentCharges = PsiMutation.maximumPsiCharge();
+                    focusPsi.focusPsiCurrentCharges = focusPsi.maximumPsiCharge();
                     AddPsionicArms();
                     AddPlayerMessage(ParentObject.It + " manifest psionic limbs.");
                     UseEnergy(500);
-                    PsiMutation.UpdateCharges();
+                    focusPsi.UpdateCharges();
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
-                else if (NewArmCost > PsiMutation.maximumPsiCharge() || PsiMutation.maximumPsiCharge() <= 0)
+                else if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue || ParentObject.Statistics["PsiCharges"].BaseValue <= 0)
                 {
                     AddPlayerMessage(ParentObject.It + " do not have enough {{red|maximum charges}} to materialize a new limb.");
                     return true;
@@ -127,10 +124,10 @@ namespace XRL.World.Parts.Mutation
             }
             if (E.ID == "CommandDismissLimb")
             {
-                FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
+                FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (ArmCounter >= 1)
                 {
-                    PsiMutation.UpdateCharges();
+                    focusPsi.UpdateCharges();
                     RemovePsionicArms();
                     AddPlayerMessage(ParentObject.It + " dismiss " + ParentObject.its + " psionic arms.");
                     ArmCounter -= 1;
@@ -148,14 +145,14 @@ namespace XRL.World.Parts.Mutation
             }
             if (E.ID == "EndTurn")
             {
-                FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
-                PsiMutation.UpdateCharges();
+                FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
+                focusPsi.UpdateCharges();
                 // AddPlayerMessage("ArmCounter: " + ArmCounter);
                 // AddPlayerMessage("CurrentID: " + ManagerID + ArmCounter);
                 // AddPlayerMessage("ArmCost: " + ArmCost);
-                // AddPlayerMessage("PsiMaximum: " + PsiMutation.maximumPsiCharge());
-                // AddPlayerMessage("PsiArmCounter: " + PsiMutation.ArmCounter);
-                // AddPlayerMessage("PsiArmcost: " + PsiMutation.ArmCost);
+                // AddPlayerMessage("PsiMaximum: " + focusPsi.maximumPsiCharge());
+                // AddPlayerMessage("PsiArmCounter: " + focusPsi.ArmCounter);
+                // AddPlayerMessage("PsiArmcost: " + focusPsi.ArmCost);
             }
             return base.FireEvent(E);
         }
