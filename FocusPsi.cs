@@ -13,12 +13,6 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class FocusPsi : BaseMutation
     {
-        public const string VERB_1 = "begin to gather";
-        public const string VERB_2 = "stop gathering";
-        public const string VERB_3 = "are gathering";
-        public const string VERB_4 = "cannot accumulate anymore";
-        public const string EXTRA_1 = "psionic energy";
-        public const string TERMPUNC_1 = "!";
         public int focusPsiCurrentCharges
         {
             get
@@ -62,6 +56,12 @@ namespace XRL.World.Parts.Mutation
         public int ArmCost;
         public int NewArmCost;
         public Guid PsiFocusActivatedAbilityID = Guid.Empty;
+        public const string VERB_1 = "begin to gather";
+        public const string VERB_2 = "stop gathering";
+        public const string VERB_3 = "are gathering";
+        public const string VERB_4 = "cannot accumulate anymore";
+        public const string EXTRA_1 = "psionic energy";
+        public const string TERMPUNC_1 = "!";
 
         public FocusPsi()
         {
@@ -314,7 +314,7 @@ namespace XRL.World.Parts.Mutation
                     turnsTilPsiDecay++;
 
                 }
-                else if (BrachMutation.ArmCounter <= Math.Min(1, ParentObject.StatMod("Willpower")) && ParentObject.HasEffect("Psiburdening"))
+                else if (ParentObject.HasPart("Psybrachiomancy") && BrachMutation.ArmCounter <= Math.Min(1, ParentObject.StatMod("Willpower")) && ParentObject.HasEffect("Psiburdening"))
                 {
                     ParentObject.RemoveEffect(PsiburdeningCatch);
                 }
@@ -339,6 +339,10 @@ namespace XRL.World.Parts.Mutation
                 if (BrachMutation.ArmCounter > ParentObject.StatMod("Willpower") && !ParentObject.HasEffect("Psiburdening"))
                 {
                     ParentObject.ApplyEffect(new Psiburdening((Stat.Random(10, 20) - ParentObject.StatMod("Willpower")) * Stat.Random(50, 125)));
+                }
+                else if (BrachMutation.ArmCounter < ParentObject.StatMod("Willpower") && ParentObject.HasEffect("Psiburdening"))
+                {
+                    ParentObject.RemoveEffect("Psiburdening");
                 }
             }
 
