@@ -55,10 +55,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "&YFocus your psi and then release a volley of psionic energy at your foes that explodes on impact:\n"
-            + "\n"
-            + "Base Damage: " + GetDamage(Level, 1) + " Per Charge.\n"
-            + "Damage is calculated based on the mutation's level, along with the force of the explosion and radius. The charges used to fire it increases the damage by 1d6 and increases the force multiplier by 250.\n"
+            return "Base Damage: {{light blue|" + GetDamage(Level, 1) + "}} Per Charge.\n"
             + "Charges above the first used increase the cooldown of this mutation by 25.\n"
             + "\n"
             + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.";
