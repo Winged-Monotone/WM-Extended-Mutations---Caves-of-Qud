@@ -3,6 +3,8 @@ using XRL.UI;
 using XRL.Rules;
 using ConsoleLib.Console;
 using XRL.World.ZoneBuilders;
+using XRL.World.Effects;
+using XRL.World.Parts.Skill;
 
 
 namespace XRL.World.Parts.Mutation
@@ -10,7 +12,7 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class PsychoplethoricDeterioration : BaseMutation
     {
-        public int DecayingFormDurationCycle = 1200;
+        public int DecayingFormDurationCycle = 600;
         public int HuskWeakeningDuration;
         public int SetCounterUberAptitude = 0;
         public int UbernostrumScaling = 0;
@@ -35,8 +37,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "Your physical form {{red|rapidly disintegrates}}, every {{light blue|600}} turns, you must pass a {{light blue|Toughness Saving Throw}} at difficulty {{light blue|28 + " + Level + "}} or lose {{light blue|0-3}} points of your maximum HP. Using an ubernostrum injector will partially regenerate your lost maximum HP, however continued use on the same husk becomes less effective. Your Strength, Toughness and Agility are reduced by {{light blue|-6}}, and your mental stats are increased by {{light blue|+6}}.\n\n"
-            + "{{purple|Soulshunt (Cooldown 2 days - 2400 turns)\n}}"
+            return "{{purple|Soulshunt (Cooldown 2 days - 2400 turns)\n\n}}"
             + "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n";
         }
 
@@ -52,6 +53,10 @@ namespace XRL.World.Parts.Mutation
                 StatShifter.SetStatShift(ParentObject, "Toughness", -6, true);
                 StatShifter.SetStatShift(ParentObject, "Agility", -6, true);
             }
+            if (!ParentObject.HasEffect<Disintegrating>())
+            {
+                ParentObject.ApplyEffect(new Disintegrating(9999));
+            }
 
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
             this.ActivatedAbilityID = activatedAbilities.AddAbility("Soulshunt", "CommandSoulShunt", "Mental Mutation", "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{light blue|(+10)}} or be shunted from its body; you assume control of the target's body permanently. Your new husk will wither over time. On a successful soulshunt you gain a 10% chance to increase your ego score by {{light blue|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", "(O)", null, false, false, false, false, false, false, false, false, -1);
@@ -63,7 +68,7 @@ namespace XRL.World.Parts.Mutation
             if (ParentObject != null)
             {
                 XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
-                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 400, false);
+                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1400, false);
             }
 
             return base.ChangeLevel(NewLevel);
@@ -168,9 +173,6 @@ namespace XRL.World.Parts.Mutation
                 int OwnersLevel = ParentObject.Stat("Level");
                 int TargetsLevel = TargetHusk.Stat("Level");
 
-                // AddPlayerMessage("owners level: " + OwnersLevel);
-                // AddPlayerMessage("targets level: " + TargetsLevel);
-
                 var LevelDifference = OwnersLevel - TargetsLevel;
 
                 if (!TargetHusk.MakeSave("Willpower", 8 + LevelDifference, ParentObject, "Ego", ParentObject.It + " attempted to shunt " + TargetHusk.Its + " mind from " + TargetHusk.Its + " body.", false, false, false, false))
@@ -201,10 +203,14 @@ namespace XRL.World.Parts.Mutation
                     {
                         TargetsMutationAlterations.AddMutation("PsychoplethoricDeterioration", 1);
                     }
+                    if (!TargetHusk.HasPart("Survival_Camp"))
+                    {
+                        TargetHusk.RequirePart<Survival_Camp>();
+                    }
 
                     game.Player.Body = TargetHusk;
 
-                    TargetHusk.UseEnergy(5000);
+                    TargetHusk.UseEnergy(1000);
                     ParentObject.UseEnergy(5000);
                     TargetHusk.FireEvent(Event.New("SuccessfulDethroning", "OriginalBody", ParentObject));
                     UbernostrumScaling = 0;
@@ -283,7 +289,11 @@ namespace XRL.World.Parts.Mutation
                 else if (ParentObject.Statistics["Hitpoints"].BaseValue <= 1)
                 {
                     if (ParentObject.IsPlayer())
-                    { ParentObject.Die(null, null, "As your husk crumbles to dust, so do your last tethers as your mind is cast into the darkness of the void.", Force: false); }
+                    { ParentObject.Die(null, null, "As your husk crumbles to dust, so do your last tethers to world as your form radiates away.", Force: false); }
+                }
+                if (!ParentObject.HasEffect<Disintegrating>())
+                {
+                    ParentObject.ApplyEffect(new Disintegrating(9999));
                 }
             }
             else if (E.ID == "CommandSoulShunt")
@@ -395,7 +405,6 @@ namespace XRL.World.Parts.Mutation
                             Popup.Show("You cast the remnants away.");
                         }
                     }
-
                 }
             }
 
