@@ -23,6 +23,11 @@ namespace XRL.World.Parts.Mutation
             this.DisplayName = "Psychoplethoric Deterioration ({{purple|H}})";
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override bool CanLevel()
         {
             return false;
@@ -142,6 +147,7 @@ namespace XRL.World.Parts.Mutation
         }
 
 
+
         public void SoulShunt()
         {
             Physics pGOPhysics = ParentObject.GetPart("Physics") as Physics;
@@ -155,6 +161,9 @@ namespace XRL.World.Parts.Mutation
             }
 
             var TargetHusk = TargetCell.GetFirstObjectWithPart("Brain");
+
+            var SkillAccess = ParentObject.GetPart<Skills>();
+            var SkillList = SkillAccess.SkillList;
 
             if (TargetHusk != null)
             {
@@ -174,6 +183,7 @@ namespace XRL.World.Parts.Mutation
                 int TargetsLevel = TargetHusk.Stat("Level");
 
                 var LevelDifference = OwnersLevel - TargetsLevel;
+
 
                 if (!TargetHusk.MakeSave("Willpower", 8 + LevelDifference, ParentObject, "Ego", ParentObject.It + " attempted to shunt " + TargetHusk.Its + " mind from " + TargetHusk.Its + " body.", false, false, false, false))
                 {
@@ -203,22 +213,27 @@ namespace XRL.World.Parts.Mutation
                     {
                         TargetsMutationAlterations.AddMutation("PsychoplethoricDeterioration", 1);
                     }
-                    if (!TargetHusk.HasPart("Survival_Camp"))
+
+                    if (!TargetHusk.HasPart("Survival"))
                     {
+                        TargetHusk.RequirePart<Survival>();
                         TargetHusk.RequirePart<Survival_Camp>();
+                        TargetHusk.RequirePart<Survival_Trailblazer>();
                     }
 
                     game.Player.Body = TargetHusk;
 
                     TargetHusk.UseEnergy(1000);
                     ParentObject.UseEnergy(5000);
+
+
                     TargetHusk.FireEvent(Event.New("SuccessfulDethroning", "OriginalBody", ParentObject));
                     UbernostrumScaling = 0;
                 }
                 else
                 {
                     TargetHusk.GetAngryAt(ParentObject, -100);
-                    AddPlayerMessage(TargetHusk.It + " resisted " + ParentObject.Its + " attempt at shunting " + TargetHusk.Its + " mind.");
+                    AddPlayerMessage(TargetHusk.it + " resisted " + ParentObject.its + " attempt at shunting " + TargetHusk.its + " mind.");
                 }
             }
         }
@@ -348,15 +363,22 @@ namespace XRL.World.Parts.Mutation
 
                 GameObject OriginalBody = E.GetGameObjectParameter("OriginalBody");
 
+                var SkillAccess = OriginalBody.GetPart<Skills>();
+                var SkillListing = SkillAccess.SkillList;
+
                 var CreatureTier = OriginalBody.GetTier();
                 var PrimaryFaction = OriginalBody.GetPrimaryFaction();
                 var FactionVar = Factions.get(PrimaryFaction);
-
                 var NewBodyPrimaryFaction = OriginalBody.GetPrimaryFaction();
+
+                var ParentIntelligenceSkillAward = (ParentObject.BaseStat("Intelligence") - 10) * 4;
 
                 ParentObject.FireEvent(Event.New("EntityHasSwappedBodies"));
 
-
+                foreach (var k in SkillListing)
+                {
+                    ParentObject.GetStat("SP").BaseValue += ParentIntelligenceSkillAward;
+                }
                 if (FactionVar.Visible)
                 {
                     try
