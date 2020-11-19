@@ -20,8 +20,8 @@ namespace XRL.World.Effects
         public override string GetDetails()
         {
             PsychoplethoricDeterioration Psychopleth = Object.GetPart<PsychoplethoricDeterioration>();
-            return "Your form is atomizing before your eyes ... it won't last long\n"
-            + "Your physical form {{red|rapidly disintegrates}}, every {{light blue|600}} turns, you must pass a {{light blue|Toughness Saving Throw}} at difficulty {{light blue|28 + " + Object.Statistics["Level"].BaseValue + "}} or lose {{light blue|0-3}} points of your maximum HP. Using an ubernostrum injector will partially regenerate your lost maximum HP, however continued use on the same husk becomes less effective. Your Strength, Toughness and Agility are reduced by {{light blue|-6}}, and your mental stats are increased by {{light blue|+6}}.\n\n"
+            return "Your form is atomizing before your eyes ... it won't last long\n\n"
+            + "Your physical form {{red|rapidly disintegrates}}, every {{light blue|600}} turns, you must pass a {{light blue|Toughness Saving Throw}} at difficulty {{light blue|28 + " + Object.Statistics["Level"].BaseValue + "}} or lose {{red|0-3}} points of your maximum HP. Using an ubernostrum injector will partially regenerate your lost maximum HP, however continued use on the same husk becomes less effective.\n\n"
             + "Turns Til Decay Tick: {{purple|" + Psychopleth.DecayingFormDurationCycle + "}}";
         }
 
