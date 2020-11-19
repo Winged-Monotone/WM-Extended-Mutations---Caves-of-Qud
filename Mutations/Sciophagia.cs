@@ -33,7 +33,8 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1200, false);
+            // if (ParentObject != null)
+            // { XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1200, false); }
 
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
@@ -51,7 +52,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "Your consciousness predates on other minds, devour the animuses of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds.\n"
-                    + "\n{{white|+200 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
+                    + "\n{{white|+200 Reputation with}} {{blue|Seekers of the Sightless Way.}}\n\n";
         }
         public override string GetLevelText(int Level)
         {
