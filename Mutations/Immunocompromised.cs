@@ -42,6 +42,11 @@ namespace XRL.World.Parts.Mutation
             go.RegisterPartEvent((IPart)this, "ModifyDefendingSave");
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override bool FireEvent(Event E)
         {
             if (E.ID == "ModifyDefendingSave" && E.GetStringParameter("Vs", (string)null).Contains("Disease"))

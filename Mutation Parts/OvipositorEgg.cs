@@ -51,6 +51,11 @@ namespace XRL.World.Parts
             return true;
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override bool FireEvent(Event E)
         {
             if (E.ID == "EndTurn")

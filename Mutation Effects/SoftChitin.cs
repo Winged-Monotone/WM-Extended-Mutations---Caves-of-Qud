@@ -31,6 +31,7 @@ namespace XRL.World.Effects
             turns = 0;
         }
 
+
         public override void Register(GameObject go)
         {
             go.RegisterEffectEvent((Effect)this, "BeginTakeAction");

@@ -182,5 +182,10 @@ namespace XRL.World.Parts.Mutation
 
             return base.Unmutate(GO);
         }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
     }
 }

@@ -408,6 +408,11 @@ namespace XRL.World.Parts
             return base.FireEvent(E);
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public void TailStrike(XRL.World.GameObject Defender, int Hitbonus)
         {
             ThickTail Tail = base.ParentObject.Equipped.GetPart<Mutations>().GetMutation("ThickTail") as ThickTail;

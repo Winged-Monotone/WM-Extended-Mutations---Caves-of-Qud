@@ -114,5 +114,10 @@ namespace XRL.World.Parts.Mutation
             }
             return base.FireEvent(E);
         }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
     }
 }

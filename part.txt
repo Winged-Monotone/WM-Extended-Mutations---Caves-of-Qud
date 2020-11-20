@@ -1,0 +1,9 @@
+part
+
+
+the mutation checks while its being added to the other on mutate if the previous body has this part.
+The Part generates its own ID, this part defines in a simple bool that this body, along with its ID has a new 'soul, or its not the original entity
+essentially. the ID carries this 'entities' soul on a very basic level which is created when being added for the first time to something, if it was already add, it adds the ID of the previous creature it passing it to the next body. 
+
+check if the previous part exist, if it does 
+

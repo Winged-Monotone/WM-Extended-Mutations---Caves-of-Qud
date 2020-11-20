@@ -1,0 +1,40 @@
+=========================================================================================
+
+Rework, and essentially a Better Mutation, Mind-eater is now Sciophagia
+
+```
+Sciophagia
+
+            "Your consciousness predates on other minds, devour the animuses of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds."
+
+                    200 Reputation with Seekers of the Sightless Way.
+        
+            Upon defeating an enemy with higher ego than your own, there is a 10% chance you will encode that creature's psyche onto the holograms of your own, gaining +1 to your ego score permanently.
+
+```
+
+=========================================================================================
+
+Bug Fixes:
+----------
+
+Psybrachiomancy
+
+- Updated to use Psi-Charges [Statistic] Properly, now properly shows how many charges you need in maximum to summon your psionics arms.
+- Fixed a bug where you would get the psiburdened effect despite not summoning more arms than your wisdom modifier.
+- Simplified Description
+
+Psychoplethoric Deterioration
+
+- Now adds Campfire to your skills upon swapping.
+- Now adds an effect on mutate called "Disintegrating," that shows the time left till your next damage tick
+- Simplified Description
+- Bodyswap should now has sleep affected on the other ,that way they don't insta attack after swapping.
+
+Thick Tail
+- Fixed an issue where the tail was continously trying to re-add itself on the world map and after time ticks.
+
+Focus Psi
+- Fixed an issue where you were stuck on world map, due to missing a mutation.
+
+

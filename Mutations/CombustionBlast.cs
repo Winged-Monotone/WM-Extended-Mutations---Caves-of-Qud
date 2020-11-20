@@ -23,10 +23,16 @@ namespace XRL.World.Parts.Mutation
         public int ChargesSpent;
         public string BodyPartType = "Head";
         public GameObject PsiFocusGlyphObj;
+
         public CombustionBlast()
         {
             this.DisplayName = "Combustion Blast";
             this.Type = "Mental";
+        }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
         }
 
         public override void Register(GameObject Object)

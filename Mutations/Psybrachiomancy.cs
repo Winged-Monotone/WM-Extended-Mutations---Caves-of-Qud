@@ -13,7 +13,7 @@ namespace XRL.World.Parts.Mutation
         public int ArmCounter = 0;
         public int ArmCost;
         public int NewArmCost;
-        private bool PsionicArmActive = false;
+        // private bool PsionicArmActive = false;
         public string ManagerID => ParentObject.id + "::Psybrachiomancy";
         public Guid ActivatedAbilityID = Guid.Empty;
         public Psybrachiomancy()
@@ -155,6 +155,11 @@ namespace XRL.World.Parts.Mutation
                 // AddPlayerMessage("PsiArmcost: " + focusPsi.ArmCost);
             }
             return base.FireEvent(E);
+        }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
         }
     }
 }

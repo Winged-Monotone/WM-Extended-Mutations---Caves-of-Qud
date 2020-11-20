@@ -15,6 +15,10 @@ namespace XRL.World.Parts.Mutation
             return false;
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
         public override void Register(GameObject Object)
         {
             base.Register(Object);

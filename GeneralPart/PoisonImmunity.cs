@@ -10,6 +10,11 @@ namespace XRL.World.Parts
             return true;
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "BeforeApplyDamage");

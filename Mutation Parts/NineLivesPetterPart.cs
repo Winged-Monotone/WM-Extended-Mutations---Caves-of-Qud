@@ -8,6 +8,11 @@ namespace XRL.World.Parts
     [Serializable]
     public class NineLivesPetter : IPart
     {
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
         public override void Register(GameObject ParentObject)
         {
             ParentObject.RegisterPartEvent(this, "ObjectPetted");

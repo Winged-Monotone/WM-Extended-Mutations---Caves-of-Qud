@@ -25,6 +25,11 @@ namespace XRL.World.Parts.Mutation
             return "Effect: " + (10 + Level - 1) + "% chance to gain bonus experience points, this mutation grants more experience at 10th Level.";
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override bool WantEvent(int ID, int cascade)
         {
             return base.WantEvent(ID, cascade) || ID == AwardingXPEvent.ID;

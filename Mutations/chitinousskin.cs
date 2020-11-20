@@ -13,7 +13,7 @@ namespace XRL.World.Parts.Mutation
         public int STRBonus;
         public Guid ActivatedAbilityID = Guid.Empty;
         public int totalTurnsTilMolt;
-        int DoubleCheckDuration = 10;
+        // int DoubleCheckDuration = 10;
         public int ImmobilityDuration = 0;
 
 
@@ -39,6 +39,11 @@ namespace XRL.World.Parts.Mutation
 
 
         // This is a method that is called by the game, it allows me to register events, and these events already exist, they are here to update the mutation, it calls the fire event method, using else if (E.ID == "PutEventIDHere") variable, it allows me to register event id's to listen to, they do not have to be already existing events.
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
 
         public override void Register(GameObject go)
         {

@@ -42,6 +42,11 @@ namespace XRL.World.Parts.Mutation
             return true;
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override bool ChangeLevel(int NewLevel)
         {
             Body pBody = ParentObject.GetPart("Body") as Body;

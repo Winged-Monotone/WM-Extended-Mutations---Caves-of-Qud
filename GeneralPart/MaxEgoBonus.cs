@@ -31,5 +31,10 @@ namespace XRL.World.Parts
             }
             return base.HandleEvent(E);
         }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
     }
 }

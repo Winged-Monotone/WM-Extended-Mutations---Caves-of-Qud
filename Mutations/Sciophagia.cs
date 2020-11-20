@@ -60,7 +60,10 @@ namespace XRL.World.Parts.Mutation
             + "\n";
         }
 
-
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
 
         // public int DevourerDamage(int MutationLevel, int CasterEgo, GameObject Target)
         // {

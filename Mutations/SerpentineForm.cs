@@ -43,6 +43,11 @@ namespace XRL.World.Parts.Mutation
             this.Type = "Physical";
             //Intialization Assignment
         }
+
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "CommandConstrict");

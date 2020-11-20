@@ -49,6 +49,11 @@ namespace XRL.World.Parts.Mutation
             return true;
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override void Register(GameObject go)
         {
             go.RegisterPartEvent((IPart)this, "AIGetPassiveMutationList");

@@ -9,6 +9,11 @@ namespace XRL.World.Parts.Mutation
             this.DisplayName = "Acidic Blood";
         }
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
+
         public override string GetDescription()
         {
             return "Your blood is acidic.";

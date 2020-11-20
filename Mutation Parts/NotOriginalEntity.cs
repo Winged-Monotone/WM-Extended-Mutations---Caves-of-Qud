@@ -10,6 +10,10 @@ namespace XRL.World.Parts
     {
         public bool IsOriginalEntity = false;
 
+        public override bool AllowStaticRegistration()
+        {
+            return true;
+        }
 
         public override void Register(GameObject ParentObject)
         {
