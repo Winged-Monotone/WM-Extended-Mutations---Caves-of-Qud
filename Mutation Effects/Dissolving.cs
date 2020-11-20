@@ -13,6 +13,11 @@ namespace XRL.World.Effects
     {
         public int Damage = 2;
         public GameObject Owner;
+
+        public Dissolving() : base()
+        {
+            base.DisplayName = "{{red|Dissolving}}";
+        }
         public Dissolving(int Duration, GameObject Owner)
         {
             this.Owner = Owner;

@@ -11,10 +11,14 @@ namespace XRL.World.Effects
     [Serializable]
     public class Disintegrating : Effect
     {
-        public Disintegrating()
+        public Disintegrating() : base()
+        {
+            base.DisplayName = "{{red|Disintegrating}}";
+        }
+
+        public Disintegrating(int Duration) : this()
         {
             base.Duration = Duration;
-            base.DisplayName = "{{red|Disintegrating}}";
         }
 
         public override string GetDetails()

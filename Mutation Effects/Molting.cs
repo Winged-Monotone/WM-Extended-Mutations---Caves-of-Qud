@@ -16,14 +16,17 @@ namespace XRL.World.Effects
         public int turns;
 
 
-        public Molting()
+        public Molting() : base()
         {
             base.DisplayName = "Molting";
+        }
+
+        public Molting(int Duration)
+        {
             base.Duration = 1;
             saveTarget = 20;
             saveTargetTurnDivisor = 5;
             turns = 0;
-
         }
 
         public override string GetDetails()

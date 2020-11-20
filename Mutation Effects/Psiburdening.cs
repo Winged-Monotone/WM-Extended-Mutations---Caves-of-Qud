@@ -11,10 +11,14 @@ namespace XRL.World.Effects
     [Serializable]
     public class Psiburdening : Effect
     {
+
+        public Psiburdening() : base()
+        {
+            base.DisplayName = "{{purple|psi-exhaustion}}";
+        }
         public Psiburdening(int Duration)
         {
             base.Duration = Duration;
-            base.DisplayName = "{{purple|psi-exhaustion}}";
         }
 
         public override string GetDetails()

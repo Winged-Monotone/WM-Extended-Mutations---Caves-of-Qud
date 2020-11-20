@@ -11,7 +11,12 @@ namespace XRL.World.Effects
         public int agilityDebuff;
         public int movementSpeedDebuff;
 
-        public EncumberingHusk()
+        public EncumberingHusk() : base()
+        {
+            base.DisplayName = "Encumbering Husk";
+        }
+
+        public EncumberingHusk(int Duration)
         {
             base.DisplayName = "Encumbering Husk";
             base.Duration = 1;
