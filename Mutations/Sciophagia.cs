@@ -102,21 +102,7 @@ namespace XRL.World.Parts.Mutation
         // {
         //     return CreaturesEgo;
         // }
-        // private List<Action<Sciophagia, GameObject>> VividChoices = new List<Action<Sciophagia, GameObject>>()
-        // {
-        //     (ME, Target) =>
-        //     {
-        //         ME.DidXToY("reach", "into the aether and tear into the imprints of", Target, PossessiveObject: true, extra: "psyche, devouring " + Target.them, terminalPunctuation: "!", ColorAsGoodFor: ME.ParentObject, ColorAsBadFor: Target);
-        //     },
-        //     (ME, Target) =>
-        //     {
-        //         ME.DidXToY("devour", "the consciousness of", Target, ColorAsGoodFor: ME.ParentObject, ColorAsBadFor: Target, terminalPunctuation: "!");
-        //     },
-        //     (ME, Target) =>
-        //     {
-        //         ME.DidXToY("absorb", "the consciousness of", Target, ColorAsGoodFor: ME.ParentObject, ColorAsBadFor: Target, terminalPunctuation: "!");
-        //     },
-        // };
+        
 
         // public void DevourStatGains(GameObject Target)
         // {
@@ -211,26 +197,28 @@ namespace XRL.World.Parts.Mutation
             var LevelDifference = OwnersLevel - TargetsLevel;
             var DevourChance = Stat.Random(1, 100) <= 10 + (LevelDifference * 0.10);
 
+            var Killed = E.Dying;
+
 
             if (E.Killer == ParentObject && DyingEgo > KillerEgo)
             {
                 if (DevourChance)
                 {
-                    if (Popup.ShowYesNo("&yAt the moment of victory, your swelling ego curves the psychic aether and causes the psyche of " + ParentObject.ShortDisplayName + "&y, to collide with your own. As the weaker of the two, its binding energy is exceeded and it explodes. Would you like to encode its psionic bits on the holographic boundary of your own psyche? \n\n(+1 Ego permanently)") == DialogResult.Yes)
+                    if (Popup.ShowYesNo("&yAt the moment of victory, your swelling ego curves the psychic aether and causes the psyche of " + Killed.ShortDisplayName + "&y, to collide with your own. As the weaker of the two, its binding energy is exceeded and it explodes. Would you like to encode its psionic bits on the holographic boundary of your own psyche? \n\n(+1 Ego permanently)") == DialogResult.Yes)
                     {
                         IComponent<GameObject>.ThePlayer.Statistics["Ego"].BaseValue += 1;
-                        Popup.Show("&yYou encode the psyche of " + ParentObject.ShortDisplayName + " and gain +&C1 &YEgo&y!");
-                        JournalAPI.AddAccomplishment("You slew " + ParentObject.DisplayNameOnly + " and encoded their psyche's psionic bits on the holographic boundary of your own psyche.", "After a climactic battle of wills, =name= slew " + ParentObject.the + ParentObject.DisplayNameOnlyDirect + " and absorbed " + ParentObject.its + " psyche, thickening toward Godhood.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.High, null, -1L);
+                        Popup.Show("&yYou encode the psyche of " + Killed.ShortDisplayName + " and gain +&C1 &YEgo&y!");
+                        JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + " and encoded their psyche's psionic bits on the holographic boundary of your own psyche.", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + " and absorbed " + Killed.its + " psyche, thickening toward Godhood.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.High, null, -1L);
                     }
                     else
                     {
-                        Popup.Show("&yYou pause as the psyche of " + ParentObject.ShortDisplayName + " radiates into nothingness.");
-                        JournalAPI.AddAccomplishment("You slew " + ParentObject.DisplayNameOnly + " and watched their psyche radiate into nothingness.", "After a climactic battle of wills, =name= slew " + ParentObject.the + ParentObject.DisplayNameOnlyDirect + " and watched " + ParentObject.its + " their psyche radiate into nothingness.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
+                        Popup.Show("&yYou pause as the psyche of " + Killed.ShortDisplayName + " radiates into nothingness.");
+                        JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + " and watched their psyche radiate into nothingness.", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + " and watched " + Killed.its + " their psyche radiate into nothingness.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
                     }
                 }
                 else
                 {
-                    JournalAPI.AddAccomplishment("You slew " + ParentObject.DisplayNameOnly + ".", "After a climactic battle of wills, =name= slew " + ParentObject.the + ParentObject.DisplayNameOnlyDirect + ".", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
+                    JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + ".", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + ".", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
                 }
             }
 

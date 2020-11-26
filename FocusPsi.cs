@@ -13,6 +13,22 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class FocusPsi : BaseMutation
     {
+        
+        public int PsiCounter = 0;
+        public bool isCharging;
+        public int turnsTilPsiDecay;
+        public int effectiveSaveTarget;
+        public int ArmCounter = 0;
+        public int ArmCost;
+        public int NewArmCost;
+        public Guid PsiFocusActivatedAbilityID = Guid.Empty;
+        public const string VERB_1 = "begin to gather";
+        public const string VERB_2 = "stop gathering";
+        public const string VERB_3 = "are gathering";
+        public const string VERB_4 = "cannot accumulate anymore";
+        public const string EXTRA_1 = "psionic energy";
+        public const string TERMPUNC_1 = "!";
+
         public int focusPsiCurrentCharges
         {
             get
@@ -48,20 +64,6 @@ namespace XRL.World.Parts.Mutation
                 Charges.BaseValue = value;
             }
         }
-        public int PsiCounter = 0;
-        public bool isCharging;
-        public int turnsTilPsiDecay;
-        public int effectiveSaveTarget;
-        public int ArmCounter = 0;
-        public int ArmCost;
-        public int NewArmCost;
-        public Guid PsiFocusActivatedAbilityID = Guid.Empty;
-        public const string VERB_1 = "begin to gather";
-        public const string VERB_2 = "stop gathering";
-        public const string VERB_3 = "are gathering";
-        public const string VERB_4 = "cannot accumulate anymore";
-        public const string EXTRA_1 = "psionic energy";
-        public const string TERMPUNC_1 = "!";
 
         public FocusPsi()
         {
