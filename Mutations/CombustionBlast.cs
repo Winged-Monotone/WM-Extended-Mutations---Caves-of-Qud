@@ -160,7 +160,7 @@ namespace XRL.World.Parts.Mutation
                     break;
                 }
             }
-            base.PlayWorldSound("grenade_handENuke", 100f, 4f, true, null);
+            base.PlayWorldSound("grenade_handENuke", 100f, 1f, true, null);
             ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
             ParentObject.UseEnergy(1000);
         }
