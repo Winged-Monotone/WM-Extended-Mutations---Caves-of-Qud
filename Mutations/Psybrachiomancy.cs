@@ -53,11 +53,11 @@ namespace XRL.World.Parts.Mutation
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
             this.ActivatedAbilityID = base.AddMyActivatedAbility("Manifest Limb", "CommandManifestLimb", "Mental Mutation", "Manifest a psychic arm.\n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value. \n"
-            + "{{orange|(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)}}\n"
-            + "{{red|If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-exhaustion' effect temporarily.}}", ">", null, false, false, false, false, false, false, false, 10, null);
+            + "(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)\n"
+            + "If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-exhaustion' effect temporarily.", ">", null, false, false, false, false, false, false, false, 10, null);
             this.ActivatedAbilityID = base.AddMyActivatedAbility("Dismiss Limb", "CommandDismissLimb", "Mental Mutation", "Dismiss a psychic arm.\n\n \n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value. \n"
-            + "{{orange|(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)}}\n"
-            + "{{red|If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-burdening' effect temporarily.}}", "<", null, false, false, false, false, false, false, false, 10, null);
+            + "(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)\n"
+            + "If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-burdening' effect temporarily.", "<", null, false, false, false, false, false, false, false, 10, null);
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }
