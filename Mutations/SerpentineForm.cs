@@ -4,6 +4,8 @@ using XRL.Core;
 using XRL.World.AI.GoalHandlers;
 using XRL.UI;
 using XRL.World.Effects;
+using System.Linq;
+
 
 namespace XRL.World.Parts.Mutation
 {
@@ -22,7 +24,13 @@ namespace XRL.World.Parts.Mutation
         public int ArmorACModifier;
         public int OldArmorDVModifier;
         public int OldArmorACModifier;
-
+        public List<string> SynergyMutations = new List<string>()
+        {
+            "GelatinousFormAcid",
+            "Quills",
+            "GelatinousFormPoison",
+            "RoughScales",
+        };
 
         public GameObject Constricted;
         [NonSerialized]
@@ -63,21 +71,19 @@ namespace XRL.World.Parts.Mutation
             ACModifier = 0;
             DVModifier = 1;
             StatShifter.SetStatShift("MoveSpeed", 5);
+            SerpentileTail = GameObject.create("Serpentine Tail");
             BodyPart firstPart = this.ParentObject.GetPart<Body>().GetFirstPart(this.BodyPartType);
-            if (firstPart != null && (this.SerpentileTail == null || firstPart.Equipped != this.SerpentileTail))
+            if (firstPart != null)
             {
-                this.ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", firstPart));
-                if (this.SerpentileTail != null)
-                {
-                    this.SerpentileTail.Destroy(null, false, false);
-                }
-                this.SerpentileTail = GameObject.create("Serpentine Tail");
-                this.SerpentileTail.GetPart<Armor>().WornOn = firstPart.Type;
-                this.SerpentileTail.pRender.DisplayName = ("serpentine tail");
-                this.ParentObject.FireEvent(Event.New("CommandForceEquipObject", "Object", this.SerpentileTail, "BodyPart", firstPart).SetSilent(true));
-                Armor part = this.SerpentileTail.GetPart<Armor>();
-                part.AV = this.ACModifier;
-                part.DV = this.DVModifier;
+                firstPart.Equipped?.UnequipAndRemove();
+                firstPart.Equip(SerpentileTail);
+
+                firstPart.DefaultBehaviorBlueprint = "Serpentine Tail";
+                firstPart.DefaultBehavior = SerpentileTail;
+                // this.ParentObject.FireEvent(Event.New("CommandForceEquipObject", "Object", this.SerpentileTail, "BodyPart", firstPart).SetSilent(true));
+                // Armor part = this.SerpentileTail.GetPart<Armor>();
+                // part.AV = this.ACModifier;
+                // part.DV = this.DVModifier;
             }
             this.ActivatedAbilitiesID = base.AddMyActivatedAbility("Constrict", "CommandConstrict", "Physical Mutation", "Coil around and crush your enemies.", "@", null, false, false, false, false, false);
             this.ChangeLevel(Level);
@@ -98,6 +104,7 @@ namespace XRL.World.Parts.Mutation
             }
             return base.ChangeLevel(NewLevel);
         }
+
         public override bool Unmutate(GameObject GO)
         {
             base.RemoveMyActivatedAbility(ref this.ActivatedAbilitiesID);
@@ -275,6 +282,8 @@ namespace XRL.World.Parts.Mutation
         public void ProcessTurnConstricted(GameObject Target, int TurnsConstricted)
         {
             Mutations HasSynergyMutation = ParentObject.GetPart<Mutations>();
+            int Synergies = SynergyMutations.Count(HasSynergyMutation.HasMutation);
+
             if (ResistanceSave(Target))
             {
                 EndConstriction(Target);
@@ -291,7 +300,7 @@ namespace XRL.World.Parts.Mutation
             else if (HasPermutation(ParentObject) == true && HasSynergyMutation.HasMutation("GelatinousFormPoison") == true)
             {
 
-                AddPlayerMessage("You strangle your enemy with your miasmic poisons, dealing extra damage!");
+                AddPlayerMessage("You strangle your enemy with miasmic poisons, dealing extra damage!");
                 Target.TakeDamage(PermutationDamagGFP(), Attributes: "Poison");
                 PerformDamage(Target);
             }
@@ -299,6 +308,16 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("You strangle your enemy with your acidic form dealing extra damage!");
+                Target.TakeDamage(PermutationDamagGFA(), Attributes: "Acid");
+                PerformDamage(Target);
+            }
+            else if (Synergies >= 1)
+            {
+                var MessageRandomizer = Rules.Stat.Random(1, 100);
+                if (MessageRandomizer <= 33)
+                {
+                    AddPlayerMessage("Your barbs gouge into your foe, dealing extra damage!");
+                }
                 Target.TakeDamage(PermutationDamagGFA(), Attributes: "Acid");
                 PerformDamage(Target);
             }

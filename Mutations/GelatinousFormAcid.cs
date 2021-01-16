@@ -222,19 +222,19 @@ namespace XRL.World.Parts.Mutation
             if (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)) && !ParentObject.HasEffect("Dissolving") && !ParentObject.HasEffect("Flying"))
             {
                 ParentObject.ApplyEffect(new Dissolving(1, ParentObject), ParentObject);
-                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false, 0);
+                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
                 IsDissolving = true;
             }
             else if (IsDissolving == true && (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint))))
             {
                 this.Duration += 2;
                 Damage += 1;
-                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false, 0);
+                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
             }
             else if ((IsDissolving == true && E.Object == ParentObject && (!E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)))))
             {
                 this.Duration -= 1;
-                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false, 0);
+                ParentObject.TakeDamage(Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
             }
             if (Duration <= 0)
             {

@@ -36,11 +36,11 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetDescription()
         {
-            return "You can periodically lay eggs, and spawn drones of yourself who will do your bidding.";
+            return "You can periodically lay eggs, and spawn drones of yourself who will do your bidding.\n";
         }
         public override string GetLevelText(int Level)
         {
-            return "Following a gestation period, you may lay eggs that develop into drones at the time they were lain.\n";
+            return "Following a three month gestation period, you may lay eggs that develop into drones that take on aspects of yourself at the time they were lain.\n";
         }
         public override bool CanLevel()
         {
@@ -95,70 +95,78 @@ namespace XRL.World.Parts.Mutation
             }
         }
 
-        public BodyPart AddTail(GameObject GO)
-        {
-            if (GO == null)
-            {
-                return null;
-            }
-            Body pBody = GO.Body;
-            if (pBody != null)
-            {
-                BodyPart MainBody = pBody.GetBody();
-                return MainBody.AddPartAt(
-                    Base: "Tail",
-                    Manager: ManagerID,
-                    InsertAfter: "Feet",
-                    OrInsertBefore: new string[] { "Roots", "Thrown Weapon", "Floating Nearby" }
-                );
-            }
-            return null;
-        }
+        // public BodyPart AddTail(GameObject GO)
+        // {
+        //     if (GO == null)
+        //     {
+        //         return null;
+        //     }
+        //     Body pBody = GO.Body;
+        //     if (pBody != null)
+        //     {
+        //         BodyPart MainBody = pBody.GetBody();
+        //         return MainBody.AddPartAt(
+        //             Base: "Tail",
+        //             Manager: ManagerID,
+        //             InsertAfter: "Feet",
+        //             OrInsertBefore: new string[] { "Roots", "Thrown Weapon", "Floating Nearby" }
+        //         );
+        //     }
+        //     return null;
+        // }
 
-        public void AddOvipositorTo(BodyPart part)
-        {
-            if (part.Equipped != null)
-            {
-                ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", part));
-            }
-            if (TailObject == null)
-            {
-                TailObject = GameObject.create("Ovipositor");
-            }
-            if (TailObject != null)
-            {
-                TailObjectId = TailObject.id;
-                Event eCommandEquipObject = Event.New("CommandForceEquipObject");
-                eCommandEquipObject.SetParameter("Object", TailObject);
-                eCommandEquipObject.SetParameter("BodyPart", part);
-                eCommandEquipObject.SetSilent(true);
-                ParentObject.FireEvent(eCommandEquipObject);
-            }
-            else
-            {
-                UnityEngine.Debug.LogError("Could not create Ovipositor");
-            }
-        }
+        // public void AddOvipositorTo(BodyPart part)
+        // {
+        //     if (part.Equipped != null)
+        //     {
+        //         part.DefaultBehavior.ForceUnequipAndRemove();
+        //         ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", part));
+        //     }
+        //     if (TailObject == null)
+        //     {
+        //         TailObject = GameObject.create("Ovipositor");
+        //         part.DefaultBehavior = TailObject;
+        //     }
+        //     if (TailObject != null)
+        //     {
+        //         TailObjectId = TailObject.id;
+        //         Event eCommandEquipObject = Event.New("CommandForceEquipObject");
+        //         eCommandEquipObject.SetParameter("Object", TailObject);
+        //         eCommandEquipObject.SetParameter("BodyPart", part);
+        //         eCommandEquipObject.SetSilent(true);
+        //         ParentObject.FireEvent(eCommandEquipObject);
+        //     }
+        //     else
+        //     {
+        //         UnityEngine.Debug.LogError("Could not create Ovipositor");
+        // //     }
+        // }
 
-        public override void OnRegenerateDefaultEquipment(Body body)
-        {
-            var tail = body.GetPartByManager(ManagerID);
-            if (tail != null)
-            {
-                AddOvipositorTo(tail);
-            }
-        }
+        // public override void OnRegenerateDefaultEquipment(Body body)
+        // {
+        //     var tail = body.GetPartByManager(ManagerID);
+        //     if (tail != null)
+        //     {
+        //         AddOvipositorTo(tail);
+        //     }
+        // }
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            Body pBody = ParentObject.Body;
-            if (pBody != null)
+            Body SourceBody = GO.GetPart<Body>();
+            if (SourceBody != null)
             {
-                BodyPart Part = AddTail(GO);
-                if (Part != null)
-                {
-                    AddOvipositorTo(Part);
-                }
+                GameObject TailObj = GameObject.create("Ovipositor");
+
+                var body = GO.GetPart<Body>();
+                var core = body.GetBody();
+                var tail = core.AddPartAt(Base: "Tail", DefaultBehavior: "Ovipositor", InsertAfter: "Feet", OrInsertBefore: "Hands");
+                tail.DefaultBehaviorBlueprint = "Ovipositor";
+                tail.DefaultBehavior = TailObj;
+                // Armor part = TailObj.GetPart<Armor>();
+                // part.AV = 1;
+                // part.DV = 0;
+                body.UpdateBodyParts();
             }
             CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
@@ -169,14 +177,21 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Unmutate(GameObject GO)
         {
-            Body SourceBody = GO.GetPart<Body>();
-            if (SourceBody != null)
+            try
             {
-                var body = ParentObject.GetPart<Body>();
-                var core = body.GetBody();
-                var tail = core.GetFirstPart("Tail");
-                tail.Equipped.ForceUnequipAndRemove();
-                core.RemovePart(tail);
+                Body SourceBody = GO.GetPart<Body>();
+                if (SourceBody != null)
+                {
+                    var body = ParentObject.GetPart<Body>();
+                    var core = body.GetBody();
+                    var tail = core.GetFirstPart("Tail");
+                    tail.Equipped.ForceUnequipAndRemove();
+                    core.RemovePart(tail);
+
+                }
+            }
+            catch
+            {
 
             }
 
