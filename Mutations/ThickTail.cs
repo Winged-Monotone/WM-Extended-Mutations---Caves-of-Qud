@@ -47,36 +47,6 @@ namespace XRL.World.Parts.Mutation
             return true;
         }
 
-        public override bool ChangeLevel(int NewLevel)
-        {
-            Body pBody = ParentObject.GetPart("Body") as Body;
-            if (pBody != null)
-            {
-                BodyPart Part = pBody.GetPartByManager(AdditionsManagerID);
-                if (Part != null)
-                {
-                    ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", Part));
-                    if (BaseTail == null)
-                    {
-                        BaseTail = GameObject.create("BaseThickTail");
-                    }
-
-                    Armor armor = BaseTail.GetPart("Armor") as Armor;
-                    armor.WornOn = Part.Type;
-                    Event @event = Event.New("CommandForceEquipObject");
-                    @event.SetParameter("Object", BaseTail);
-                    @event.SetParameter("BodyPart", Part);
-                    @event.SetSilent(Silent: true);
-                    ParentObject.FireEvent(@event);
-                }
-            }
-            if (ParentObject.HasObjectInInventory("BaseThickTail"))
-            {
-                ParentObject.FindObjectInInventory("BaseThickTail").Destroy(null, true, false);
-            }
-            return base.ChangeLevel(NewLevel);
-        }
-
         public override string GetDescription()
         {
             return "This extension of flesh and bone originates from your spine in the form of a tail, its ability to adapt makes it a useful tool.";
@@ -240,6 +210,7 @@ namespace XRL.World.Parts.Mutation
         {
             return true;
         }
+
         public override bool Mutate(GameObject GO, int Level)
         {
             Body SourceBody = GO.GetPart<Body>();
@@ -247,33 +218,29 @@ namespace XRL.World.Parts.Mutation
             {
                 var body = GO.GetPart<Body>();
                 var core = body.GetBody();
-                var tail = core.AddPartAt(Base: "Tail", DefaultBehavior: null, InsertAfter: "Feet", OrInsertBefore: "Hands");
+                var tail = core.AddPartAt(Base: "Tail", DefaultBehavior: null, Manager: AdditionsManagerID, InsertAfter: "Feet", OrInsertBefore: "Hands");
                 tail.Native = true;
-                TailID = tail.ID;
                 body.UpdateBodyParts();
             }
-            BodyPart TailArmor = ParentObject.GetPart<Body>().GetFirstPart(BodyPartType);
-            GameObject TailArmorObj = TailArmor.Equipped;
-            Mutations HasSynergyMutation = ParentObject.GetPart<Mutations>();
-            if (TailArmor != null && (TailArmorObj == null || TailArmor.Equipped != TailArmorObj))
-            {
-                ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", TailArmor));
-                if (TailArmorObj != null)
-                {
-                    TailArmorObj.Destroy(null, false, false);
-                }
-                TailArmorObj = GameObject.create("BaseThickTail");
-                ParentObject.FireEvent(Event.New("CommandForceEquipObject", "Object", TailArmorObj, "BodyPart", TailArmor).SetSilent(true));
-                Armor part = TailArmorObj.GetPart<Armor>();
-                part.AV = 0;
-                part.DV = 1;
-            }
-            if (TailArmorObj.HasObjectInInventory("BaseThickTail"))
-            {
-                ParentObject.FindObjectInInventory("BaseThickTail").Destroy(null, true, false);
-            }
+
             return base.Mutate(GO, Level);
         }
+
+        public override bool ChangeLevel(int NewLevel)
+        {
+            var body = ParentObject.GetPart<Body>();
+            var core = body.GetBody();
+            var tail = ParentObject.GetBodyPartByManager(AdditionsManagerID);
+
+            GameObject ThickTailOBJ = GameObject.create("BaseThickTail");
+            Armor armor = ThickTailOBJ.GetPart("Armor") as Armor;
+
+            armor.WornOn = tail.Type;
+            tail.Equip(ThickTailOBJ, true);
+            return base.ChangeLevel(NewLevel);
+        }
+
+
 
         private List<string> SynergyMutations = new List<string>()
         {
@@ -284,82 +251,82 @@ namespace XRL.World.Parts.Mutation
             "Amphibious",
             "Chimera",
         };
-        public bool HasPermutation(GameObject Parent)
-        {
-            Mutations HasSynergyMutation = Parent.GetPart<Mutations>();
-            return (SynergyMutations.Any(HasSynergyMutation.HasMutation));
-        }
 
-        public BodyPart AddTail(XRL.World.GameObject GO)
-        {
-            return GO?.GetPart<Body>()?.GetBody().AddPartAt("Tail", 0, null, null, null, null, AdditionsManagerID, null, null, null, null, null, null, null, null, null, null, null, null, "Feet", new string[3]
-            {
-            "Roots",
-            "Thrown Weapon",
-            "Floating Nearby"
-            });
-        }
+        // public bool HasPermutation(GameObject Parent)
+        // {
+        //     Mutations HasSynergyMutation = Parent.GetPart<Mutations>();
+        //     return (SynergyMutations.Any(HasSynergyMutation.HasMutation));
+        // }
 
-        private BodyPart ProcessChangedLimb(BodyPart Part)
-        {
-            if (Part != null)
-            {
-                Part.Manager = ChangesManagerID;
-            }
-            return Part;
-        }
-        public override void OnRegenerateDefaultEquipment(Body body)
-        {
-            BodyPart partByID = body.GetPartByManager(AdditionsManagerID);
-            if (partByID != null)
-            {
-                AddThickTailTo(partByID);
-            }
-        }
+        // public BodyPart AddTail(XRL.World.GameObject GO)
+        // {
+        //     return GO?.GetPart<Body>()?.GetBody().AddPartAt("Tail", 0, null, null, null, null, AdditionsManagerID, null, null, null, null, null, null, null, null, null, null, null, null, "Feet", new string[3]
+        //     {
+        //     "Roots",
+        //     "Thrown Weapon",
+        //     "Floating Nearby"
+        //     });
+        // }
+
+        // private BodyPart ProcessChangedLimb(BodyPart Part)
+        // {
+        //     if (Part != null)
+        //     {
+        //         Part.Manager = ChangesManagerID;
+        //     }
+        //     return Part;
+        // }
+        // public override void OnRegenerateDefaultEquipment(Body body)
+        // {
+        //     BodyPart partByID = body.GetPartByManager(AdditionsManagerID);
+        //     AddThickTailTo(partByID);
+        // }
+
         public XRL.World.GameObject findThickTail()
         {
             return ParentObject.GetPart<Body>().FindEquipmentOrDefaultByID(ThickTailObjectId);
         }
-        public void AddThickTailTo(BodyPart part)
-        {
-            if (part.Equipped != null)
-            {
-                if (part.Equipped.id == ThickTailObjectId)
-                {
-                    return;
-                }
-                ParentObject.FireEvent(XRL.World.Event.New("CommandForceUnequipObject", "BodyPart", part));
-            }
-            if (BaseTail == null)
-            {
-                BaseTail = XRL.World.GameObject.create("BaseThickTail");
-            }
-            if (BaseTail != null)
-            {
-                Armor armor = BaseTail.GetPart("Armor") as Armor;
-                if (armor != null)
-                {
-                    armor.WornOn = part.Type;
-                }
-                else
-                {
-                    Debug.LogError("Tail object had no Armor part");
-                }
-                XRL.World.Event @event = XRL.World.Event.New("CommandForceEquipObject");
-                @event.SetParameter("Object", ThickTailObjectId);
-                @event.SetParameter("BodyPart", part);
-                @event.SetSilent(Silent: true);
-                ParentObject.FireEvent(@event);
-                if (ParentObject.HasObjectInInventory("BaseThickTail"))
-                {
-                    ParentObject.FindObjectInInventory("BaseThickTail").Destroy(null, true, false);
-                }
-            }
-            else
-            {
-                Debug.LogError("Could not create Thick Tail");
-            }
-        }
+
+        // public void AddThickTailTo(BodyPart part)
+        // {
+        //     if (part.Equipped != null)
+        //     {
+        //         if (part.Equipped.id == ThickTailObjectId)
+        //         {
+        //             return;
+        //         }
+        //         ParentObject.FireEvent(XRL.World.Event.New("CommandForceUnequipObject", "BodyPart", part));
+        //     }
+        //     if (BaseTail == null)
+        //     {
+        //         BaseTail = XRL.World.GameObject.create("BaseThickTail");
+        //     }
+        //     if (BaseTail != null)
+        //     {
+        //         Armor armor = BaseTail.GetPart("Armor") as Armor;
+        //         if (armor != null)
+        //         {
+        //             armor.WornOn = part.Type;
+        //         }
+        //         else
+        //         {
+        //             Debug.LogError("Tail object had no Armor part");
+        //         }
+        //         XRL.World.Event @event = XRL.World.Event.New("CommandForceEquipObject");
+        //         @event.SetParameter("Object", ThickTailObjectId);
+        //         @event.SetParameter("BodyPart", part);
+        //         @event.SetSilent(Silent: true);
+        //         ParentObject.FireEvent(@event);
+        //         if (ParentObject.HasObjectInInventory("BaseThickTail"))
+        //         {
+        //             ParentObject.FindObjectInInventory("BaseThickTail").Destroy(null, true, false);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("Could not create Thick Tail");
+        //     }
+        // }
 
         public struct TailData
         {
@@ -550,7 +517,7 @@ namespace XRL.World.Parts.Mutation
                 Body pBody = ParentObject.GetPart("Body") as Body;
                 if (pBody != null)
                 {
-                    BodyPart Part = pBody.GetFirstPart(BodyPartType);
+                    BodyPart Part = pBody.GetPartByManager(AdditionsManagerID);
                     if (Part != null)
                     {
                         ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", Part));
@@ -608,7 +575,7 @@ namespace XRL.World.Parts.Mutation
                 Body pBody = ParentObject.GetPart("Body") as Body;
                 if (pBody != null)
                 {
-                    BodyPart Part = pBody.GetFirstPart(BodyPartType);
+                    BodyPart Part = pBody.GetPartByManager(AdditionsManagerID);
                     if (Part != null)
                     {
                         ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", Part));

@@ -26,8 +26,8 @@
     <mutation Code="se" BearerDescription="those with the progenitor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
     <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
     <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
-    <mutation Code="tt" BearerDescription="those who have thick tails" Exclusions="Ovipositor,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="ThickTail" MaxSelected="1" Cost="2" Name="Thick Tail"></mutation>
     <mutation Code="tit" BearerDescription="those who bleed acid" Exclusions="Gelatinous Form (Acid)" Class="AcidicBlood" MaxSelected="1" Cost="2" Name="Acidic Blood"></mutation>
+
   </category>
 
   <category Name="Mental" DisplayName="&amp;GMental Mutations" Stat="Ego" Property="MentalMutationShift" ForceProperty="MentalMutationForceShift">
