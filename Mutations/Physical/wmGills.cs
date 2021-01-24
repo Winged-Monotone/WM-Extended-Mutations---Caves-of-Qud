@@ -10,7 +10,7 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
 
 
-    public class Gills : BaseMutation
+    public class wmGills : BaseMutation
     {
         public Guid DiveActivatedAbility;
         public Guid DeepStrikeActivatedAbility;
@@ -20,7 +20,7 @@ namespace XRL.World.Parts.Mutation
 
         public const string MOD_PREFIX = "Gills";
 
-        public Gills()
+        public wmGills()
         {
             this.DisplayName = "Gills";
         }
@@ -99,6 +99,8 @@ namespace XRL.World.Parts.Mutation
             ParentObject.RegisterPartEvent((IPart)this, "DiveCommand");
             ParentObject.RegisterPartEvent((IPart)this, "DeepStrikeCommand");
             ParentObject.RegisterPartEvent((IPart)this, "EndTurn");
+            ParentObject.RegisterPartEvent((IPart)this, "AIGetOffensiveMutationList");
+
 
             base.Register(ParentObject);
         }
@@ -123,7 +125,7 @@ namespace XRL.World.Parts.Mutation
                     }
                 }
             }
-            if (E.ID == "DiveCommand")
+            else if (E.ID == "DiveCommand")
             {
                 Cell Cell = ParentObject.GetCurrentCell();
 
@@ -155,7 +157,7 @@ namespace XRL.World.Parts.Mutation
                 }
             }
 
-            if (E.ID == "EndTurn")
+            else if (E.ID == "EndTurn")
             {
                 if (ParentObject.IsHealingPool() && ParentObject.HasEffect("Submerged"))
                 {
@@ -164,7 +166,7 @@ namespace XRL.World.Parts.Mutation
 
             }
             //...
-            if (E.ID == "DeepStrikeCommand")
+            else if (E.ID == "DeepStrikeCommand")
             {
                 if (!ParentObject.HasEffect("Submerged"))
                 {
@@ -205,6 +207,21 @@ namespace XRL.World.Parts.Mutation
 
                     }
                 }
+            }
+
+            else if (E.ID == "AIGetOffensiveMutationList")
+            {
+                //AddPlayerMessage("I'mma keel yo ass.");
+                if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
+                {
+                    E.AddAICommand("DiveCommand");
+                }
+                int intParameter = E.GetIntParameter("Distance");
+                if (E.GetGameObjectParameter("Target") != null && intParameter <= 1 && !ParentObject.IsFrozen() && IsMyActivatedAbilityAIUsable(DeepStrikeActivatedAbility))
+                {
+                    E.AddAICommand("DeepStrikeCommand");
+                }
+
             }
 
             return base.FireEvent(E);

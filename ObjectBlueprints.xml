@@ -109,4 +109,10 @@
                 <part Name="WMTailMutator" />
                 <part Name="Physics" Weight="0"></part>
         </object>
+
+        <object Name="BaseFish" Inherits="Animal" Load="Merge">
+                <mutation Name="wmGills" Level="10" />
+
+        </object>
+
 </objects>
