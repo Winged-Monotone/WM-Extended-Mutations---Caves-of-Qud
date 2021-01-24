@@ -150,7 +150,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool HandleEvent(GetSwimmingPerformanceEvent E)
         {
-            E.MoveSpeedPenalty -= 100;
+            E.MoveSpeedPenalty -= 50;
             return true;
         }
         public bool HasPermutation(GameObject ParentObject)

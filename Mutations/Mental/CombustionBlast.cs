@@ -128,7 +128,7 @@ namespace XRL.World.Parts.Mutation
             }
             if (ParentObject.HasEffect("Dazed") || ParentObject.HasEffect("Confused"))
             {
-                Physics.ApplyExplosion(currentCell, GetForce(Level, Charges), usedCells, hit, true, true, ParentObject, GetDamage(Level, Charges), 1, false, 2);
+                Physics.ApplyExplosion(currentCell, GetForce(Level, Charges), usedCells, hit, true, true, ParentObject, GetDamage(Level, Charges), 1, false, false, 2);
                 AddPlayerMessage("You lack the concentration to hold your focus! The collected energy explodes in your face!");
                 return;
             }

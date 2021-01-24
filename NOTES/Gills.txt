@@ -1,0 +1,46 @@
+Gills
+
+Submerge yourself in water for extended periods of time.
+
+You can now submerge yourself in deep enough water (375 && >), gaining a pleathora of benefits:
+
+- Enemies cannot reach you unless they have a ranged weapon or are also submerged.
+- You regenerate HP twice as fast while submerged.
+- You move 25% faster and are 25% quicker in water.
+
+
+Prefab
+1. command that causes the submerging effect.
+2. Submerged effect
+3. Void that handles submerging
+needs to check: 
+    are you in water?
+    do you already have flying? or any other effect that should disrupt being submerged in water
+    Are you already submerged? 
+    are you on the overmap?
+    How is the duration of which you are in water calculated. [10 * (toughnessmod x players level / 5)]
+
+
+Most if not everything will be handled in the effect.
+Its improtant to use objectenteringcell, and not object enteredcell.
+Look at flying for examples to boilerplate
+
+
+
+
+Fins
+
+You are adorned with several fins across your body.
+
+You move more quickly in water. This scales with level.
+
+
+Hydrofabrica
+
+Through sheer will, you shake the moistened air and conjure a deluge of streaming water.
+
+Create a cone of water in front of you, enemies in the torrent are pushed back and take damage, higher levels summon larger piles of water at a larger distance.
+
+We need a void, not unlike the one called in combustion blast
+buffer
+choose cone?

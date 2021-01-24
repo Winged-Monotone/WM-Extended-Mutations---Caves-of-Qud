@@ -23,10 +23,12 @@
     <mutation Load="Merge" Name="Multiple Legs" Cost="4" MaxSelected="1" Class="MultipleLegs" Exclusions="SerpentineForm" BearerDescription="the many-legged" Code="bo"></mutation>
     <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
     <mutation Code="sm" BearerDescription="those who are covered in scales" Exclusions="Chitinous Skin" Class="RoughScales" MaxSelected="1" Cost="1" Name="Rough Scales"></mutation>
-    <mutation Code="se" BearerDescription="those with the progenitor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
+    <mutation Code="se" BearerDescription="those with the progeniteor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
     <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
     <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
     <mutation Code="tit" BearerDescription="those who bleed acid" Exclusions="Gelatinous Form (Acid)" Class="AcidicBlood" MaxSelected="1" Cost="2" Name="Acidic Blood"></mutation>
+    <mutation Code="gl" BearerDescription="those with glistening gills" Exclusions="GelatinousFormPoison,GelatinousFormAcid" Class="Gills" MaxSelected="1" Cost="2" Name="Gills"></mutation>
+    <mutation Code="fl" BearerDescription="those with glistening fins" Exclusions="" Class="Fins" MaxSelected="1" Cost="1" Name="Fins"></mutation>
 
   </category>
 
@@ -34,6 +36,8 @@
     <mutation Code="f1" BearerDescription="those with the stalker's eye." Exclusions="" Class="CombustionBlast" MaxSelected="1" Cost="5" Name="Combustion Blast"></mutation>
     <mutation Code="bud" BearerDescription="those who manifest limbs" Exclusions="" Class="Psybrachiomancy" MaxSelected="1" Cost="4" Name="Psybrachiomancy"></mutation>
     <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="Sciophagia" MaxSelected="1" Cost="4" Name="Sciophagia"></mutation>
+    <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
+
   </category>
 
 </mutations>
