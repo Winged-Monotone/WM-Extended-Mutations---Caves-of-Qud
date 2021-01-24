@@ -46,9 +46,7 @@ namespace XRL.World.Parts.Mutation
                + "\n\n"
                + "\t Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
                + "\t You regenerate HP twice as fast while submerged.\n"
-               + "\t {{B|+100}} Reputation with Fish and Frogs."
-               + "\n\n"
-               + "Submersion Duration: 10";
+               + "\t {{B|+100}} Reputation with Fish and Frogs.";
 
             }
         }
@@ -187,7 +185,7 @@ namespace XRL.World.Parts.Mutation
                         }
                     }
 
-                    DidX("rushes from the deep", "to deliver an attack", null, null, ParentObject);
+                    DidX("rush", " from the deep to deliver an attack", "!", null, ParentObject);
 
                     try
                     {
