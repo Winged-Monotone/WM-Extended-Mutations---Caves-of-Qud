@@ -39,11 +39,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "Create a cone of surging water in front of you, enemies in the torrent are pushed back and take damage, higher levels summon larger piles of water at a larger distance."
-            + "\n\n"
-            + "\t Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
-            + "\t You regenerate HP twice as fast while submerged.\n"
-            + "\t {{B|+100}} Reputation with Fish and Frogs.";
+            return "Create a cone of surging water in front of you, enemies in the torrent are pushed back and take damage, higher levels summon larger piles of water at a larger distance.";
         }
 
         public static string[] ColorList = new string[5]

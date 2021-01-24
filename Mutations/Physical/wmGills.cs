@@ -36,9 +36,7 @@ namespace XRL.World.Parts.Mutation
                + "\n\n"
                + "\t Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
                + "\t You regenerate HP twice as fast while submerged.\n"
-               + "\t {{B|+100}} Reputation with Fish and Frogs."
-               + "\n\n"
-               + "Submersion Duration: " + (ParentObject.Statistics["Toughness"].Modifier * 10) * Level;
+               + "\t {{B|+100}} Reputation with Fish and Frogs.";
             }
             else
             {
@@ -49,6 +47,10 @@ namespace XRL.World.Parts.Mutation
                + "\t {{B|+100}} Reputation with Fish and Frogs.";
 
             }
+        }
+        public override bool CanLevel()
+        {
+            return false;
         }
 
         public override bool AllowStaticRegistration()
