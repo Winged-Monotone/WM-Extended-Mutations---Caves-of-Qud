@@ -70,11 +70,11 @@ namespace XRL.World.Parts.Mutation
 
         public override bool ChangeLevel(int NewLevel)
         {
-            if (ParentObject != null)
-            {
-                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
-                XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1400, false);
-            }
+            // if (ParentObject != null)
+            // {
+            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
+            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1400, false);
+            // }
 
             return base.ChangeLevel(NewLevel);
         }

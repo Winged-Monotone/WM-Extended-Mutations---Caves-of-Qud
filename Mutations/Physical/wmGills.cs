@@ -60,8 +60,11 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Fish", 100, false);
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Frogs", 100, false);
+            // if (ParentObject != null)
+            // {
+            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Fish", 100, false);
+            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Frogs", 100, false);
+            // }
 
             this.DeepStrikeActivatedAbility = base.AddMyActivatedAbility("Deep-Strike", "DeepStrikeCommand", "Power", null, "v", null, false, false, false, false, false);
             this.DiveActivatedAbility = base.AddMyActivatedAbility("Dive", "DiveCommand", "Physical Mutation", null, "v", null, false, false, false, false, false);
@@ -216,7 +219,10 @@ namespace XRL.World.Parts.Mutation
                 //AddPlayerMessage("I'mma keel yo ass.");
                 if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
                 {
-                    E.AddAICommand("DiveCommand");
+                    if (!ParentObject.HasEffect("Submerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)
+                    {
+                        E.AddAICommand("DiveCommand");
+                    }
                 }
                 int intParameter = E.GetIntParameter("Distance");
                 if (E.GetGameObjectParameter("Target") != null && intParameter <= 1 && !ParentObject.IsFrozen() && IsMyActivatedAbilityAIUsable(DeepStrikeActivatedAbility))

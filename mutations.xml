@@ -8,7 +8,6 @@
   <category Name="Hybrid" DisplayName="&amp;MHybrid">
     <mutation Code="num" BearerDescription="those who are gifted by the anima" Exclusions="" Class="Animancy" MaxSelected="1" Cost="3" Name="Ancestral Scionasia"></mutation>
     <mutation Code="bds" BearerDescription="the ones trapped in hollow husk" Exclusions="Incorporeal Form,Domination,Ego Projection" Class="PsychoplethoricDeterioration" MaxSelected="1" Cost="-4" Name="Psychoplethoric Deterioration"></mutation>
-
   </category>
 
   <category Name="PhysicalDefects" DisplayName="{{R|Physical Defects}}">
@@ -37,7 +36,6 @@
     <mutation Code="bud" BearerDescription="those who manifest limbs" Exclusions="" Class="Psybrachiomancy" MaxSelected="1" Cost="4" Name="Psybrachiomancy"></mutation>
     <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="Sciophagia" MaxSelected="1" Cost="4" Name="Sciophagia"></mutation>
     <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
-
   </category>
 
 </mutations>

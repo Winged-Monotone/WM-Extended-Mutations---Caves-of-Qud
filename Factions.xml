@@ -2,13 +2,15 @@
 	<faction Name="Arachnids" Load="Merge">
 		<partreputation About="ChitinousSkin" Value="100" />
 	</faction>
-	
+
 	<faction Name="Insects" Load="Merge">
 		<partreputation About="ChitinousSkin" Value="100" />
 	</faction>
 
 	<faction Name="Seekers" Load="Merge">
-		<partreputation About="MindEater" Value="-400" />
+		<partreputation About="PsychoplethoricDeterioration" Value="400" />
+		<partreputation About="Sciophagia" Value="100" />
+
 	</faction>
 
 	<faction Name="Unshelled Reptiles" Load="Merge">
@@ -27,4 +29,14 @@
 	<faction Name="Oozes" Load="Merge">
 		<partreputation About="GelatinousFormPoison" Value="200" />
 	</faction>
+
+	<faction Name="Frogs" Load="Merge">
+		<partreputation About="Gills" Value="100" />
+	</faction>
+
+	<faction Name="Fish" Load="Merge">
+		<partreputation About="wmGills" Value="100" />
+		<partreputation About="Fins" Value="100" />
+	</faction>
+
 </factions>

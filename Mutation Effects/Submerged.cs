@@ -31,13 +31,13 @@ namespace XRL.World.Effects
 
         public override bool Apply(GameObject Object)
         {
-            AddPlayerMessage("You dive into depths!");
+            XDidY(Object, "dive", "into the depths", "!");
             return true;
         }
 
         public override void Remove(GameObject Object)
         {
-            AddPlayerMessage(Object.It + " emerge from the depths.");
+            XDidY(Object, "emerge", "from the depths", "!");
         }
 
         public override bool Render(RenderEvent E)

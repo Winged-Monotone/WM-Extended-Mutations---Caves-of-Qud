@@ -56,8 +56,8 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            if (ParentObject != null)
-            { XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Fish", 100, false); }
+            // if (ParentObject != null)
+            // { XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Fish", 100, false); }
 
             return base.Mutate(GO, Level);
         }
