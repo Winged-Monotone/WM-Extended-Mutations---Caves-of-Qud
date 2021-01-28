@@ -63,7 +63,7 @@ namespace XRL.World.Parts.Mutation
 
 
             base.PlayWorldSound("splashcast", 15f, 0, true, null);
-            XDidY(ParentObject, "materializes a torrential flood", null, "!", "C", null);
+            XDidY(ParentObject, "materialize", "a torrential flood", "!", "C", null);
             for (int index = 0; index < CellList.Count; index++)
             {
                 Cell C = CellList[index];

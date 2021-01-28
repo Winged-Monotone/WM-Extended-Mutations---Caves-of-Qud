@@ -4,13 +4,15 @@ using XRL.World;
 namespace WingysMod.HarmonyPatches
 {
     [HarmonyPatch(typeof(GameObject))]
-    class Patch_PhaseAndFlightMatches
+    public class Patch_PhaseAndFlightMatches
     {
+        public static bool TemporarilyDisabled = false;
+
         [HarmonyPostfix]
         [HarmonyPatch("PhaseAndFlightMatches")]
         static void Postfix(GameObject GO, ref GameObject __instance, ref bool __result)
         {
-            if (__result == true)
+            if (__result == true && TemporarilyDisabled == false)
             {
                 if (__instance.IsCreature && GO.IsCreature)
                 {

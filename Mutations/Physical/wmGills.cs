@@ -4,6 +4,8 @@ using XRL.Rules;
 using XRL.UI;
 using XRL.World.Effects;
 using System.Linq;
+using HarmonyLib;
+using WingysMod.HarmonyPatches;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -122,7 +124,7 @@ namespace XRL.World.Parts.Mutation
                     {
                         ParentObject.Splash("{{b|*}}");
                         ParentObject.RemoveEffect("Submerged");
-                        return false;
+                        return true;
                     }
                     else
                     {
@@ -164,52 +166,53 @@ namespace XRL.World.Parts.Mutation
 
             else if (E.ID == "EndTurn")
             {
+                Cell Cell = ParentObject.GetCurrentCell();
+
                 if (ParentObject.IsHealingPool() && ParentObject.HasEffect("Submerged"))
                 {
-                    ParentObject.Heal(ParentObject.Statistics["Toughness"].Modifier);
+                    ParentObject.Heal(+ParentObject.Statistics["Toughness"].Modifier);
                 }
-
+                else if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.HasEffect("Submerged")))
+                {
+                    ParentObject.Splash("{{b|*}}");
+                    ParentObject.RemoveEffect("Submerged");
+                    return false;
+                }
             }
             //...
             else if (E.ID == "DeepStrikeCommand")
             {
-                if (!ParentObject.HasEffect("Submerged"))
+                if (!ParentObject.HasEffect("Submerged") && ParentObject.IsPlayer())
                 {
                     AddPlayerMessage("You must be submerged in deep pools of liquid to use this attack.");
+                }
+                else if (!ParentObject.HasEffect("Submerged") && !ParentObject.IsPlayer())
+                {
+
                 }
                 else
                 {
                     string Direction = E.GetStringParameter("Direction");
+
                     if (Direction == null)
                     {
-                        if (ParentObject.IsPlayer())
+                        if (ParentObject != null)
                         {
                             Direction = PickDirectionS();
-                        }
-                        if (Direction == null)
-                        {
-                            return false;
-                        }
-                    }
+                            try
+                            {
+                                Patch_PhaseAndFlightMatches.TemporarilyDisabled = true;
+                                Event e = Event.New("CommandAttackDirection", "Direction", Direction);
+                                bool num11 = FireEvent(e);
+                                ParentObject.FireEvent(e);
+                                XDidY(ParentObject, "rush", "from the depths to strike!", "!", "C", ParentObject);
+                                Patch_PhaseAndFlightMatches.TemporarilyDisabled = false;
+                            }
+                            catch
+                            {
 
-                    DidX("rush", " from the deep to deliver an attack", "!", null, ParentObject);
-
-                    try
-                    {
-                        Event e = Event.New("CommandAttackDirection", "Direction", Direction);
-                        bool num11 = FireEvent(e);
-                        if (!num11)
-                        {
-                            return false;
+                            }
                         }
-                        else
-                        {
-                            ParentObject.UseEnergy(500);
-                        }
-                    }
-                    catch
-                    {
-
                     }
                 }
             }

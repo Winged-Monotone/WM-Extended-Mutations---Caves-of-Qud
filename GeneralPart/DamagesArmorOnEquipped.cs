@@ -30,11 +30,11 @@ namespace XRL.World.Parts
 
         public override bool HandleEvent(EquipperEquippedEvent E)
         {
-            if (E.Actor == ParentObject && E.Actor.IsPlayer() && E.Item.HasPart("Armor"))
+            if (E.Actor == ParentObject && E.Actor.IsPlayer() && E.Item.HasPart("Armor") && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
             {
                 if (E.Item.GetTier() < 5)
                 {
-                    AddPlayerMessage("1 check");
+                    // AddPlayerMessage("1 check");
 
                     Popup.Show("This armor cannot be equipped, it'd melt right off you!");
                     AddPlayerMessage("This armor cannot be equipped, it'd melt right off you!");
@@ -45,14 +45,14 @@ namespace XRL.World.Parts
             {
                 if (E.Item.GetTier() < 5 && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
                 {
-                    AddPlayerMessage("2 check");
+                    // AddPlayerMessage("2 check");
                     E.Item.ForceUnequip();
                 }
             }
-            if (E.Item.GetTier() <= 5 && E.Item.IsEquippedProperly() && E.Item.HasPart("Armor"))
+            if (E.Item.GetTier() <= 5 && E.Item.IsEquippedProperly() && E.Item.HasPart("Armor") && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
             {
                 E.Item.Destroy("Destroyed by " + ParentObject.its + " acidic body.", false, false);
-                AddPlayerMessage("3 check");
+                // AddPlayerMessage("3 check");
             }
             return base.HandleEvent(E);
         }
