@@ -243,7 +243,9 @@ namespace XRL.World.Parts.Mutation
                         ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
                         WeaponObjToBeManifested.AddPart<PsionicWeapon>();
                         Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
-                        ParentObject.FireEvent(e);
+                        WeaponObjToBeManifested.FireEvent(e);
+                        // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
+                        // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
                     }
                     else
                     {
@@ -251,7 +253,9 @@ namespace XRL.World.Parts.Mutation
                         ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
                         WeaponObjToBeManifested.AddPart<PsionicWeapon>();
                         Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
-                        ParentObject.FireEvent(e);
+                        WeaponObjToBeManifested.FireEvent(e);
+                        // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
+                        // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
                     }
 
                 }

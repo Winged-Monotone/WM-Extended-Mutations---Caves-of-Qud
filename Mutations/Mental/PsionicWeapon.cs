@@ -62,30 +62,37 @@ namespace XRL.World.Parts
             return true;
         }
 
+        public GameObject PsiHolder()
+        {
+            GameObject holder = null;
+            if (ParentObject.Equipped != null)
+            {
+                holder = ParentObject.Equipped;
+            }
+            else if (ParentObject.InInventory != null)
+            {
+                holder = ParentObject.InInventory;
+            }
+            if (holder == null)
+            {
+                throw new Exception("Couldn't find whoever's holding this object!");
+            }
+            return holder;
+        }
+
         public void UpdatePsionicProperties()
         {
-            try
-            {
-                var ObjectOwner = ParentObject.Equipped;
-                var ParentsPsiMar = ObjectOwner.GetPart<Psychomateriartis>();
+            var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
 
-                var ParentsEgo = ObjectOwner.Statistics["Ego"].Modifier;
-                var ParentsLevel = ObjectOwner.Statistics["Level"].BaseValue;
+            var ParentsEgo = PsiHolder().Statistics["Ego"].Modifier;
+            var ParentsLevel = PsiHolder().Statistics["Level"].BaseValue;
 
-                var WeaponProps = ParentObject.GetPart<MeleeWeapon>();
+            var WeaponProps = ParentObject.GetPart<MeleeWeapon>();
 
-                WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
-            }
-            catch
-            {
-
-            }
+            WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
         }
         public override void Register(GameObject Object)
         {
-            ParentObject.RegisterPartEvent((IPart)this, "SyncMutationLevels");
-            ParentObject.RegisterPartEvent((IPart)this, "AfterLevelGainedEarly");
-            ParentObject.RegisterPartEvent((IPart)this, "PsionicWeaponManifestedEvent");
             Object.RegisterPartEvent(this, "SyncMutationLevels");
             Object.RegisterPartEvent(this, "AfterLevelGainedEarly");
             Object.RegisterPartEvent(this, "PsionicWeaponManifestedEvent");
@@ -104,7 +111,7 @@ namespace XRL.World.Parts
             }
             else if (E.ID == "PsionicWeaponManifestedEvent")
             {
-                var ParentsPsiMar = ParentObject.GetPart<Psychomateriartis>();
+                var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
 
                 var ColorSelected = E.GetStringParameter("ColorChoice");
                 var WeaponManifested = E.GetGameObjectParameter("ManifestedWeapon");
@@ -112,15 +119,17 @@ namespace XRL.World.Parts
                 string newName = Popup.AskString("Give your bonded-weapon a name.", "", 99);
                 if (!String.IsNullOrEmpty(newName))
                 {
-                    WeaponManifested.DisplayName = newName;
+                    WeaponManifested.DisplayName = "{{psionic|psionic}} " + newName;
                     WeaponManifested.SetIntProperty("ProperNoun", 1);
                 }
 
-                WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor(ColorSelected);
+                // WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+                // WeaponManifested.pRender.ColorString = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+
             }
             else if (E.ID == "EndTurn")
             {
-                AddPlayerMessage("EndTurnCheck, Is this Working?");
+                // AddPlayerMessage("EndTurnCheck, Is this Working?");
 
             }
 
