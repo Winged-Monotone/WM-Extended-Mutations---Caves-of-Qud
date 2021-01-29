@@ -25,6 +25,14 @@ namespace XRL.World.Parts
         {
             if (E.ID == "EntityHasSwappedBodies")
             {
+                if (!ParentObject.HasSkill("Survival"))
+                {
+                    ParentObject.AddSkill("Survival");
+                    if (!ParentObject.HasSkill("Survival_Camp"))
+                    {
+                        ParentObject.AddSkill("Survival_Camp");
+                    }
+                }
                 if (IsOriginalEntity == false)
                 {
                     IsOriginalEntity = true;

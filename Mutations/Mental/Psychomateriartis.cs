@@ -66,7 +66,7 @@ namespace XRL.World.Parts.Mutation
                     if (!string.IsNullOrEmpty(colorChoice))
                     {
                         Popup.Show($"You chose to {mainChoice} with a {colorChoice} {weaponChoice}");
-                        ManifestPsiWeapon(weaponChoice);
+                        ManifestPsiWeapon(weaponChoice, colorChoice);
                     }
                 }
             }
@@ -88,8 +88,80 @@ namespace XRL.World.Parts.Mutation
                 return valuesToShow[result];
             }
         }
-
-        public void ManifestPsiWeapon(string weaponOptions)
+        public string GetWeaponTileColor(string colorChoice)
+        {
+            if (colorChoice == "Red")
+            {
+                return "R";
+            }
+            else if (colorChoice == "Dark Red")
+            {
+                return "r";
+            }
+            else if (colorChoice == "Blue")
+            {
+                return "B";
+            }
+            else if (colorChoice == "Dark Blue")
+            {
+                return "b";
+            }
+            else if (colorChoice == "Green")
+            {
+                return "G";
+            }
+            else if (colorChoice == "Dark Green")
+            {
+                return "g";
+            }
+            else if (colorChoice == "Yellow")
+            {
+                return "W";
+            }
+            else if (colorChoice == "Magenta")
+            {
+                return "M";
+            }
+            else if (colorChoice == "Dark Magenta")
+            {
+                return "m";
+            }
+            else if (colorChoice == "Orange")
+            {
+                return "O";
+            }
+            else if (colorChoice == "Dark Orange")
+            {
+                return "o";
+            }
+            else if (colorChoice == "Brown")
+            {
+                return "w";
+            }
+            else if (colorChoice == "Cyan")
+            {
+                return "C";
+            }
+            else if (colorChoice == "Dark Cyan")
+            {
+                return "c";
+            }
+            else if (colorChoice == "White")
+            {
+                return "Y";
+            }
+            else if (colorChoice == "Gray")
+            {
+                return "y";
+            }
+            else if (colorChoice == "Black")
+            {
+                return "K";
+            }
+            else
+                return null;
+        }
+        public void ManifestPsiWeapon(string weaponOptions, string colorChoice)
         {
             var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
             var ParentsLevel = ParentObject.Statistics["Level"].BaseValue;
@@ -107,7 +179,7 @@ namespace XRL.World.Parts.Mutation
                     {
                         AddPlayerMessage("Return Tier 1");
 
-                        WeaponBPToBeManifested = "Long Sword1";
+                        WeaponBPToBeManifested = "Long Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
@@ -157,45 +229,35 @@ namespace XRL.World.Parts.Mutation
 
                         WeaponBPToBeManifested = "Long Sword8";
                     }
+                }
 
-                    if (WeaponObjToBeManifested == null)
+                if (WeaponObjToBeManifested == null)
+                {
+                    AddPlayerMessage("Begin Manifest Weapon");
+
+                    WeaponObjToBeManifested = GameObject.create(WeaponBPToBeManifested);
+
+                    if (ParentObject.GetFirstBodyPart("Hand").Equipped == null)
                     {
-                        AddPlayerMessage("Begin Manifest Weapon");
-
-                        WeaponObjToBeManifested = GameObject.create(WeaponBPToBeManifested);
-                        // WeaponObjToBeManifested.AddPart<PsionicWeapon>();
-                        // WeaponObjToBeManifested.RemovePart("TinkerItem");
-
-                        AddPlayerMessage("Weapon Ready for Parameter Shifts");
-
-
-                        // var WeaponProps = WeaponObjToBeManifested.GetPart<MeleeWeapon>();
-
-                        // Create some kind of algorythm that takes the creatures ego and increases it based on the level, think of it as the more you level the mutation, the more you get access to your ego score.
-
-                        // WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (Level * 0.1));
-
-                        AddPlayerMessage("Weapon Ego Set");
-
-
-                        AddPlayerMessage("Weapon Fabricated: equipping ...");
-
-                        if (ParentObject.GetFirstBodyPart("Hand").Equipped == null)
-                        {
-                            AddPlayerMessage("Weapon equipped.");
-                            ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
-                        }
-                        else
-                        {
-                            AddPlayerMessage("Weapon is added to Inventory.");
-                            ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
-                        }
-
+                        AddPlayerMessage("Weapon equipped.");
+                        ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
+                        WeaponObjToBeManifested.AddPart<PsionicWeapon>();
+                        Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                        ParentObject.FireEvent(e);
+                    }
+                    else
+                    {
+                        AddPlayerMessage("Weapon is added to Inventory.");
+                        ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
+                        WeaponObjToBeManifested.AddPart<PsionicWeapon>();
+                        Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                        ParentObject.FireEvent(e);
                     }
 
                 }
             }
         }
+
 
         public Psychomateriartis()
         {
@@ -231,7 +293,7 @@ namespace XRL.World.Parts.Mutation
         {
             Object.RegisterPartEvent((IPart)this, "EndTurn");
             Object.RegisterPartEvent(this, "Dismember");
-            Object.RegisterPartEvent(this, "CommandManifestLimb");
+            Object.RegisterPartEvent(this, "PsionicWeaponManifestedEvent");
             Object.RegisterPartEvent(this, "ManifestWeaponCommand");
             base.Register(Object);
         }
@@ -240,7 +302,6 @@ namespace XRL.World.Parts.Mutation
         {
             if (E.ID == "ManifestWeaponCommand")
             {
-
                 if (IsMyActivatedAbilityUsable(ManifestPsiWeaponActivatedAbilityID))
                 {
                     BeginWeaponManifestOptionList();

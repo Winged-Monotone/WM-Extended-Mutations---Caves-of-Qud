@@ -70,11 +70,14 @@ namespace XRL.World.Parts.Mutation
 
         public override bool ChangeLevel(int NewLevel)
         {
-            // if (ParentObject != null)
-            // {
-            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", -400, false);
-            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1400, false);
-            // }
+            if (!ParentObject.HasSkill("Survival"))
+            {
+                ParentObject.AddSkill("Survival");
+                if (!ParentObject.HasSkill("Survival_Camp"))
+                {
+                    ParentObject.AddSkill("Survival_Camp");
+                }
+            }
 
             return base.ChangeLevel(NewLevel);
         }
@@ -374,6 +377,15 @@ namespace XRL.World.Parts.Mutation
                 var ParentIntelligenceSkillAward = (ParentObject.BaseStat("Intelligence") - 10) * 4;
 
                 ParentObject.FireEvent(Event.New("EntityHasSwappedBodies"));
+
+                if (!ParentObject.HasSkill("Survival"))
+                {
+                    ParentObject.AddSkill("Survival");
+                    if (!ParentObject.HasSkill("Survival_Camp"))
+                    {
+                        ParentObject.AddSkill("Survival_Camp");
+                    }
+                }
 
                 foreach (var k in SkillListing)
                 {
