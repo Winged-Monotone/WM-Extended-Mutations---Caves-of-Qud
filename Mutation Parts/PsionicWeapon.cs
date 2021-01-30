@@ -17,6 +17,9 @@ namespace XRL.World.Parts
     [Serializable]
     public class PsionicWeapon : IModification
     {
+
+        public int SwingsRemaining;
+        public GameObject OriginalOwner;
         public PsionicWeapon()
         {
 
@@ -26,16 +29,27 @@ namespace XRL.World.Parts
         {
 
         }
+        public bool isOriginalOwner()
+        {
+            if (OriginalOwner == ParentObject)
+            {
+                return true;
+            }
+            else
+
+                return false;
+        }
         public override void ApplyModification(GameObject Object)
         {
-            var ParentObject = Object.Equipped;
-            var ParentsPsiMar = ParentObject.GetPart<Psychomateriartis>();
+            OriginalOwner = PsiHolder();
+
+            var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
 
             Object.RequirePart<MeleeWeapon>().Stat = "Ego";
             // Create some kind of algorythm that takes the creatures ego and increases it based on the level, think of it as the more you level the mutation, the more you get access to your ego score.
 
-            var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
-            var ParentsLevel = ParentObject.Statistics["Level"].BaseValue;
+            var ParentsEgo = PsiHolder().Statistics["Ego"].Modifier;
+            var ParentsLevel = PsiHolder().Statistics["Level"].BaseValue;
 
             var WeaponProps = Object.GetPart<MeleeWeapon>();
 
@@ -61,7 +75,6 @@ namespace XRL.World.Parts
             }
             return true;
         }
-
         public GameObject PsiHolder()
         {
             GameObject holder = null;
@@ -79,7 +92,6 @@ namespace XRL.World.Parts
             }
             return holder;
         }
-
         public void UpdatePsionicProperties()
         {
             var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
@@ -87,24 +99,50 @@ namespace XRL.World.Parts
             var ParentsEgo = PsiHolder().Statistics["Ego"].Modifier;
             var ParentsLevel = PsiHolder().Statistics["Level"].BaseValue;
 
-            var WeaponProps = ParentObject.GetPart<MeleeWeapon>();
+            var WeaponMeleeProps = ParentObject.GetPart<MeleeWeapon>();
+            var WeaponCurrency = ParentObject.GetIntProperty("Value");
 
-            WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
+            // ParentObject.id = ParentsPsiMar.PsiWeaponsID + ParentsPsiMar.WeaponCounter;
+
+            SwingsRemaining = 100 * (ParentsEgo);
+
+            ParentObject.SetIntProperty("Value", (int)Math.Min(1, WeaponCurrency * 0.1));
+            WeaponMeleeProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
+
         }
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "SyncMutationLevels");
             Object.RegisterPartEvent(this, "AfterLevelGainedEarly");
             Object.RegisterPartEvent(this, "PsionicWeaponManifestedEvent");
+            Object.RegisterPartEvent(this, "WeaponAfterAttack");
+            Object.RegisterPartEvent(this, "WeaponAfterAttackMissed");
 
             Object.RegisterPartEvent(this, "EndTurn");
-
 
             base.Register(Object);
         }
         public override bool FireEvent(Event E)
         {
-            if ((E.ID == "SyncMutationLevels" || E.ID == "AfterLevelGainedEarly"))
+            if (E.ID == "WeaponAfterAttack" || E.ID == "WeaponAfterAttackMissed")
+            {
+                if (ParentObject.EquippedProperlyBy() != OriginalOwner)
+                {
+                    SwingsRemaining--;
+                    if (SwingsRemaining <= 0)
+                    {
+                        GameObject equipped = ParentObject.Equipped;
+                        DidX("disappear", null, null, null, null, equipped);
+                        ParentObject.ForceUnequipRemoveAndRemoveContents(Silent: true);
+                        ParentObject.Destroy();
+                        if (equipped != null && equipped.IsValid() && !equipped.IsPlayer() && equipped.pBrain != null)
+                        {
+                            equipped.pBrain.PerformReequip();
+                        }
+                    }
+                }
+            }
+            else if ((E.ID == "SyncMutationLevels" || E.ID == "AfterLevelGainedEarly"))
             {
                 AddPlayerMessage("Sync Mutation or Level Gained early, Psionics Props update fire");
                 UpdatePsionicProperties();

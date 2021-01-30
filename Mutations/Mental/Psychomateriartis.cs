@@ -14,7 +14,11 @@ namespace XRL.World.Parts.Mutation
 
     public class Psychomateriartis : BaseMutation
     {
+        public int WeaponCounter = 0;
         public Guid ManifestPsiWeaponActivatedAbilityID;
+        public Guid ReturnPsiWeaponActivatedAbilityID;
+        public string PsiWeaponsID => ParentObject.id + "::Psychomaterialus" + WeaponCounter;
+
         public static readonly List<string> MainOptions = new List<string>()
         {
             "Weave Psi-Weapon",
@@ -56,18 +60,28 @@ namespace XRL.World.Parts.Mutation
         {
             PlayWorldSound("beginmanifest");
             string mainChoice = GetChoice(MainOptions);
+
             if (!string.IsNullOrEmpty(mainChoice))
             {
-                string weaponChoice = GetChoice(WeaponOptions);
-                if (!string.IsNullOrEmpty(weaponChoice))
+                if (mainChoice == "Weave Psi-Weapon")
                 {
-                    PlayWorldSound("ManifestWeapon");
-                    string colorChoice = GetChoice(ColorOptions);
-                    if (!string.IsNullOrEmpty(colorChoice))
+                    string weaponChoice = GetChoice(WeaponOptions);
+                    if (!string.IsNullOrEmpty(weaponChoice))
                     {
-                        Popup.Show($"You chose to {mainChoice} with a {colorChoice} {weaponChoice}");
-                        ManifestPsiWeapon(weaponChoice, colorChoice);
+                        PlayWorldSound("ManifestWeapon");
+                        string colorChoice = GetChoice(ColorOptions);
+
+                        if (!string.IsNullOrEmpty(colorChoice))
+                        {
+                            // Popup.Show($"You chose to {mainChoice} with a {colorChoice} {weaponChoice}");
+                            ManifestPsiWeapon(weaponChoice, colorChoice);
+                        }
                     }
+                }
+                if (mainChoice == "Dismiss Psi-Weapon")
+                {
+                    PlayWorldSound("dismiss");
+                    DismissPsiWeapon();
                 }
             }
         }
@@ -163,6 +177,8 @@ namespace XRL.World.Parts.Mutation
         }
         public void ManifestPsiWeapon(string weaponOptions, string colorChoice)
         {
+            ++WeaponCounter;
+
             var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
             var ParentsLevel = ParentObject.Statistics["Level"].BaseValue;
 
@@ -230,39 +246,74 @@ namespace XRL.World.Parts.Mutation
                         WeaponBPToBeManifested = "Long Sword8";
                     }
                 }
+            }
 
-                if (WeaponObjToBeManifested == null)
+
+            if (WeaponObjToBeManifested == null)
+            {
+                AddPlayerMessage("Begin Manifest Weapon");
+
+                WeaponObjToBeManifested = GameObject.create(WeaponBPToBeManifested);
+
+                if (ParentObject.GetFirstBodyPart("Hand").Equipped == null)
                 {
-                    AddPlayerMessage("Begin Manifest Weapon");
-
-                    WeaponObjToBeManifested = GameObject.create(WeaponBPToBeManifested);
-
-                    if (ParentObject.GetFirstBodyPart("Hand").Equipped == null)
-                    {
-                        AddPlayerMessage("Weapon equipped.");
-                        ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
-                        WeaponObjToBeManifested.AddPart<PsionicWeapon>();
-                        Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
-                        WeaponObjToBeManifested.FireEvent(e);
-                        // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
-                        // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
-                    }
-                    else
-                    {
-                        AddPlayerMessage("Weapon is added to Inventory.");
-                        ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
-                        WeaponObjToBeManifested.AddPart<PsionicWeapon>();
-                        Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
-                        WeaponObjToBeManifested.FireEvent(e);
-                        // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
-                        // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
-                    }
-
+                    AddPlayerMessage("Weapon equipped.");
+                    ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
+                    WeaponObjToBeManifested.AddPart<PsionicWeapon>();
+                    WeaponObjToBeManifested.id = PsiWeaponsID;
+                    Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    WeaponObjToBeManifested.FireEvent(e);
+                    // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
+                    // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
+                }
+                else
+                {
+                    AddPlayerMessage("Weapon is added to Inventory.");
+                    ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
+                    WeaponObjToBeManifested.AddPart<PsionicWeapon>();
+                    WeaponObjToBeManifested.id = PsiWeaponsID;
+                    Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    WeaponObjToBeManifested.FireEvent(e);
+                    // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
+                    // WeaponObjToBeManifested.pRender.ColorString = GetWeaponTileColor($"&{colorChoice}");
                 }
             }
         }
+        public void DismissPsiWeapon()
+        {
+            Zone ParentsCurrentZone = ParentObject.CurrentZone;
 
+            if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null)
+            {
+                GameObject PsiWeaponInZone = ParentsCurrentZone.findObjectById(PsiWeaponsID);
 
+                DidX("disappear", null, null, null, null, PsiWeaponInZone);
+                PsiWeaponInZone.CurrentCell.Splash("{{M|*}}");
+                PsiWeaponInZone.ForceUnequipRemoveAndRemoveContents(Silent: true);
+                PsiWeaponInZone.Destroy();
+                if (WeaponCounter < 0)
+                { --WeaponCounter; }
+            }
+            else if (ParentObject.HasObjectInInventory(PsiWeaponsID))
+            {
+                var ParentsInventory = ParentObject.GetInventory();
+                foreach (GameObject O in ParentsInventory)
+                {
+                    if (O.id == PsiWeaponsID)
+                    {
+                        DidX("disappear", null, null, null, null, O);
+                        O.ForceUnequipRemoveAndRemoveContents(Silent: true);
+                        O.Destroy();
+                        if (WeaponCounter < 0)
+                        { --WeaponCounter; }
+                    }
+                }
+            }
+            else
+            {
+                AddPlayerMessage("There are no weapons to dismiss.");
+            }
+        }
         public Psychomateriartis()
         {
             this.DisplayName = "Psychomateriartus";
@@ -272,7 +323,6 @@ namespace XRL.World.Parts.Mutation
         {
             return true;
         }
-
         public override string GetDescription()
         {
             return "Your incredible psionic power comes at the cost of overwhelming the stability of your physical form, you are doomed to hunting down physical husk to maintain your tether to this reality, albeit the magnitude of your psionic abilities are of a realm of its own.\n"
@@ -289,17 +339,38 @@ namespace XRL.World.Parts.Mutation
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
             this.ManifestPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Manifest Psi-Weapon", "ManifestWeaponCommand", "Mental Mutation", "Manifest a psionic weapon.", "\u03A9");
+            this.ReturnPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Return Psi-Weapon", "ReturnWeaponCommand", "Mental Mutation", "Rematerialize a lost psi-weapon to your primary hand.", "\u03A9");
 
             return base.Mutate(GO, Level);
         }
-
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent((IPart)this, "EndTurn");
             Object.RegisterPartEvent(this, "Dismember");
             Object.RegisterPartEvent(this, "PsionicWeaponManifestedEvent");
             Object.RegisterPartEvent(this, "ManifestWeaponCommand");
+            Object.RegisterPartEvent(this, "ReturnWeaponCommand");
             base.Register(Object);
+        }
+        public void ReturnPsiWeapon()
+        {
+            Zone ParentsCurrentZone = ParentObject.CurrentZone;
+
+            if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null)
+            {
+                GameObject PsiWeaponInZone = ParentsCurrentZone.findObjectById(PsiWeaponsID);
+                var ParentsEquippableSlot = ParentObject.GetFirstBodyPart("Hand");
+                PlayWorldSound("return");
+                PsiWeaponInZone.CurrentCell.Splash("{{M|*}}");
+                XDidY(PsiWeaponInZone, "suddenly appears", "in " + ParentObject.its + " " + ParentsEquippableSlot, "!", null, ParentObject);
+                // PsiWeaponInZone.EquipObject(ParentObject, ParentsEquippableSlot, true);
+                PsiWeaponInZone.ForceEquipObject(ParentObject, ParentsEquippableSlot, true);
+
+            }
+            else
+            {
+                AddPlayerMessage("Your weapon is not receivable at this time.");
+            }
         }
 
         public override bool FireEvent(Event E)
@@ -309,6 +380,13 @@ namespace XRL.World.Parts.Mutation
                 if (IsMyActivatedAbilityUsable(ManifestPsiWeaponActivatedAbilityID))
                 {
                     BeginWeaponManifestOptionList();
+                }
+            }
+            else if (E.ID == "ReturnWeaponCommand")
+            {
+                if (IsMyActivatedAbilityUsable(ReturnPsiWeaponActivatedAbilityID))
+                {
+                    ReturnPsiWeapon();
                 }
             }
             return base.FireEvent(E);
