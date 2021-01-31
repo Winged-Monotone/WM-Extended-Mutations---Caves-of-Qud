@@ -131,10 +131,13 @@ namespace XRL.World.Parts
                     SwingsRemaining--;
                     if (SwingsRemaining <= 0)
                     {
+                        var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
+
                         GameObject equipped = ParentObject.Equipped;
                         DidX("disappear", null, null, null, null, equipped);
                         ParentObject.ForceUnequipRemoveAndRemoveContents(Silent: true);
                         ParentObject.Destroy();
+                        ParentsPsiMar.WeaponCounter -= 1;
                         if (equipped != null && equipped.IsValid() && !equipped.IsPlayer() && equipped.pBrain != null)
                         {
                             equipped.pBrain.PerformReequip();

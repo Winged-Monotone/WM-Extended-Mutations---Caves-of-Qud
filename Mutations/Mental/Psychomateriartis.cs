@@ -239,7 +239,7 @@ namespace XRL.World.Parts.Mutation
 
                         WeaponBPToBeManifested = "Long Sword7";
                     }
-                    else if ((ParentsEgo + ParentsLevel) <= 27)
+                    else if ((ParentsEgo + ParentsLevel) < 27)
                     {
                         AddPlayerMessage("Return Tier 8");
 
@@ -283,31 +283,62 @@ namespace XRL.World.Parts.Mutation
         {
             Zone ParentsCurrentZone = ParentObject.CurrentZone;
 
-            if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null)
+            if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null && !ParentObject.HasObjectInInventory(PsiWeaponsID) || !ParentObject.HasEquippedObject(PsiWeaponsID))
             {
+                AddPlayerMessage("Dismissing Item in zone.");
                 GameObject PsiWeaponInZone = ParentsCurrentZone.findObjectById(PsiWeaponsID);
 
-                DidX("disappear", null, null, null, null, PsiWeaponInZone);
-                PsiWeaponInZone.CurrentCell.Splash("{{M|*}}");
-                PsiWeaponInZone.ForceUnequipRemoveAndRemoveContents(Silent: true);
-                PsiWeaponInZone.Destroy();
-                if (WeaponCounter < 0)
-                { --WeaponCounter; }
-            }
-            else if (ParentObject.HasObjectInInventory(PsiWeaponsID))
-            {
-                var ParentsInventory = ParentObject.GetInventory();
-                foreach (GameObject O in ParentsInventory)
+                // DidX("disappear", null, null, null, null, PsiWeaponInZone);
+                // PsiWeaponInZone.CurrentCell.Splash("{{M|*}}");
+                // PsiWeaponInZone.Destroy();
+                var ParentsInventory = ParentObject.Inventory;
+                var WeaponInInvo = ParentsInventory.GetObjects();
+
+                foreach (var O in WeaponInInvo)
                 {
                     if (O.id == PsiWeaponsID)
                     {
-                        DidX("disappear", null, null, null, null, O);
-                        O.ForceUnequipRemoveAndRemoveContents(Silent: true);
-                        O.Destroy();
-                        if (WeaponCounter < 0)
-                        { --WeaponCounter; }
+                        if (O.IsEquippedProperly())
+                        {
+                            O.ForceUnequipRemoveAndRemoveContents(Silent: true);
+                            ParentsInventory.RemoveObject(O);
+                            DidX("disappear", null, null, null, null, O);
+                        }
+                        else
+                        {
+                            ParentsInventory.RemoveObject(O);
+                            DidX("disappear", null, null, null, null, O);
+                        }
                     }
                 }
+                if (WeaponCounter > 0)
+                { --WeaponCounter; }
+            }
+            else if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null && ParentObject.HasObjectInInventory(PsiWeaponsID) || ParentObject.HasEquippedObject(PsiWeaponsID))
+            {
+                AddPlayerMessage("Dismissing item in Inventory.");
+                var ParentsInventory = ParentObject.Inventory;
+                var WeaponInInvo = ParentsInventory.GetObjects();
+
+                foreach (var O in WeaponInInvo)
+                {
+                    if (O.id == PsiWeaponsID)
+                    {
+                        if (O.IsEquippedProperly())
+                        {
+                            O.ForceUnequipRemoveAndRemoveContents(Silent: true);
+                            ParentsInventory.RemoveObject(O);
+                            DidX("disappear", null, null, null, null, O);
+                        }
+                        else
+                        {
+                            ParentsInventory.RemoveObject(O);
+                            DidX("disappear", null, null, null, null, O);
+                        }
+                    }
+                }
+                if (WeaponCounter > 0)
+                { --WeaponCounter; }
             }
             else
             {
@@ -359,17 +390,36 @@ namespace XRL.World.Parts.Mutation
             if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null)
             {
                 GameObject PsiWeaponInZone = ParentsCurrentZone.findObjectById(PsiWeaponsID);
-                var ParentsEquippableSlot = ParentObject.GetFirstBodyPart("Hand");
+                var ParentsEquippableSlot = ParentObject.Body.GetPrimaryLimbType();
                 PlayWorldSound("return");
                 PsiWeaponInZone.CurrentCell.Splash("{{M|*}}");
-                XDidY(PsiWeaponInZone, "suddenly appears", "in " + ParentObject.its + " " + ParentsEquippableSlot, "!", null, ParentObject);
-                // PsiWeaponInZone.EquipObject(ParentObject, ParentsEquippableSlot, true);
-                PsiWeaponInZone.ForceEquipObject(ParentObject, ParentsEquippableSlot, true);
+                var ParentsInventory = ParentObject.Inventory;
+                ParentsInventory.AddObject(PsiWeaponInZone, true, true, true);
 
+                // PsiWeaponInZone.EquipObject(ParentObject, ParentsEquippableSlot, true);
+
+                var WeaponInInvo = ParentsInventory.GetObjects();
+
+                foreach (var O in WeaponInInvo)
+                {
+                    if (O.id == PsiWeaponsID)
+                    {
+                        if (ParentObject.Body.HasPrimaryHand())
+                        {
+                            XDidY(O, "suddenly appear", "in " + ParentObject.its + " " + ParentsEquippableSlot, "!", null, ParentObject);
+                            O.ForceEquipObject(ParentObject, ParentsEquippableSlot, true);
+                        }
+                        else
+                        {
+                            XDidY(O, "suddenly appear", "in " + ParentObject.its + " inventory", "!", null, ParentObject);
+                        }
+
+                    }
+                }
             }
             else
             {
-                AddPlayerMessage("Your weapon is not receivable at this time.");
+                AddPlayerMessage("Your weapon is not returnable at this time.");
             }
         }
 
