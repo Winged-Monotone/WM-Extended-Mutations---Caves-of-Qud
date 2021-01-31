@@ -296,16 +296,22 @@ namespace XRL.World.Parts.Mutation
 
                 foreach (var O in WeaponInInvo)
                 {
+                    AddPlayerMessage("Dismissing: Starting for each.");
+
                     if (O.id == PsiWeaponsID)
                     {
-                        if (O.IsEquippedProperly())
+                        AddPlayerMessage("Dismissing getting ID for: " + PsiWeaponsID);
+
+                        if (O.IsEquippedProperly() || O.IsEquippedOnPrimary() || O.IsEquippedOnType("Hands"))
                         {
+                            AddPlayerMessage("Dismissing getting Obj in primary for: " + O);
                             O.ForceUnequipRemoveAndRemoveContents(Silent: true);
                             ParentsInventory.RemoveObject(O);
                             DidX("disappear", null, null, null, null, O);
                         }
                         else
                         {
+                            AddPlayerMessage("Dismissing getting Obj in inv for: " + O);
                             ParentsInventory.RemoveObject(O);
                             DidX("disappear", null, null, null, null, O);
                         }
@@ -406,11 +412,13 @@ namespace XRL.World.Parts.Mutation
                     {
                         if (ParentObject.Body.HasPrimaryHand())
                         {
+                            AddPlayerMessage("Return getting Obj in Prime for: " + O);
                             XDidY(O, "suddenly appear", "in " + ParentObject.its + " " + ParentsEquippableSlot, "!", null, ParentObject);
                             O.ForceEquipObject(ParentObject, ParentsEquippableSlot, true);
                         }
                         else
                         {
+                            AddPlayerMessage("Dismissing getting Obj in Inv for: " + O);
                             XDidY(O, "suddenly appear", "in " + ParentObject.its + " inventory", "!", null, ParentObject);
                         }
 
