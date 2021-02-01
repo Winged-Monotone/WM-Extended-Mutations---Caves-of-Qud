@@ -165,8 +165,8 @@ namespace XRL.World.Parts
                     ParentObject.id = ParentsPsiMar.PsiWeaponsID;
                 }
 
-                // WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
-                // WeaponManifested.pRender.ColorString = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+                WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+                WeaponManifested.pRender.ColorString = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
 
             }
             else if (E.ID == "EndTurn")
