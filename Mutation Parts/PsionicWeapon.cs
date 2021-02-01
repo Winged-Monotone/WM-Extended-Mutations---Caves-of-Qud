@@ -102,7 +102,7 @@ namespace XRL.World.Parts
             var WeaponMeleeProps = ParentObject.GetPart<MeleeWeapon>();
             var WeaponCurrency = ParentObject.GetIntProperty("Value");
 
-            // ParentObject.id = ParentsPsiMar.PsiWeaponsID + ParentsPsiMar.WeaponCounter;
+
 
             SwingsRemaining = 100 * (ParentsEgo);
 
@@ -162,6 +162,7 @@ namespace XRL.World.Parts
                 {
                     WeaponManifested.DisplayName = "{{psionic|psionic}} " + newName;
                     WeaponManifested.SetIntProperty("ProperNoun", 1);
+                    ParentObject.id = ParentsPsiMar.PsiWeaponsID;
                 }
 
                 // WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
@@ -170,8 +171,7 @@ namespace XRL.World.Parts
             }
             else if (E.ID == "EndTurn")
             {
-                // AddPlayerMessage("EndTurnCheck, Is this Working?");
-
+                // AddPlayerMessage("EndTurnCheck, current weapons ID: " + ParentObject.id);
             }
 
             return base.FireEvent(E);
