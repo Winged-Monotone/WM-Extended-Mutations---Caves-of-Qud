@@ -27,7 +27,7 @@ namespace XRL.World.Parts
             {
                 EgoBonus = E.Actor.StatMod("Ego", 0);
                 MeleeWeapon WeaponStatistics = E.Item.GetPart<MeleeWeapon>();
-                WeaponStatistics.MaxStrengthBonus = EgoBonus;
+                WeaponStatistics.MaxStrengthBonus = (int)Math.Floor(EgoBonus * ((ParentObject.Equipped.Statistics["Level"].BaseValue / 5) * 0.1)); ;
             }
             return base.HandleEvent(E);
         }

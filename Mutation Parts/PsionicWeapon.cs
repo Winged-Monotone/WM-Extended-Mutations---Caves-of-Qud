@@ -71,7 +71,8 @@ namespace XRL.World.Parts
             {
                 return ID == ObjectCreatedEvent.ID
                         || ID == StatChangeEvent.ID
-                        || ID == AwardedXPEvent.ID;
+                        || ID == AwardedXPEvent.ID
+                        || ID == OnDestroyObjectEvent.ID;
             }
             return true;
         }
@@ -147,14 +148,14 @@ namespace XRL.World.Parts
             }
             else if ((E.ID == "SyncMutationLevels" || E.ID == "AfterLevelGainedEarly"))
             {
-                AddPlayerMessage("Sync Mutation or Level Gained early, Psionics Props update fire");
+                // AddPlayerMessage("Sync Mutation or Level Gained early, Psionics Props update fire");
                 UpdatePsionicProperties();
             }
             else if (E.ID == "PsionicWeaponManifestedEvent")
             {
                 var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
 
-                var ColorSelected = E.GetStringParameter("ColorChoice");
+                // var ColorSelected = E.GetStringParameter("ColorChoice");
                 var WeaponManifested = E.GetGameObjectParameter("ManifestedWeapon");
 
                 string newName = Popup.AskString("Give your bonded-weapon a name.", "", 99);
@@ -165,8 +166,8 @@ namespace XRL.World.Parts
                     ParentObject.id = ParentsPsiMar.PsiWeaponsID;
                 }
 
-                WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
-                WeaponManifested.pRender.ColorString = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+                // WeaponManifested.pRender.TileColor = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
+                // WeaponManifested.pRender.ColorString = ParentsPsiMar.GetWeaponTileColor($"&{ColorSelected}");
 
             }
             else if (E.ID == "EndTurn")
@@ -176,15 +177,27 @@ namespace XRL.World.Parts
 
             return base.FireEvent(E);
         }
+        public override bool HandleEvent(OnDestroyObjectEvent E)
+        {
+            var CheckObject = E.Object;
+
+            if (CheckObject == ParentObject)
+            {
+                var ParentsPsiMar = PsiHolder().GetPart<Psychomateriartis>();
+                if (ParentsPsiMar.WeaponCounter > 0)
+                    ParentsPsiMar.WeaponCounter -= 1;
+            }
+            return false;
+        }
         public override bool HandleEvent(AwardedXPEvent E)
         {
-            AddPlayerMessage("Updating Weapon Ego Score: AwardXP");
+            // AddPlayerMessage("Updating Weapon Ego Score: AwardXP");
             UpdatePsionicProperties();
             return false;
         }
         public override bool HandleEvent(StatChangeEvent E)
         {
-            AddPlayerMessage("Updating Weapon Ego Score: StatChange");
+            // AddPlayerMessage("Updating Weapon Ego Score: StatChange");
             UpdatePsionicProperties();
             return false;
         }

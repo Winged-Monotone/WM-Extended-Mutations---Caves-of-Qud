@@ -70,13 +70,13 @@ namespace XRL.World.Parts.Mutation
                     if (!string.IsNullOrEmpty(weaponChoice))
                     {
                         PlayWorldSound("ManifestWeapon");
-                        string colorChoice = GetChoice(ColorOptions);
+                        // string colorChoice = GetChoice(ColorOptions);
 
-                        if (!string.IsNullOrEmpty(colorChoice))
-                        {
-                            // Popup.Show($"You chose to {mainChoice} with a {colorChoice} {weaponChoice}");
-                            ManifestPsiWeapon(weaponChoice, colorChoice);
-                        }
+                        // if (!string.IsNullOrEmpty(colorChoice))
+                        // {
+                        // Popup.Show($"You chose to {mainChoice} with a {colorChoice} {weaponChoice}");
+                        ManifestPsiWeapon(weaponChoice);
+                        // }
                     }
                 }
                 if (mainChoice == "Dismiss Psi-Weapon")
@@ -222,73 +222,82 @@ namespace XRL.World.Parts.Mutation
             else
                 return null;
         }
-        public void ManifestPsiWeapon(string weaponOptions, string colorChoice)
+        public void ManifestPsiWeapon(string weaponOptions)
         {
             ++WeaponCounter;
 
             var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
             var ParentsLevel = ParentObject.Statistics["Level"].BaseValue;
+            var ParentsCharges = ParentObject.Statistics["PsiCharges"].BaseValue;
+
 
             string WeaponBPToBeManifested = null;
             GameObject WeaponObjToBeManifested = null;
 
-            if (weaponOptions == "Long Sword")
+            PsiCost = 2;
+            NewPsiCost = PsiCost * WeaponCounter;
+            if (NewPsiCost > ParentsCharges)
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("You lack enough maximum charges to forge another weapon.");
+                return;
+            }
+            else if (weaponOptions == "Long Sword")
+            {
+                // AddPlayerMessage("Long Sword Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Long Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Long Sword2";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Long Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Long Sword3";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Long Sword4";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Long Sword5";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Long Sword6";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Long Sword7";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Long Sword8";
                     }
@@ -296,61 +305,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Short Sword")
             {
-                AddPlayerMessage("Short Sword Branch Selected");
+                // AddPlayerMessage("Short Sword Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Short Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Short Sword2";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Short Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Short Sword3";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Short Sword4";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Short Sword5";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Short Sword6";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Short Sword7";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Short Sword8";
                     }
@@ -358,61 +367,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Great Sword")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Great Sword Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Two-Handed Sword";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Long Sword2th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Long Swordth";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Long Sword3th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Long Sword4th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Long Sword5th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Long Sword6th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Long Sword7th";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Long Sword8th";
                     }
@@ -420,61 +429,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Dagger")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Dagger Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Dagger";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Dagger2";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Dagger";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Dagger3";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Dagger4";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Dagger5";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Dagger6";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Dagger7";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Dagger8";
                     }
@@ -482,61 +491,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Cudgel")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Cudgel Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Club";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Mace2";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel War Hammer";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Cudgel3";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Cudgel4";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Cudgel5";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Cudgel6";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Cudgel7";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Cudgel8";
                     }
@@ -544,61 +553,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Great Hammer")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Great Hammer Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Walking Stick";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Shillelagh";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel War Hammerth";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Cudgel3th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Cudgel4th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Cudgel5th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Cudgel6th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Cudgel7th";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Cudgel8th";
                     }
@@ -606,61 +615,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Axe")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Axe Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Battle Axe";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Battle Axe2";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Battle Axe";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Battle Axe3";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Battle Axe4";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Battle Axe5";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Battle Axe6";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Battle Axe7";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Battle Axe8";
                     }
@@ -668,61 +677,61 @@ namespace XRL.World.Parts.Mutation
             }
             else if (weaponOptions == "Great Axe")
             {
-                AddPlayerMessage("Long Sword Branch Selected");
+                // AddPlayerMessage("Great Axe Branch Selected");
 
                 if (WeaponBPToBeManifested == null)
                 {
                     if (ParentsEgo + ParentsLevel <= 3)
                     {
-                        AddPlayerMessage("Return Tier 1");
+                        // AddPlayerMessage("Return Tier 1");
 
                         WeaponBPToBeManifested = "Iron Vinereaper";
                     }
                     else if (ParentsEgo + ParentsLevel <= 7)
                     {
-                        AddPlayerMessage("Return Tier 2");
+                        // AddPlayerMessage("Return Tier 2");
 
                         WeaponBPToBeManifested = "Steel Vinereaper";
                     }
                     else if (ParentsEgo + ParentsLevel <= 10)
                     {
-                        AddPlayerMessage("Return Tier Steel");
+                        // AddPlayerMessage("Return Tier Steel");
 
                         WeaponBPToBeManifested = "Steel Battle Axeth";
                     }
                     else if (ParentsEgo + ParentsLevel <= 13)
                     {
-                        AddPlayerMessage("Return Tier 3");
+                        // AddPlayerMessage("Return Tier 3");
 
                         WeaponBPToBeManifested = "Battle Axe3th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 17)
                     {
-                        AddPlayerMessage("Return Tier 4");
+                        // AddPlayerMessage("Return Tier 4");
 
                         WeaponBPToBeManifested = "Battle Axe4th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 20)
                     {
-                        AddPlayerMessage("Return Tier 5");
+                        // AddPlayerMessage("Return Tier 5");
 
                         WeaponBPToBeManifested = "Battle Axe5th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 23)
                     {
-                        AddPlayerMessage("Return Tier 6");
+                        // AddPlayerMessage("Return Tier 6");
 
                         WeaponBPToBeManifested = "Battle Axe6th";
                     }
                     else if (ParentsEgo + ParentsLevel <= 26)
                     {
-                        AddPlayerMessage("Return Tier 7");
+                        // AddPlayerMessage("Return Tier 7");
 
                         WeaponBPToBeManifested = "Battle Axe7th";
                     }
                     else if ((ParentsEgo + ParentsLevel) >= 27)
                     {
-                        AddPlayerMessage("Return Tier 8");
+                        // AddPlayerMessage("Return Tier 8");
 
                         WeaponBPToBeManifested = "Battle Axe8th";
                     }
@@ -731,17 +740,19 @@ namespace XRL.World.Parts.Mutation
 
             if (WeaponObjToBeManifested == null)
             {
-                AddPlayerMessage("Begin Manifest Weapon");
+                // AddPlayerMessage("Begin Manifest Weapon");
 
                 WeaponObjToBeManifested = GameObject.create(WeaponBPToBeManifested);
 
                 if (ParentObject.GetFirstBodyPart("Hand").Equipped == null)
                 {
-                    AddPlayerMessage("Weapon equipped.");
+                    // AddPlayerMessage("Weapon equipped.");
                     ParentObject.GetFirstBodyPart("Hand").Equip(WeaponObjToBeManifested);
                     WeaponObjToBeManifested.AddPart<PsionicWeapon>();
                     WeaponObjToBeManifested.id = PsiWeaponsID;
-                    Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    // Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    Event e = Event.New("PsionicWeaponManifestedEvent", "ManifestedWeapon", WeaponObjToBeManifested);
+
                     WeaponObjToBeManifested.FireEvent(e);
 
                     // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
@@ -749,11 +760,13 @@ namespace XRL.World.Parts.Mutation
                 }
                 else
                 {
-                    AddPlayerMessage("Weapon is added to Inventory.");
+                    // AddPlayerMessage("Weapon is added to Inventory.");
                     ParentObject.Inventory.AddObject(WeaponObjToBeManifested);
                     WeaponObjToBeManifested.AddPart<PsionicWeapon>();
                     WeaponObjToBeManifested.id = PsiWeaponsID;
-                    Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    // Event e = Event.New("PsionicWeaponManifestedEvent", "ColorChoice", colorChoice, "ManifestedWeapon", WeaponObjToBeManifested);
+                    Event e = Event.New("PsionicWeaponManifestedEvent", "ManifestedWeapon", WeaponObjToBeManifested);
+
                     WeaponObjToBeManifested.FireEvent(e);
 
                     // WeaponObjToBeManifested.pRender.TileColor = GetWeaponTileColor($"&{colorChoice}");
@@ -768,10 +781,10 @@ namespace XRL.World.Parts.Mutation
             if (ParentsCurrentZone.findObjectById(PsiWeaponsID) != null && !ParentObject.HasObjectInInventory(PsiWeaponsID) || !ParentObject.HasEquippedObject(PsiWeaponsID))
             {
 
-                AddPlayerMessage("Dismissing Weapon");
+                // AddPlayerMessage("Dismissing Weapon");
                 GameObject PsiWeaponInZone = ParentsCurrentZone.findObjectById(PsiWeaponsID);
 
-                AddPlayerMessage("Finding: " + PsiWeaponsID);
+                // AddPlayerMessage("Finding: " + PsiWeaponsID);
 
                 var ParentsInventory = ParentObject.Inventory;
                 var WeaponInInvo = ParentsInventory.GetObjects();
@@ -782,7 +795,7 @@ namespace XRL.World.Parts.Mutation
 
                 if (ParentsBodySlots.IsItemEquippedOnLimbType(PsiWeaponInZone, "Hand"))
                 {
-                    AddPlayerMessage("Dismissing getting Obj in Hands for: " + PsiWeaponInZone);
+                    // AddPlayerMessage("Dismissing getting Obj in Hands for: " + PsiWeaponInZone);
                     PsiWeaponInZone.ForceUnequipAndRemove(true);
 
                     ParentsInventory.RemoveObject(PsiWeaponInZone);
@@ -796,7 +809,7 @@ namespace XRL.World.Parts.Mutation
                 else if (ParentsInventory.HasObject(PsiWeaponInZone))
                 {
                     ParentsInventory.RemoveObject(PsiWeaponInZone);
-                    AddPlayerMessage("Dismissing getting Obj in inv for: " + PsiWeaponInZone);
+                    // AddPlayerMessage("Dismissing getting Obj in inv for: " + PsiWeaponInZone);
                     if (WeaponCounter > 0)
                     {
                         --WeaponCounter;
@@ -842,11 +855,11 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
             if (Level < 9)
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
+                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
                 + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
                 + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
             else
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
+                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
                 + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
                 + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
         }
@@ -857,9 +870,7 @@ namespace XRL.World.Parts.Mutation
             {
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
-            this.ManifestPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Psi-Forge", "ManifestWeaponCommand", "Mental Mutation", "Manifest or dismiss a psionic weapon.\n\n"
-            + "Maximum Psipoint Threshhold needed: " + "{{B|" + PsiCost + "}}\n\n"
-            + "Next Weapons' cost:" + "{{B|" + NewPsiCost, "}}\u03A9");
+            this.ManifestPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Psi-Forge", "ManifestWeaponCommand", "Mental Mutation", "Manifest or dismiss a psionic weapon.\n\n");
             this.ReturnPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Return Psi-Weapon", "ReturnWeaponCommand", "Mental Mutation", "Rematerialize your last previously crafted psi-arm to your hand so long as you are in the same parasang, this is a turnless action.", "\u03A9");
 
             return base.Mutate(GO, Level);
@@ -898,7 +909,7 @@ namespace XRL.World.Parts.Mutation
                     {
                         if (ParentObject.Body.HasPrimaryHand())
                         {
-                            AddPlayerMessage("Return getting Obj in Prime for: " + O);
+                            // AddPlayerMessage("Return getting Obj in Prime for: " + O);
                             XDidY(O, "suddenly appear", "in " + ParentObject.its + " " + ParentsEquippableSlot, "!", null, ParentObject);
                             O.ForceEquipObject(ParentObject, ParentsEquippableSlot, true);
                             Event @event = Event.New("CommandForceEquipObject");
@@ -909,7 +920,7 @@ namespace XRL.World.Parts.Mutation
                         }
                         else
                         {
-                            AddPlayerMessage("Dismissing getting Obj in Inv for: " + O);
+                            // AddPlayerMessage("Dismissing getting Obj in Inv for: " + O);
                             XDidY(O, "suddenly appear", "in " + ParentObject.its + " inventory", "!", null, ParentObject);
                         }
                     }
