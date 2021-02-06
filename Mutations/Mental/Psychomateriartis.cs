@@ -855,11 +855,11 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
             if (Level < 9)
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
+                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
                 + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
                 + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
             else
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivical to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
+                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
                 + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
                 + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
         }

@@ -49,11 +49,3 @@ More like Gigantic Thanks to Armithaig, Lampreys-For-Days, Gnarf, Icecubegame, h
 
 
 
-Thermokinesis 
-
-Your mind can alter the latent temperatures of things around you.
-
-Alterunus : expend psi-points to increase or decrease a targets resistances to heat or cold for a duration. ((including yourself))
-Altermultis : expend psi-points to increase or decrease a 5x5 zone's ambient temperature for a duration. ((including yourself))
-    SUB ABILITY:
-You also have a latent sense of temperatures around you and can sense enemies who emit high temperatures through walls and around you equal to radius depending on the level of the mutation.

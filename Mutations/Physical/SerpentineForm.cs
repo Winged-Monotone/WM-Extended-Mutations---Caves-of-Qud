@@ -293,7 +293,7 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("Your barbs gouge into your foe, dealing extra damage!");
-                Target.TakeDamage(PermutationDamageQuills());
+                Target.TakeDamage(PermutationDamageQuills(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
                 PerformDamage(Target);
             }
 
@@ -301,14 +301,14 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("You strangle your enemy with miasmic poisons, dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFP(), Attributes: "Poison");
+                Target.TakeDamage(PermutationDamagGFP(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
                 PerformDamage(Target);
             }
             else if (HasPermutation(ParentObject) == true && HasSynergyMutation.HasMutation("GelatinousFormAcid") == true)
             {
 
                 AddPlayerMessage("You strangle your enemy with your acidic form dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFA(), Attributes: "Acid");
+                Target.TakeDamage(PermutationDamagGFA(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
                 PerformDamage(Target);
             }
             else if (Synergies >= 1)
@@ -318,7 +318,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     AddPlayerMessage("Your barbs gouge into your foe, dealing extra damage!");
                 }
-                Target.TakeDamage(PermutationDamagGFA(), Attributes: "Acid");
+                Target.TakeDamage(PermutationDamagGFA(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
                 PerformDamage(Target);
             }
         }

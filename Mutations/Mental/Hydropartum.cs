@@ -106,7 +106,7 @@ namespace XRL.World.Parts.Mutation
                         if (cObj != ParentObject)
                         {
                             cObj.Push(ParentObject.CurrentCell.GetDirectionFromCell(cObj.CurrentCell), 1000, 4);
-                            cObj.TakeDamage(2 * Level, null, "Drowned in a torrent of liquid.", ParentObject, ParentObject, ParentObject, "from %t torrent-blast.", false, false, false);
+                            cObj.TakeDamage(2 * Level, "Drowned in a torrent of liquid.", null, "from %t torrent-blast.", ParentObject, ParentObject, ParentObject);
                             cObj.GetAngryAt(ParentObject, -50);
                         }
                     }

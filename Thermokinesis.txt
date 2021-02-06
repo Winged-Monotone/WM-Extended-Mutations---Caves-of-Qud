@@ -1,0 +1,30 @@
+Thermokinesis 
+
+Your can alter the latent temperatures of things around you.
+-------------------------------------------------------------------
+
+Vita Intuitus
+
+Your intricate mind deciphers secrets 
+
+
+-------------------------------------------------------------------
+
+post scripting
+
+
+This ability also includes a GUI System. It allows the play to select a target or an area and depending on the points used, alter the area's ambient temperature, or alter a creatures resistances both negatively and positively.
+
+I'm still not sure what happens when you alter the temperature of an area around you.
+
+the GUI will have some commands:
+
+Increase resistances
+Decrease resistances
+    An Ask Dialogue appears, requiring the player to pay a certain amount of charges, each charge is equivelent to 5 + [Ego Mod] in terms of units. After which the player is prompted to select a target and then the target will
+-
+
+Alter Latent Temperatures
+
+    Increase
+    Decrease
