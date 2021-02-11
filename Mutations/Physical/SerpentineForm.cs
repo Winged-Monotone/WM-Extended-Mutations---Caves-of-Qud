@@ -165,24 +165,46 @@ namespace XRL.World.Parts.Mutation
         }
         public int PermutationDamageQuills()
         {
-            int QuillExtraDamage = ParentObject.GetPart<Quills>().Level + Rules.Stat.Roll("1d4");
-            return QuillExtraDamage;
+            try
+            {
+                int QuillExtraDamage = ParentObject.GetPart<Quills>().Level + Rules.Stat.Roll("1d4");
+                return QuillExtraDamage;
+            }
+            catch
+            {
+                return 0;
+            }
         }
         public int PermutationDamagGFP()
         {
-            int GFPoisonExtraDamage = ParentObject.GetPart<GelatinousFormPoison>().Level + Rules.Stat.Roll("1d6");
-            return GFPoisonExtraDamage;
+            try
+            {
+                int GFPoisonExtraDamage = ParentObject.GetPart<GelatinousFormPoison>().Level + Rules.Stat.Roll("1d6");
+                return GFPoisonExtraDamage;
+            }
+            catch
+            {
+                return 0;
+            }
         }
         public int PermutationDamagGFA()
         {
-            int GFAcidExtraDamage = ParentObject.GetPart<GelatinousFormPoison>().Level + Rules.Stat.Roll("1d6");
-            return GFAcidExtraDamage;
+            try
+            {
+                int GFAcidExtraDamage = ParentObject.GetPart<GelatinousFormPoison>().Level + Rules.Stat.Roll("1d6");
+                return GFAcidExtraDamage;
+            }
+            catch
+            {
+                return 0;
+            }
         }
         public bool ResistanceSave(GameObject Target)
         {
             int EnterSaveTarget = 10 + Level;
             string EnterSaveStat = "Toughness";
             return Target.MakeSave(EnterSaveStat, EnterSaveTarget, ParentObject, "Strength", "Constriction");
+
         }
         public override bool FireEvent(Event E)
         {

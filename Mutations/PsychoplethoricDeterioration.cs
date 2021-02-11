@@ -160,6 +160,7 @@ namespace XRL.World.Parts.Mutation
             Cell TargetCell = PickDirection();
             if (TargetCell == null)
             {
+                AddPlayerMessage("Soulshunt requires a target.");
                 return;
             }
 
@@ -193,6 +194,13 @@ namespace XRL.World.Parts.Mutation
                     if (!TargetHusk.HasPart("NotOriginalEntity"))
                     {
                         TargetHusk.AddPart<NotOriginalEntity>();
+                    }
+                    if (ParentObject.IsEsper())
+                    {
+                        if (!TargetHusk.IsEsper())
+                        {
+                            TargetHusk.SetStringProperty("Genotype", "Esper");
+                        }
                     }
 
                     TargetsEgo.BaseValue = OwnersEgo.BaseValue;
