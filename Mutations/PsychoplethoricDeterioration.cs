@@ -431,7 +431,7 @@ namespace XRL.World.Parts.Mutation
                     }
                     OriginalBody.GetAngryAt(ParentObject, -100);
 
-                    PlayWorldSound("disintegration");
+                    PlayWorldSound("soulshunt");
 
                     var DifferenceVar = ParentObject.StatMod("Ego") - OriginalBody.StatMod("Ego");
                     DifferenceVar *= 5;

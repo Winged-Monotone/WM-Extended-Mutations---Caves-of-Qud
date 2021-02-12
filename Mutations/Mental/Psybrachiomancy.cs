@@ -43,7 +43,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "{{gray|You can weave psionic arms into reality, they function like any other arm, but dissipate entirely upon being dismembered.";
+            return "{{gray|You can weave psionic arms into reality, they function like any other arm, but dissipate entirely upon being dismembered.}}";
         }
         public override bool Mutate(GameObject GO, int Level)
         {

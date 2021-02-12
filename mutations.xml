@@ -37,6 +37,7 @@
     <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="Sciophagia" MaxSelected="1" Cost="4" Name="Sciophagia"></mutation>
     <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
     <mutation Code="mom" BearerDescription="those who spin weaponized-thoughts" Exclusions="" Class="Psychomateriartis" MaxSelected="1" Cost="4" Name="Psychomateriartus"></mutation>
+    <mutation Code="via" BearerDescription="those with the sacred eyes" Exclusions="" Class="VitaIntuita" MaxSelected="1" Cost="1" Name="Vita Intuita"></mutation>
 
   </category>
 
