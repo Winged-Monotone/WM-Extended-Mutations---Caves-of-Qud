@@ -3,9 +3,11 @@ Thermokinesis
 Your can alter the latent temperatures of things around you.
 -------------------------------------------------------------------
 
-Vita Intuitus
+Vita Intuita
 
-Your intricate mind deciphers secrets 
+Your intricate mind pierces the laylines of the meta-plane, intuit unforeseen knowledge with your piercing gaze.
+
+Create a part that gets added to player on mutate, the part makes it so that if they activate the look command extra info is displayed to the player in regards to the targets 
 
 
 -------------------------------------------------------------------
