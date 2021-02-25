@@ -20,6 +20,14 @@
             "Psychomaterialus": [
                 "*cult*, mind-smiths",
                 "Forgemasters *cult*"
+            ],
+            "Thermokinesis": [
+                "*cult*, Sun-Moon Myriad",
+                "Thermocline *cult*"
+            ],
+            "VitaIntuita": [
+                "*cult*, God-Eye",
+                "Sultan's Sight *cult*"
             ]
         }
     }

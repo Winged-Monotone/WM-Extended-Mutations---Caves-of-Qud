@@ -115,7 +115,13 @@ namespace XRL.World.Parts.Mutation
         public override bool FireEvent(Event E)
         {
             //...
-            if (E.ID == "BeginMove" && ParentObject.HasEffect("Submerged"))
+            if (E.ID == "Regenerating" && ParentObject.HasEffect("Submerged"))
+            {
+                int RegenerationAmountParameter = E.GetIntParameter("Amount");
+                RegenerationAmountParameter += (int)Math.Ceiling((float)RegenerationAmountParameter);
+                E.SetParameter("Amount", RegenerationAmountParameter);
+            }
+            else if (E.ID == "BeginMove" && ParentObject.HasEffect("Submerged"))
             {
                 Cell Cell = E.GetParameter("DestinationCell") as Cell;
                 if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.IsPlayer() && ParentObject.HasEffect("Submerged")))

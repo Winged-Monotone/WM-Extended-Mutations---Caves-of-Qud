@@ -49,12 +49,12 @@ namespace XRL.World.Parts
 
             // AddPlayerMessage("Entity Data: Modifiers");
 
-            string TargetsStrengthMod = Target.Statistics.TryGetValue("Strength", out var str2) ? str2.Modifier.ToString() : "N/A";
-            string TargetsAgilityMod = Target.Statistics.TryGetValue("Agility", out var agi2) ? agi2.Modifier.ToString() : "N/A";
-            string TargetsToughnessMod = Target.Statistics.TryGetValue("Toughness", out var tou2) ? tou2.Modifier.ToString() : "N/A";
-            string TargetsintelligenceMod = Target.Statistics.TryGetValue("Toughness", out var inte2) ? inte2.Modifier.ToString() : "N/A";
-            string TargetsWillpowerMod = Target.Statistics.TryGetValue("Willpower", out var wil2) ? wil2.Modifier.ToString() : "N/A";
-            string TargetsEgoMod = Target.Statistics.TryGetValue("Ego", out var ego2) ? ego2.Modifier.ToString() : "N/A";
+            string TargetsStrengthMod = Target.Statistics.TryGetValue("Strength", out var str2) ? str2.Modifier.ToString() : " ";
+            string TargetsAgilityMod = Target.Statistics.TryGetValue("Agility", out var agi2) ? agi2.Modifier.ToString() : " ";
+            string TargetsToughnessMod = Target.Statistics.TryGetValue("Toughness", out var tou2) ? tou2.Modifier.ToString() : " ";
+            string TargetsintelligenceMod = Target.Statistics.TryGetValue("Toughness", out var inte2) ? inte2.Modifier.ToString() : " ";
+            string TargetsWillpowerMod = Target.Statistics.TryGetValue("Willpower", out var wil2) ? wil2.Modifier.ToString() : " ";
+            string TargetsEgoMod = Target.Statistics.TryGetValue("Ego", out var ego2) ? ego2.Modifier.ToString() : " ";
 
             // AddPlayerMessage("Entity Data: Physical Qualities");
 

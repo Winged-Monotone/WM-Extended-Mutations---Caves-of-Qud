@@ -140,7 +140,7 @@ namespace XRL.World.Parts.Mutation
                 }
                 else if (ParentsEgo + ParentsLevel <= 26)
                 {
-                    return "{{crysteel{{K|Flawless}} Crysteel}}";
+                    return "{{crysteel|{{K|Flawless}} Crysteel}}";
                 }
                 else if ((ParentsEgo + ParentsLevel) >= 27)
                 {
@@ -238,7 +238,7 @@ namespace XRL.World.Parts.Mutation
             NewPsiCost = PsiCost * WeaponCounter;
             if (NewPsiCost > ParentsCharges)
             {
-                // AddPlayerMessage("You lack enough maximum charges to forge another weapon.");
+                AddPlayerMessage("You lack enough maximum charges to forge another weapon.");
                 return;
             }
             else if (weaponOptions == "Long Sword")

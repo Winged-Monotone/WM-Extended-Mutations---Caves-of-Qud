@@ -32,12 +32,13 @@
   </category>
 
   <category Name="Mental" DisplayName="&amp;GMental Mutations" Stat="Ego" Property="MentalMutationShift" ForceProperty="MentalMutationForceShift">
-    <mutation Code="f1" BearerDescription="those with the flaming eye." Exclusions="" Class="CombustionBlast" MaxSelected="1" Cost="5" Name="Combustion Blast"></mutation>
+    <mutation Code="f1" BearerDescription="those with the flaming eye." Exclusions="PsionicMigraines" Class="CombustionBlast" MaxSelected="1" Cost="5" Name="Combustion Blast"></mutation>
     <mutation Code="bud" BearerDescription="those who manifest limbs" Exclusions="" Class="Psybrachiomancy" MaxSelected="1" Cost="4" Name="Psybrachiomancy"></mutation>
     <mutation Code="nom" BearerDescription="those who devour others' minds" Exclusions="" Class="Sciophagia" MaxSelected="1" Cost="4" Name="Sciophagia"></mutation>
     <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
     <mutation Code="mom" BearerDescription="those who spin weaponized-thoughts" Exclusions="" Class="Psychomateriartis" MaxSelected="1" Cost="4" Name="Psychomateriartus"></mutation>
     <mutation Code="via" BearerDescription="those with the sacred eyes" Exclusions="" Class="VitaIntuita" MaxSelected="1" Cost="1" Name="Vita Intuita"></mutation>
+    <mutation Code="tia" BearerDescription="those who warm and cool the wild world." Exclusions="" Class="Thermokinesis" MaxSelected="1" Cost="3" Name="Thermokinesis"></mutation>
 
   </category>
 

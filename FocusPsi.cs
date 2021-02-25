@@ -13,7 +13,7 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class FocusPsi : BaseMutation
     {
-        
+
         public int PsiCounter = 0;
         public bool isCharging;
         public int turnsTilPsiDecay;
@@ -338,7 +338,7 @@ namespace XRL.World.Parts.Mutation
             else if (E.ID == "FireEventDebuffSystem")
             {
                 Psybrachiomancy BrachMutation = ParentObject.GetPart<Psybrachiomancy>();
-                if (BrachMutation.ArmCounter > ParentObject.StatMod("Willpower") && !ParentObject.HasEffect("Psiburdening"))
+                if (BrachMutation.ArmCounter > ParentObject.StatMod("Willpower") + BrachMutation.Level / 2 && !ParentObject.HasEffect("Psiburdening"))
                 {
                     ParentObject.ApplyEffect(new Psiburdening((Stat.Random(10, 20) - ParentObject.StatMod("Willpower")) * Stat.Random(50, 125)));
                 }
@@ -369,7 +369,7 @@ namespace XRL.World.Parts.Mutation
 
                 }
 
-                Result = new Statistic("PsiCharges", 0, 40, maximumPsiCharge(), GO);
+                Result = new Statistic("PsiCharges", 0, 9999, maximumPsiCharge(), GO);
             }
             GO.Statistics.Add("PsiCharges", Result);
             return Result;

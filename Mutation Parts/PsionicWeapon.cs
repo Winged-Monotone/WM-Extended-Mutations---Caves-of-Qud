@@ -53,7 +53,7 @@ namespace XRL.World.Parts
 
             var WeaponProps = Object.GetPart<MeleeWeapon>();
 
-            WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
+            // WeaponProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
             Object.RemovePart("TinkerItem");
             IncreaseComplexityIfComplex(1);
         }
@@ -108,7 +108,7 @@ namespace XRL.World.Parts
             SwingsRemaining = 100 * (ParentsEgo);
 
             ParentObject.SetIntProperty("Value", (int)Math.Min(1, WeaponCurrency * 0.1));
-            WeaponMeleeProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
+            // WeaponMeleeProps.Ego = (int)Math.Floor(ParentsEgo * (ParentsPsiMar.Level * 0.1));
 
         }
         public override void Register(GameObject Object)

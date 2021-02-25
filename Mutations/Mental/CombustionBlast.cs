@@ -82,8 +82,14 @@ namespace XRL.World.Parts.Mutation
         }
         public void CombustionBeam()
         {
+
             FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
             string ChargesSpent = PsiMutation.focusPsiCurrentCharges.ToString();
+
+            var ParentsEgoMod = ParentObject.Statistics["Ego"].Modifier;
+            var ParentsLevelMod = ParentObject.Statistics["Level"].BaseValue;
+
+
             if (PsiMutation == null)
             {
                 // AddPlayerMessage("You lack the ability to do this.");
@@ -103,23 +109,28 @@ namespace XRL.World.Parts.Mutation
                 AddPlayerMessage("That's not a valid amount of charges.");
                 return;
             }
-            if (Charges > 1 && !ParentObject.HasEffect("Psiburdening"))
+            if (Charges > 1 + ParentsEgoMod + ParentsLevelMod && !ParentObject.HasEffect("Psiburdening"))
             {
                 int fatigueVar = 25;
                 ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
             }
             ActuallyFire(Charges);
         }
+
         public void ActuallyFire(int Charges)
         {
             FocusPsi PsiMutation = ParentObject.GetPart<FocusPsi>();
+
             // Shows the line picker interface for the player.
+
             TextConsole _TextConsole = UI.Look._TextConsole;
             ScreenBuffer Buffer = TextConsole.ScrapBuffer;
             Core.XRLCore.Core.RenderMapToBuffer(Buffer);
+
             List<GameObject> hit = new List<GameObject>(1);
             List<Cell> usedCells = new List<Cell>(1);
-            var line = PickLine(20, AllowVis.Any, null, false, ParentObject);
+            var line = PickLine(20, AllowVis.Any, null, false, ForMissileFrom: ParentObject);
+
             Cell targetCell = line[line.Count - 1];
             if (!PsiMutation.usePsiCharges(Charges))
             {
@@ -135,9 +146,14 @@ namespace XRL.World.Parts.Mutation
 
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
             activatedAbilities.GetAbility(CombustionBlastActivatedAbilityID).Cooldown = (Charges - 1) * 100;
+
             // Loop through each cell of the line in order.
+
             List<string> SparkySparkyChars = new List<string>() { "\xf8", "*", "." };
             List<Point> Beamline = Zone.Line(line[0].X, line[0].Y, targetCell.X, targetCell.Y);
+
+            base.PlayWorldSound("sparkblast", 0.3f, 0.1f, true, null);
+
             for (int index = 1; index < line.Count; index++)
             {
                 Cell cell = line[index];
@@ -160,7 +176,10 @@ namespace XRL.World.Parts.Mutation
                     break;
                 }
             }
-            base.PlayWorldSound("grenade_handENuke", 100f, 1f, true, null);
+            if (Stat.Random(1, 100) <= 50)
+                base.PlayWorldSound("bang1", 0.3f, 0, true, null);
+            else
+                base.PlayWorldSound("bang2", 0.3f, 0, true, null);
             ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
             ParentObject.UseEnergy(1000);
         }
