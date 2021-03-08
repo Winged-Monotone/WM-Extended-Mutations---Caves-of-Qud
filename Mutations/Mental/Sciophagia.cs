@@ -90,6 +90,7 @@ namespace XRL.World.Parts.Mutation
         //         }
         //     }
         // }
+
         // public int SciophagiaSaveDC(int MutationLevel, int TargetHealthPercent, GameObject Target)
         // {
         //     int EgoMod = ParentObject.Statistics["Ego"].Modifier;
@@ -102,7 +103,7 @@ namespace XRL.World.Parts.Mutation
         // {
         //     return CreaturesEgo;
         // }
-        
+
 
         // public void DevourStatGains(GameObject Target)
         // {

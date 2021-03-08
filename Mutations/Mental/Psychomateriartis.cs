@@ -239,6 +239,8 @@ namespace XRL.World.Parts.Mutation
             if (NewPsiCost > ParentsCharges)
             {
                 AddPlayerMessage("You lack enough maximum charges to forge another weapon.");
+                if (WeaponCounter > 0)
+                { --WeaponCounter; }
                 return;
             }
             else if (weaponOptions == "Long Sword")

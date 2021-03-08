@@ -64,7 +64,8 @@ namespace XRL.World.Parts.Mutation
             return "Base Damage: {{light blue|" + GetDamage(Level, 1) + "}} Per Charge.\n"
             + "Charges above the first used increase the cooldown of this mutation by 25.\n"
             + "\n"
-            + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.";
+            + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.\n\n"
+            + "Due to way the beam projects itself from the forehead, attempting to project this beam while wearing a helmet also &Yhas &Rfatal &Rconsequences&y.";
         }
         public int GetForce(int Level, int Charges)
         {
@@ -131,11 +132,23 @@ namespace XRL.World.Parts.Mutation
             List<Cell> usedCells = new List<Cell>(1);
             var line = PickLine(20, AllowVis.Any, null, false, ForMissileFrom: ParentObject);
 
+            Body body = ParentObject.GetPart<Body>();
+            List<BodyPart> ParentsHead = body.GetPart("Head");
+
             Cell targetCell = line[line.Count - 1];
             if (!PsiMutation.usePsiCharges(Charges))
             {
                 AddPlayerMessage("You do not have enough psi-charges!");
                 return;
+            }
+            foreach (var Head in ParentsHead)
+            {
+                if (Head.Equipped != null)
+                {
+                    Physics.ApplyExplosion(currentCell, GetForce(Level, Charges), usedCells, hit, true, true, ParentObject, GetDamage(Level, Charges), 1, false, false, 2);
+                    AddPlayerMessage("Your helmet obstructs the energy of the beam--it explodes in your face!");
+                    return;
+                }
             }
             if (ParentObject.HasEffect("Dazed") || ParentObject.HasEffect("Confused"))
             {
@@ -181,7 +194,7 @@ namespace XRL.World.Parts.Mutation
             else
                 base.PlayWorldSound("bang2", 0.3f, 0, true, null);
             ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
-            ParentObject.UseEnergy(1000);
+            ParentObject.UseEnergy(10000);
         }
 
 
@@ -503,7 +516,9 @@ namespace XRL.World.Parts.Mutation
 
         public override bool HandleEvent(GetShortDescriptionEvent E)
         {
-            string Glyph = "{{orange|You bear a psionic glyph on your forehead.}}";
+
+            string Glyph = (ParentObject.IsPlayer() ? "You" : ParentObject.The + ParentObject.ShortDisplayName) + " bear a psionic glyph on " + ParentObject.Poss("forehead");
+
             if (E.Postfix.Length > 0 && E.Postfix[E.Postfix.Length - 1] != '\n')
             {
                 E.Postfix.Append('\n');

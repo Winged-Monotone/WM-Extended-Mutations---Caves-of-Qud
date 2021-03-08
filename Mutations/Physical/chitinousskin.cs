@@ -69,10 +69,14 @@ namespace XRL.World.Parts.Mutation
         {
             // the 'return' gives a description "+" being that is adds the (object) which is the mutation itself, plus the "1" integer Math.Ceiling((Decimal) (Level / 2))), in plain english its + whatever it is divided by 2 and then rounded up and then added to the av/n value descripter. Math.Ceiling((Decimal) is representitive of rounding up. \n denounces a new line in the description.
 
-            return "+" + (object)(1 + (int)Math.Ceiling((Decimal)(Level / 2))) + " AV\n"
-            + "+" + (object)(1 + (int)Math.Ceiling((Decimal)(Level / 2))) + " Strength Score\n"
-            + "-" + (object)(3 + (int)Math.Ceiling((Decimal)Level / new Decimal(3))) + " to saves vs. Disease\n"
-            + "Take " + (object)(10 * (int)Math.Ceiling((Decimal)Level / new Decimal(2))) + "% more Poison Damage\n"
+
+            int Math1 = (int)Math.Ceiling((Decimal)(Level / 2));
+            int Math2 = (int)Math.Ceiling((Decimal)(Level / 2));
+
+            return "+" + (object)(1 + Math1) + " AV\n"
+            + "+" + (object)(1 + Math1) + " Strength Score\n"
+            + "-" + (object)(3 + Math2) + " to saves vs. Disease\n"
+            + "Take " + (object)(10 * Math1) + "% more Poison Damage\n"
             + "You molt periodically, losing your armor bonus for a small period at the cost of a small bonus to movement speed."
             + "+100 reputation with &Cinsects&y and &Carachnids&y\n";
         }
@@ -94,7 +98,6 @@ namespace XRL.World.Parts.Mutation
             {
                 AddPlayerMessage("{{orange|Your chitin armor feels heavy and aged.}}");
                 // XDidY(ParentObject, "{{orange|note}}", "{{orange|skin's segmented clusters clamber a little as you move about.}}", ".", Color: "orange", SubjectPossessedBy: ParentObject);
-
             }
             else if (turnsTilMolt == totalTurnsTilMolt * 0.1 && IsPlayer())
             {
@@ -140,17 +143,6 @@ namespace XRL.World.Parts.Mutation
         public override bool FireEvent(Event E)
         {
             // This event calls the AIGetPassiveMutationList event, in this specific event, it controls how AI's passively use certain abilities, traits excedra which are randomly assigned to various mutants-- the second line after the call assigns activatedabilities to pilesOfAbilities and then sets them to equal parentobject.GetPart<ActivatedAbilities>(), the line after is a bool that is "if pileofabilities does not exist, which calls to look at the acitvated abilities, and then it checks if the specific mutation which is assigned its own specail ID in the GUID section of the add abilities list, exist. Iy will then add the command to the ai with the E.AddAICommand, with the string and an integer denoting its priority.
-            // if (E.ID == "AIGetPassiveMutationList")
-            // {
-            //     ActivatedAbilities pilesOfAbilities = ParentObject.GetPart<ActivatedAbilities>();
-            //     if (pilesOfAbilities != null)
-            //     {
-            //         if (pilesOfAbilities.GetAbility(ActivatedAbilityID) != null)
-            //         {
-            //             E.AddAICommand("CommandMolting", 1);
-            //         }
-            //     }
-            // }
             //Modifydefending save calls for a longer set of commands. essentially it reads as Call event (E.ID) ModifyDefendingSave and then E(Event). Get string, "VS," which denounces the string, string-null,(only if it has one). Contains "Disease.
             //The next parameterter sets up the roll, the int turns roll into an integer that is equivelent to the event.getintparameter which calls for a string, in this case, roll, (I forget the int Paramter)
             if (E.ID == "ModifyDefendingSave" && E.GetStringParameter("Vs", (string)null).Contains("Disease"))
@@ -194,22 +186,6 @@ namespace XRL.World.Parts.Mutation
                 GetMutationTimerAssistant();
             }
 
-            // else if (E.ID == "CommandMolting")
-            // {
-            //     if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap() && !ParentObject.HasEffect("Molting"))
-            //     {
-            //         if (this.ActivatedAbilityID != Guid.Empty)
-            //         {
-            //             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            //             activatedAbilities.RemoveAbility(this.ActivatedAbilityID);
-            //         }
-            //         this.ParentObject.ApplyEffect(new Molting());
-            //     }
-            //     else
-            //     {
-            //         Popup.Show("You must stop travelling before you can molt.");
-            //     }
-            // }
 
             else if (E.ID == "CommandMolt")
             {

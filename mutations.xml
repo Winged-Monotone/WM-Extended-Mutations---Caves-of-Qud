@@ -23,8 +23,9 @@
     <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
     <mutation Code="sm" BearerDescription="those who are covered in scales" Exclusions="Chitinous Skin" Class="RoughScales" MaxSelected="1" Cost="1" Name="Rough Scales"></mutation>
     <mutation Code="se" BearerDescription="those with the progeniteor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
-    <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
-    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
+    <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid),Rough Scales,Gelatinous Form (Slime)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
+    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison),Rough Scales,Gelatinous Form (Acid)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
+    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid)Rough Scales,Gelatinous Form (Poison)" Class="GelatinousFormSlime" MaxSelected="1" Cost="2" Name="Gelatinous Form (Slime)"></mutation>
     <mutation Code="tit" BearerDescription="those who bleed acid" Exclusions="Gelatinous Form (Acid)" Class="AcidicBlood" MaxSelected="1" Cost="2" Name="Acidic Blood"></mutation>
     <mutation Code="gl" BearerDescription="those with glistening gills" Exclusions="GelatinousFormPoison,GelatinousFormAcid" Class="wmGills" MaxSelected="1" Cost="2" Name="Gills"></mutation>
     <mutation Code="fl" BearerDescription="those with glistening fins" Exclusions="" Class="Fins" MaxSelected="1" Cost="1" Name="Fins"></mutation>
@@ -38,7 +39,8 @@
     <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
     <mutation Code="mom" BearerDescription="those who spin weaponized-thoughts" Exclusions="" Class="Psychomateriartis" MaxSelected="1" Cost="4" Name="Psychomateriartus"></mutation>
     <mutation Code="via" BearerDescription="those with the sacred eyes" Exclusions="" Class="VitaIntuita" MaxSelected="1" Cost="1" Name="Vita Intuita"></mutation>
-    <mutation Code="tia" BearerDescription="those who warm and cool the wild world." Exclusions="" Class="Thermokinesis" MaxSelected="1" Cost="3" Name="Thermokinesis"></mutation>
+    <mutation Code="tia" BearerDescription="those who warm and cool the wild world." Exclusions="" Class="Thermokinesis" MaxSelected="1" Cost="4" Name="Thermokinesis"></mutation>
+    <mutation Code="tei" BearerDescription="those who shimmer like the stars." Exclusions="" Class="Electrokinesis" MaxSelected="1" Cost="4" Name="Electrokinesis"></mutation>
 
   </category>
 

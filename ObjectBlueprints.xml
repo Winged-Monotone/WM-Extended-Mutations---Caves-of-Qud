@@ -2,6 +2,9 @@
 
 <!-- Mutation Items -->
 <objects>
+
+
+
         <object Name="OvipositorEgg" Inherits="Item">
                 <part Name="Render" DisplayName="{{fleshy|strange}} egg" RenderString="]" ColorString="&amp;M" DetailColor="M" Tile="Items/sw_egg.bmp"></part>
                 <part Name="Commerce" Value="0"></part>
@@ -55,6 +58,17 @@
         </object>
 
         <!-- Mutation 'Equipment' -->
+
+        <object Name="BasicTail" Inherits="Armor">
+                <part Name="NoBreak" />
+                <part Name="NoDamage" />
+                <part Name="Armor" AV="0" DV="0" WornOn="Tail" />
+                <part Name="Render" DisplayName="{{fleshy|Basic Tail}}" RenderString="~" Tile="Items/sw_stinger.bmp" ColorString="&amp;M" DetailColor="m" />
+                <part Name="Description" Short="A long, shaft of flesh protrudes from your back." />
+                <part Name="NaturalEquipment" />
+                <intproperty Name="Natural" Value="1" />
+        </object>
+
         <object Name="PsionicFist" Inherits="NaturalWeapon">
                 <part Name="Render" DisplayName="psionic fist" />
                 <part Name="MaxEgoBonus" />

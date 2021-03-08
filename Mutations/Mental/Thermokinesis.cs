@@ -25,6 +25,7 @@ namespace XRL.World.Parts.Mutation
     public class Thermokinesis : BaseMutation
     {
         public Guid ActivateThermokinesisAbilityID;
+        public int MaximumRadius = 1;
         public static readonly List<string> MainOptions = new List<string>()
         {
             "Alter Resistances",
@@ -136,11 +137,13 @@ namespace XRL.World.Parts.Mutation
             try
             {
                 var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
+                MaximumRadius = 1 + Level;
 
                 return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you. The Range and area-effect of the ability scales as Thermokinesis increases in level.\n\n"
               + "Charge Potency towards Resistance Alteration: " + "{{M|" + ParentsEgo + "}}" + " * " + "{{B|Charges}}\n"
               + "Charge Potency towards Ambient Temperature Manipulation: " + "{{W|" + 250 + "}}" + " * " + "{{B|Charges}}\n\n"
-              + "Save Target Vs' Negative Resistance Changes: " + "{{B|" + (10 + ParentsEgo + Level) + "}}";
+              + "Save Target Vs' Negative Resistance Changes: " + "{{B|" + (10 + ParentsEgo + Level) + "}}"
+              + "Maximum Radius: " + MaximumRadius;
             }
             catch
             {
@@ -181,6 +184,8 @@ namespace XRL.World.Parts.Mutation
             var ParentsCharges = ParentObject.Statistics["PsiCharges"].BaseValue;
 
             string ChargesSpent = PsiMutation.focusPsiCurrentCharges.ToString();
+
+
 
             if (PsiMutation == null)
             {
@@ -289,6 +294,9 @@ namespace XRL.World.Parts.Mutation
             var ParentsCharges = ParentObject.Statistics["PsiCharges"].BaseValue;
 
             string ChargesSpent = PsiMutation.focusPsiCurrentCharges.ToString();
+            string RadiusChoice = null;
+
+            MaximumRadius = Math.Min(1 + Level, 8);
 
             if (PsiMutation == null)
             {
@@ -303,9 +311,26 @@ namespace XRL.World.Parts.Mutation
             {
                 ChargesSpent = Popup.AskString("Expend how many charges", "1", 3, 1, "0123456789");
             }
+            if (IsPlayer())
+            {
+                RadiusChoice = Popup.AskString("Radius of the effect " + "(Maximum Radius: " + MaximumRadius + ")", "1", 3, 1, "0123456789");
+            }
 
             int Charges = Convert.ToInt32(ChargesSpent);
+            int Radius = Convert.ToInt32(RadiusChoice);
 
+            if (Radius > MaximumRadius)
+            {
+                AddPlayerMessage("The Radius you've chosen is greater than you can yield.");
+                ChargesSpent += Charges;
+                return;
+            }
+            if (Radius <= 0)
+            {
+                AddPlayerMessage("Not a valid input for radius.");
+                ChargesSpent += Charges;
+                return;
+            }
             if (!PsiMutation.usePsiCharges(Charges))
             {
                 AddPlayerMessage("You do not have enough psi-charges!");
@@ -316,20 +341,24 @@ namespace XRL.World.Parts.Mutation
                 AddPlayerMessage("That's not a valid amount of charges.");
                 return;
             }
-            if (Charges > 1 + ParentsEgo + ParentsLevel && !ParentObject.HasEffect("Psiburdening"))
+            if (Charges > 1 + ParentsEgo + ParentsLevel / 2 && !ParentObject.HasEffect("Psiburdening"))
             {
                 int fatigueVar = 25;
                 ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
             }
 
-            List<Cell> Cells = PickBurst(1 + (Level / 3), 6 + Level / 2 + ParentsEgo, false, AllowVis.OnlyExplored);
+
+            int Range = 6 + Level / 2 + ParentsEgo;
+
+
+            List<Cell> Cells = PickBurst(Radius, Range, false, AllowVis.OnlyExplored);
 
             if (AmbientTempChoices == "Increase Temperature")
             {
                 foreach (var c in Cells)
                 {
-                    c.TemperatureChange(Charges * 250, ParentObject);
-                    if (Charges >= 10)
+                    c.TemperatureChange(Charges * 100, ParentObject);
+                    if (Charges >= 15)
                     {
                         c.LargeFireblast();
                     }
@@ -342,11 +371,11 @@ namespace XRL.World.Parts.Mutation
             {
                 foreach (var c in Cells)
                 {
-                    c.TemperatureChange((Charges * 250) * -1, ParentObject);
+                    c.TemperatureChange((Charges * 100) * -1, ParentObject);
                     //
-                    if (Charges >= 10)
+                    if (Charges >= 15)
                     {
-                        c.AddObject("CryoGas").GetPart<Gas>().Density = 5 * Charges;
+                        c.AddObject("CryoGas").GetPart<Gas>().Density = 1 * Charges;
                     }
                     GameObject cTarget = c.GetFirstObjectWithPart("Brain");
                     if (cTarget != null)
@@ -355,7 +384,7 @@ namespace XRL.World.Parts.Mutation
             }
 
             PlayWorldSound("ambientaltered");
-            CooldownMyActivatedAbility(ActivateThermokinesisAbilityID, Charges * 7);
+            CooldownMyActivatedAbility(ActivateThermokinesisAbilityID, Charges * 15);
         }
 
         public override bool FireEvent(Event E)
