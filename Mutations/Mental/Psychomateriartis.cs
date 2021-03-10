@@ -872,6 +872,7 @@ namespace XRL.World.Parts.Mutation
             {
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
+            
             this.ManifestPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Psi-Forge", "ManifestWeaponCommand", "Mental Mutation", "Manifest or dismiss a psionic weapon.\n\n");
             this.ReturnPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Return Psi-Weapon", "ReturnWeaponCommand", "Mental Mutation", "Rematerialize your last previously crafted psi-arm to your hand so long as you are in the same parasang, this is a turnless action.", "\u03A9");
 
