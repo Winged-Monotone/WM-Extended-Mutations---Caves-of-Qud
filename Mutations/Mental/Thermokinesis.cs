@@ -139,7 +139,7 @@ namespace XRL.World.Parts.Mutation
                 var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
                 MaximumRadius = 1 + Level;
 
-                return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you. The Range and area-effect of the ability scales as Thermokinesis increases in level.\n\n"
+                return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you."
               + "Charge Potency towards Resistance Alteration: " + "{{M|" + ParentsEgo + "}}" + " * " + "{{B|Charges}}\n"
               + "Charge Potency towards Ambient Temperature Manipulation: " + "{{W|" + 250 + "}}" + " * " + "{{B|Charges}}\n\n"
               + "Save Target Vs' Negative Resistance Changes: " + "{{B|" + (10 + ParentsEgo + Level) + "}}"
@@ -147,10 +147,7 @@ namespace XRL.World.Parts.Mutation
             }
             catch
             {
-                return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you.\n\n"
-                + "Charge Potency towards Resistance Alteration: \n{{M|Ego}} * {{B|Charges}}\n\n"
-                + "Charge Potency towards Ambient Temperature Manipulation: \n{{W|250}} * {{B|Charges}}\n\n\n"
-                + "Save Target Vs' Negative Resistance Changes: \n{{B|10}} + {{M|Ego}} + {{G|Level}}";
+                return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you. The Range and area-effect of the ability scales as Thermokinesis increases in level.\n";
             }
         }
 
