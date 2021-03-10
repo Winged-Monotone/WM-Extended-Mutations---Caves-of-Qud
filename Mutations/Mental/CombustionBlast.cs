@@ -73,7 +73,7 @@ namespace XRL.World.Parts.Mutation
         }
         public string GetDamage(int Level, int Charges)
         {
-            string ChargeDamage = "+" + Charges + "d6";
+            string ChargeDamage = "+" + Charges + "d4";
             return (Level * (2) + ChargeDamage);
         }
 
@@ -517,7 +517,7 @@ namespace XRL.World.Parts.Mutation
         public override bool HandleEvent(GetShortDescriptionEvent E)
         {
 
-            string Glyph = (ParentObject.IsPlayer() ? "You" : ParentObject.The + ParentObject.ShortDisplayName) + " bear a psionic glyph on " + ParentObject.Poss("forehead");
+            string Glyph = (ParentObject.IsPlayer() ? "You" : ParentObject.The + ParentObject.ShortDisplayName) + ParentObject.GetVerb("bear", true, true) + "bear a psionic glyph on " + ParentObject.Poss("forehead");
 
             if (E.Postfix.Length > 0 && E.Postfix[E.Postfix.Length - 1] != '\n')
             {
