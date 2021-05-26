@@ -16,8 +16,8 @@ public class PoisonIchor : BaseLiquid
 {
     public PoisonIchor() : base("poisonichor")
     {
-        FlameTemperature = 0;
-        VaporTemperature = 0;
+        FlameTemperature = 1000;
+        VaporTemperature = 1000;
         Temperature = 0;
         Fluidity = 50;
         Cleansing = 1;
@@ -159,4 +159,5 @@ public class PoisonIchor : BaseLiquid
             }
         }
     }
+
 }

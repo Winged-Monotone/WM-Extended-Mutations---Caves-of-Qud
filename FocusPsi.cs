@@ -79,10 +79,10 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool WantEvent(int ID, int cascade)
         {
-            return base.WantEvent(ID, cascade) || ID == GetShortDisplayNameEvent.ID;
+            return base.WantEvent(ID, cascade) || ID == GetDisplayNameEvent.ID;
         }
 
-        public override bool HandleEvent(GetShortDisplayNameEvent E)
+        public override bool HandleEvent(GetDisplayNameEvent E)
         {
             try
             {
@@ -303,8 +303,8 @@ namespace XRL.World.Parts.Mutation
                 var PsiburdeningCatch = ParentObject.GetEffect<Psiburdening>();
                 if (base.IsMyActivatedAbilityToggledOn(this.PsiFocusActivatedAbilityID) && (focusPsiCurrentCharges < focusPsiCurrentMaximumCharges))
                 {
-                    int chanceforpsi = (ParentObject.StatMod("Willpower") + 3) * PsiCounter;
-                    if (chanceforpsi.in100())
+                    int chanceforpsi = (ParentObject.StatMod("Willpower") * 3) + PsiCounter;
+                    if (Stat.Random(1, 100) < chanceforpsi)
                     {
                         focusPsiCurrentCharges++;
                         DidX("charge", "psi energy", ".", ColorAsGoodFor: ParentObject);

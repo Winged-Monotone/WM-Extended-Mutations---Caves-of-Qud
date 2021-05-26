@@ -867,12 +867,17 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
+            // string PsychomateriartisinfoSource = "{ \"Psychomateriartis\": [\"*cult*, mind-smiths\", \"Forgemasters *cult*\"] }";
+            // SimpleJSON.JSONNode PsychomateriartisInfo = SimpleJSON.JSON.Parse(PsychomateriartisinfoSource);
+
+            // WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", PsychomateriartisInfo["Psychomateriartis"]);
+
             Mutations GainPSiFocus = GO.GetPart<Mutations>();
             if (!GainPSiFocus.HasMutation("FocusPsi"))
             {
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
-            
+
             this.ManifestPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Psi-Forge", "ManifestWeaponCommand", "Mental Mutation", "Manifest or dismiss a psionic weapon.\n\n");
             this.ReturnPsiWeaponActivatedAbilityID = base.AddMyActivatedAbility("Return Psi-Weapon", "ReturnWeaponCommand", "Mental Mutation", "Rematerialize your last previously crafted psi-arm to your hand so long as you are in the same parasang, this is a turnless action.", "\u03A9");
 

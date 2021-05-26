@@ -17,25 +17,40 @@
                 <part Name="Render" DisplayName="shoddy {{brown|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="w" Tile="Items/sw_skinsuit.bmp"></part>
                 <part Name="Commerce" Value="250"></part>
                 <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
-                <part Name="Description" Short="What you might mistaken as a dried, mangled carcass is instead the ominous remains of an insectoid's or mutant's husk, pure chitin held stiff by the shedded membranous cuticle of the creature's ligaments."></part>
+                <part Name="Description" Short="What you might mistaken as a dried, mangled carcass is instead the ominous remains of an insectoid's or mutant's husk, pure chitin held stiff by the shedded membranous cuticles spanning the creature's ligaments."></part>
+                <part Name="PreservableItem" Result="Chitin Chips" Number="5" />
+                <tag Name="ChooseToPreserve" />
         </object>
         <object Name="GamerGirlMoltQuality" Inherits="Item">
                 <part Name="Render" DisplayName="quality {{yellow|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="W" Tile="Items/sw_skinsuit.bmp"></part>
                 <part Name="Commerce" Value="500"></part>
                 <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
                 <part Name="Description" Short="The quality of chitin is measured against its flexibility, durability and its ability to be mended into armor. This particular specimen shows a strong sheen to its layers and typical thickness relevant to its shedder’s age."></part>
+                <part Name="PreservableItem" Result="Chitin Chips" Number="10" />
+                <tag Name="ChooseToPreserve" />
         </object>
         <object Name="GamerGirlMoltHighQuality" Inherits="Item">
                 <part Name="Render" DisplayName="high-quality {{green|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="g" Tile="Items/sw_skinsuit.bmp"></part>
                 <part Name="Commerce" Value="750"></part>
                 <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
                 <part Name="Description" Short="Comparatively, higher-quality chitin such as this is incredibly flexible and glances all but the heaviest blows. It is often used in the crafting of chelibrium garb."></part>
+                <part Name="PreservableItem" Result="Chitin Chips" Number="15" />
+                <tag Name="ChooseToPreserve" />
         </object>
         <object Name="GamerGirlMoltDeluxe" Inherits="Item">
                 <part Name="Render" DisplayName="deluxe {{m|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="m" Tile="Items/sw_skinsuit.bmp"></part>
                 <part Name="Commerce" Value="1000"></part>
                 <part Name="Physics" Weight="10" Category="Miscellaneous"></part>
                 <part Name="Description" Short="Insectoids who manage to reach adulthood and maintain a proper diet produce 'exodus shells,' chitin-husk of incredible quality."></part>
+                <part Name="PreservableItem" Result="Chitin Chips" Number="20" />
+                <tag Name="ChooseToPreserve" />
+        </object>
+        <object Name="Chitin Chips" Inherits="Preservable">
+                <part Name="Render" DisplayName="{{M|chitin chips}}" RenderString="%" ColorString="&amp;M" TileColor="&amp;M" DetailColor="Y" RenderLayer="5" Tile="Items/sw_vinewafer_sheaf.bmp" />
+                <part Name="Commerce" Value="25" />
+                <part Name="Description" Short="Chitin was shattered over an anvil, heated, mildly salted, and flattened into wonderfully accessible chips." />
+                <part Name="PreparedCookingIngredient" type="armor" charges="1" />
+                <tag Name="DynamicObjectsTable:Saltdunes_Ingredients" />
         </object>
 
 
@@ -47,7 +62,16 @@
                 <part Name="Render" DisplayName="PlayerTile" Tile="creatures/buggotile.png"></part>
         </object>
 
+        <!-- Mutation Utility Objects -->
+
+        <object Name="MagicalDarkness" Inherits="Widget">
+                <part Name="Render" Occluding="true" />
+                <part Name="Physics" Category="Miscellaneous" Takeable="false" Solid="false" Occluding="false"></part>
+                <part Name="MagicalDarkness"></part>
+        </object>
+
         <!-- Mutation Parts -->
+
         <object Name="BaseCat" Inherits="BaseAnimal" Load="Merge">
                 <part Name="NineLivesPetter"></part>
         </object>

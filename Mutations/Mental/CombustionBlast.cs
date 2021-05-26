@@ -90,32 +90,34 @@ namespace XRL.World.Parts.Mutation
             var ParentsEgoMod = ParentObject.Statistics["Ego"].Modifier;
             var ParentsLevelMod = ParentObject.Statistics["Level"].BaseValue;
 
-
-            if (PsiMutation == null)
+            if (!ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
             {
-                // AddPlayerMessage("You lack the ability to do this.");
-                string verb1 = "lack";
-                string extra1 = "ability to do this";
-                string termiPun1 = "!";
-                XDidY(ParentObject, verb1, extra1, termiPun1);
-                return;
+                if (PsiMutation == null)
+                {
+                    // AddPlayerMessage("You lack the ability to do this.");
+                    string verb1 = "lack";
+                    string extra1 = "ability to do this";
+                    string termiPun1 = "!";
+                    XDidY(ParentObject, verb1, extra1, termiPun1);
+                    return;
+                }
+                if (IsPlayer())
+                {
+                    ChargesSpent = Popup.AskString("Expend how many charges", "1", 3, 1, "0123456789");
+                }
+                int Charges = Convert.ToInt32(ChargesSpent);
+                if (IsPlayer() && Charges <= 0)
+                {
+                    AddPlayerMessage("That's not a valid amount of charges.");
+                    return;
+                }
+                if (Charges > 1 + ParentsEgoMod + ParentsLevelMod && !ParentObject.HasEffect("Psiburdening"))
+                {
+                    int fatigueVar = 25;
+                    ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
+                }
+                ActuallyFire(Charges);
             }
-            if (IsPlayer())
-            {
-                ChargesSpent = Popup.AskString("Expend how many charges", "1", 3, 1, "0123456789");
-            }
-            int Charges = Convert.ToInt32(ChargesSpent);
-            if (IsPlayer() && Charges <= 0)
-            {
-                AddPlayerMessage("That's not a valid amount of charges.");
-                return;
-            }
-            if (Charges > 1 + ParentsEgoMod + ParentsLevelMod && !ParentObject.HasEffect("Psiburdening"))
-            {
-                int fatigueVar = 25;
-                ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
-            }
-            ActuallyFire(Charges);
         }
 
         public void ActuallyFire(int Charges)
@@ -136,6 +138,7 @@ namespace XRL.World.Parts.Mutation
             List<BodyPart> ParentsHead = body.GetPart("Head");
 
             Cell targetCell = line[line.Count - 1];
+
             if (!PsiMutation.usePsiCharges(Charges))
             {
                 AddPlayerMessage("You do not have enough psi-charges!");
@@ -195,6 +198,7 @@ namespace XRL.World.Parts.Mutation
                 base.PlayWorldSound("bang2", 0.3f, 0, true, null);
             ComExplode(GetForce(Level, Charges), targetCell, ParentObject, GetDamage(Level, Charges));
             ParentObject.UseEnergy(10000);
+
         }
 
 
@@ -314,7 +318,7 @@ namespace XRL.World.Parts.Mutation
                                 {
                                     if (gameObject.IsPlayer())
                                     {
-                                        gameObject.pPhysics.LastDamagedText = "Crushed under the weight of a thousand suns.";
+                                        gameObject.pPhysics.LastDeathReason = "Crushed under the weight of a thousand suns.";
                                     }
                                     @event.SetParameter("Message", "from being crushed under the weight of a thousand suns.");
                                 }
@@ -395,7 +399,7 @@ namespace XRL.World.Parts.Mutation
                                         {
                                             if (gameObject2.IsPlayer())
                                             {
-                                                gameObject2.pPhysics.LastDamagedText = "Crushed under the weight of a thousand suns.";
+                                                gameObject2.pPhysics.LastDeathReason = "Crushed under the weight of a thousand suns.";
                                             }
                                             event2.SetParameter("Message", "from being crushed under the weight of a thousand suns.");
                                         }
@@ -456,8 +460,10 @@ namespace XRL.World.Parts.Mutation
             {
                 if (base.IsMyActivatedAbilityUsable(this.CombustionBlastActivatedAbilityID))
                 {
-                    CombustionBeam();
-
+                    if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
+                    {
+                        CombustionBeam();
+                    }
                     return false;
                 }
             }
@@ -466,7 +472,10 @@ namespace XRL.World.Parts.Mutation
             {
                 if (base.IsMyActivatedAbilityUsable(this.CombustionBlastVolleyActivatedAbilityID))
                 {
-                    CombustionBeamQuickFire();
+                    if (!ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
+                    {
+                        CombustionBeamQuickFire();
+                    }
                     return false;
                 }
             }
@@ -491,6 +500,11 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
+            // string CombustionBlastinfoSource = "{ \"CombustionBlast\": [\"*cult*, the Fire-Eyed\", \"mind-blast *cult*\"] }";
+            // SimpleJSON.JSONNode CombustionInfo = SimpleJSON.JSON.Parse(CombustionBlastinfoSource);
+
+            // WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", CombustionInfo["CombustionBlast"]);
+
             this.Unmutate(GO);
             Mutations GainPSiFocus = GO.GetPart<Mutations>();
             if (!GainPSiFocus.HasMutation("FocusPsi"))

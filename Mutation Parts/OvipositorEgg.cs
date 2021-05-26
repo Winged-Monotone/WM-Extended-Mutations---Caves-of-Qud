@@ -24,11 +24,11 @@ namespace XRL.World.Parts
                 // string Hatched = "Crack!";
                 OvipositorHandler = ParentObject;
 
-                GameObject Droneling = Cloning.GenerateClone(Mother, currentCell);
+                GameObject Droneling = Cloning.GenerateClone(Mother, C: currentCell);
                 var CheckOvi = Droneling.GetPart<Mutations>();
                 var GetOvi = CheckOvi.GetMutation("Ovipositor");
                 CheckOvi.RemoveMutation(GetOvi);
-                Droneling.DisplayName = HeroMaker.MakeHeroName(Droneling, new string[0], new string[0], false);
+                Droneling.DisplayName = Names.MutantNameMaker.MakeMutantName();
                 Droneling.GetPart<Description>().Short = "One of your loyal drones.";
                 Droneling.RemoveIntProperty("ProperNoun");
                 // ParentObject.ParticleText(Hatched, 1.0f, 1, false);

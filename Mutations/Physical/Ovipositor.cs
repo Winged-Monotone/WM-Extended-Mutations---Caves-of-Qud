@@ -76,8 +76,11 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "CommandLayEgg")
             {
                 {
-                    BirthEgg();
-                    CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
+                    if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
+                    {
+                        BirthEgg();
+                        CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
+                    }
                 }
 
             }
@@ -90,66 +93,9 @@ namespace XRL.World.Parts.Mutation
             get
             {
                 return ParentObject.id + "::Ovipositor::Add";
-                // change to this next time we break save compat
-                //return ParentObject.id + "::Stinger";
+
             }
         }
-
-        // public BodyPart AddTail(GameObject GO)
-        // {
-        //     if (GO == null)
-        //     {
-        //         return null;
-        //     }
-        //     Body pBody = GO.Body;
-        //     if (pBody != null)
-        //     {
-        //         BodyPart MainBody = pBody.GetBody();
-        //         return MainBody.AddPartAt(
-        //             Base: "Tail",
-        //             Manager: ManagerID,
-        //             InsertAfter: "Feet",
-        //             OrInsertBefore: new string[] { "Roots", "Thrown Weapon", "Floating Nearby" }
-        //         );
-        //     }
-        //     return null;
-        // }
-
-        // public void AddOvipositorTo(BodyPart part)
-        // {
-        //     if (part.Equipped != null)
-        //     {
-        //         part.DefaultBehavior.ForceUnequipAndRemove();
-        //         ParentObject.FireEvent(Event.New("CommandForceUnequipObject", "BodyPart", part));
-        //     }
-        //     if (TailObject == null)
-        //     {
-        //         TailObject = GameObject.create("Ovipositor");
-        //         part.DefaultBehavior = TailObject;
-        //     }
-        //     if (TailObject != null)
-        //     {
-        //         TailObjectId = TailObject.id;
-        //         Event eCommandEquipObject = Event.New("CommandForceEquipObject");
-        //         eCommandEquipObject.SetParameter("Object", TailObject);
-        //         eCommandEquipObject.SetParameter("BodyPart", part);
-        //         eCommandEquipObject.SetSilent(true);
-        //         ParentObject.FireEvent(eCommandEquipObject);
-        //     }
-        //     else
-        //     {
-        //         UnityEngine.Debug.LogError("Could not create Ovipositor");
-        // //     }
-        // }
-
-        // public override void OnRegenerateDefaultEquipment(Body body)
-        // {
-        //     var tail = body.GetPartByManager(ManagerID);
-        //     if (tail != null)
-        //     {
-        //         AddOvipositorTo(tail);
-        //     }
-        // }
 
         public override bool Mutate(GameObject GO, int Level)
         {

@@ -15,9 +15,8 @@ namespace XRL.World.Effects
         public int NewPotency;
         public GameObject Owner;
         public int Charges = 0;
-        public string Element = null;
-        public GameObject Caster = null;
-        public string IncreaseOrDecrease = null;
+
+
 
         public ShimmeringShroud() : base()
         {
@@ -44,42 +43,21 @@ namespace XRL.World.Effects
 
         public override void Register(GameObject go)
         {
-            go.RegisterEffectEvent((Effect)this, "SetShimmeringShroudEffectEvent");
-            go.RegisterEffectEvent((Effect)this, "AlterShimmeringEffectChangeEvent");
             go.RegisterEffectEvent((Effect)this, "BeginTakeAction");
         }
 
         public override void Unregister(GameObject go)
         {
-            go.UnregisterEffectEvent((Effect)this, "SetShimmeringShroudEffectEvent");
-            go.UnregisterEffectEvent((Effect)this, "AlterShimmeringEffectChangeEvent");
             go.UnregisterEffectEvent((Effect)this, "BeginTakeAction");
         }
 
         public override bool FireEvent(Event E)
         {
-            if (E.ID == "SetShimmeringShroudEffectEvent")
-            {
-                GameObject Target = Object;
-
-                AddPlayerMessage("FireEvent Log: " + "SetShimmeringShroudEffectEvent Part 1");
-
-                string TargetsEgoScore = Target.Statistics.TryGetValue("Ego", out var ego) ? ego.Value.ToString() : "N/A";
-                string TargetsEgoMod = Target.Statistics.TryGetValue("Ego", out var ego2) ? ego2.Modifier.ToString() : " ";
-
-
-
-            }
             return base.FireEvent(E);
         }
 
         public override bool Apply(GameObject Object)
         {
-            if (Object.HasEffect("ShimmeringShroud"))
-            {
-                Event cE = Event.New("AlterShimmeringEffectChangeEvent", "ChargesSpent", Charges, "Potency", Potency, "IncreaseOrDecrease", IncreaseOrDecrease);
-                FireEvent(cE);
-            }
             return true;
         }
 

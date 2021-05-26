@@ -119,9 +119,20 @@ namespace XRL.World.Parts.Mutation
                         if (!cell.IsOccluding() && Stat.Random(1, 100) <= 10 + (5 * Level / 2))
                         {
                             GameObject AcidContainer = GameObject.create(this.acidPool);
-                            cell.AddObject(AcidContainer, true, false, false, null);
+                            cell.AddObject(AcidContainer, true, false, false, false, null);
                         }
                     }
+                }
+            }
+            else if (E.ID == "EndTurn")
+            {
+                Cell Cell = ParentObject.CurrentCell;
+
+                if (IsDissolving == true && (Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint))))
+                {
+                    this.Duration += 2;
+                    Damage += 1;
+                    ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
                 }
             }
             else if (E.ID == "Regenerating")
@@ -138,36 +149,39 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "CommandSpitAcid")
             {
-                List<Cell> list = PickBurst(1, 8, false, AllowVis.OnlyVisible);
-                if (list == null)
+                if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
                 {
-                    return true;
-                }
-                foreach (Cell item in list)
-                {
-                    if (item.DistanceTo(ParentObject) > 9)
+                    List<Cell> list = PickBurst(1, 8, false, AllowVis.OnlyVisible);
+                    if (list == null)
                     {
-                        if (ParentObject.IsPlayer())
-                        {
-                            Popup.Show("That is out of range! (8 squares)");
-                        }
                         return true;
                     }
-                }
-                if (list != null)
-                {
-                    SlimeGlands.SlimeAnimation("&G", ParentObject.CurrentCell, list[0]);
-                    CooldownMyActivatedAbility(ActivatedAbilityID, 40);
-                    int num = 0;
-                    foreach (Cell item2 in list)
+                    foreach (Cell item in list)
                     {
-                        if (num == 0 || Stat.Random(1, 100) <= 80)
+                        if (item.DistanceTo(ParentObject) > 9)
                         {
-                            item2.AddObject(GameObject.create("AcidPool"));
+                            if (ParentObject.IsPlayer())
+                            {
+                                Popup.Show("That is out of range! (8 squares)");
+                            }
+                            return true;
                         }
-                        num++;
                     }
-                    UseEnergy(1000);
+                    if (list != null)
+                    {
+                        SlimeGlands.SlimeAnimation("&G", ParentObject.CurrentCell, list[0]);
+                        CooldownMyActivatedAbility(ActivatedAbilityID, 40);
+                        int num = 0;
+                        foreach (Cell item2 in list)
+                        {
+                            if (num == 0 || Stat.Random(1, 100) <= 80)
+                            {
+                                item2.AddObject(GameObject.create("AcidPool"));
+                            }
+                            num++;
+                        }
+                        UseEnergy(1000);
+                    }
                 }
             }
             return base.FireEvent(E);
@@ -201,7 +215,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool WantEvent(int ID, int cascade)
         {
-            return base.WantEvent(ID, cascade) || ID == EquippedEvent.ID || ID == ObjectEnteredCellEvent.ID || ID == ObjectEnteringCellEvent.ID;
+            return base.WantEvent(ID, cascade) || ID == EquippedEvent.ID || ID == ObjectEnteredCellEvent.ID || ID == ObjectEnteringCellEvent.ID || ID == EndTurnEvent.ID;
         }
 
         public override bool HandleEvent(ObjectEnteringCellEvent E)
@@ -222,19 +236,19 @@ namespace XRL.World.Parts.Mutation
             if (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)) && !ParentObject.HasEffect("Dissolving") && !ParentObject.HasEffect("Flying"))
             {
                 ParentObject.ApplyEffect(new Dissolving(1, ParentObject), ParentObject);
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
+                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
                 IsDissolving = true;
             }
             else if (IsDissolving == true && (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint))))
             {
                 this.Duration += 2;
                 Damage += 1;
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
+                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
             }
             else if ((IsDissolving == true && E.Object == ParentObject && (!E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)))))
             {
                 this.Duration -= 1;
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, "from salt diffusion!", false, false, false);
+                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
             }
             if (Duration <= 0)
             {
@@ -242,10 +256,10 @@ namespace XRL.World.Parts.Mutation
                 if (ParentObject.HasEffect("Dissolving"))
                 {
                     ParentObject.RemoveEffect("Dissolving");
+                    Damage = 2;
                 }
             }
             return base.HandleEvent(E);
         }
-
     }
 }

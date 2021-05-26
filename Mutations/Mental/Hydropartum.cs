@@ -61,58 +61,60 @@ namespace XRL.World.Parts.Mutation
             List<Cell> CellList = PickCone(4 + Level, 30 + Level, AllowVis.OnlyVisible);
             CellList = CellList.OrderBy(cell => cell.ManhattanDistanceTo(ParentObject.CurrentCell)).ToList();
 
-
-            base.PlayWorldSound("splashcast", 15f, 0, true, null);
-            XDidY(ParentObject, "materialize", "a torrential flood", "!", "C", null);
-            for (int index = 0; index < CellList.Count; index++)
+            if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
             {
-                Cell C = CellList[index];
-
-                if (C.ParentZone.IsActive() && C.IsVisible())
+                base.PlayWorldSound("splashcast", 1.5f, 0, true, null);
+                XDidY(ParentObject, "materialize", "a torrential flood", "!", "C", null);
+                for (int index = 0; index < CellList.Count; index++)
                 {
+                    Cell C = CellList[index];
 
-                    TextConsole.LoadScrapBuffers();
-                    ScreenBuffer scrapBuffer = TextConsole.ScrapBuffer;
-                    XRLCore.Core.RenderMapToBuffer(TextConsole.ScrapBuffer);
-                    scrapBuffer.Goto(C.X, C.Y);
-                    scrapBuffer.Write(GetRandomBlueFlashes() + "\a");
-                    Popup._TextConsole.DrawBuffer(scrapBuffer);
-                    Thread.Sleep(10);
-                    XRLCore.Core.RenderMapToBuffer(scrapBuffer);
-                    scrapBuffer.Goto(C.X, C.Y);
-                    scrapBuffer.Write(GetRandomBlueFlashes() + "\u0489");
-                    Popup._TextConsole.DrawBuffer(scrapBuffer);
-                    Thread.Sleep(10);
-
-                    var Roll = Stat.Random(1, 100);
-
-                    if (Roll <= 50)
+                    if (C.ParentZone.IsActive() && C.IsVisible())
                     {
-                        if (Roll >= 90)
-                            base.PlayWorldSound("flood1", 15f, 0, true, null);
-                        else if (Roll >= 60)
-                            base.PlayWorldSound("flood2", 15f, 0, true, null);
-                        else if (Roll >= 30)
-                            base.PlayWorldSound("flood3", 15f, 0, true, null);
-                        else
+
+                        TextConsole.LoadScrapBuffers();
+                        ScreenBuffer scrapBuffer = TextConsole.ScrapBuffer;
+                        XRLCore.Core.RenderMapToBuffer(TextConsole.ScrapBuffer);
+                        scrapBuffer.Goto(C.X, C.Y);
+                        scrapBuffer.Write(GetRandomBlueFlashes() + "\a");
+                        Popup._TextConsole.DrawBuffer(scrapBuffer);
+                        Thread.Sleep(10);
+                        XRLCore.Core.RenderMapToBuffer(scrapBuffer);
+                        scrapBuffer.Goto(C.X, C.Y);
+                        scrapBuffer.Write(GetRandomBlueFlashes() + "\u0489");
+                        Popup._TextConsole.DrawBuffer(scrapBuffer);
+                        Thread.Sleep(10);
+
+                        var Roll = Stat.Random(1, 100);
+
+                        if (Roll <= 50)
                         {
+                            if (Roll >= 90)
+                                base.PlayWorldSound("flood1", 1.5f, 0, true, null);
+                            else if (Roll >= 60)
+                                base.PlayWorldSound("flood2", 1.5f, 0, true, null);
+                            else if (Roll >= 30)
+                                base.PlayWorldSound("flood3", 1.5f, 0, true, null);
+                            else
+                            {
 
+                            }
                         }
-                    }
 
-                    if (C.HasObjectWithPart("Combat") || C.HasObjectWithPart("Brain"))
-                    {
-                        var cObj = C.GetFirstObjectWithPart("Combat");
-                        if (cObj != ParentObject)
+                        if (C.HasObjectWithPart("Combat") || C.HasObjectWithPart("Brain"))
                         {
-                            cObj.Push(ParentObject.CurrentCell.GetDirectionFromCell(cObj.CurrentCell), 1000, 4);
-                            cObj.TakeDamage(2 * Level, "Drowned in a torrent of liquid.", null, "from %t torrent-blast.", ParentObject, ParentObject, ParentObject);
-                            cObj.GetAngryAt(ParentObject, -50);
+                            var cObj = C.GetFirstObjectWithPart("Combat");
+                            if (cObj != ParentObject)
+                            {
+                                cObj.Push(ParentObject.CurrentCell.GetDirectionFromCell(cObj.CurrentCell), 1000, 4);
+                                cObj.TakeDamage(2 * Level, "Drowned in a torrent of liquid.", null, DeathReason: "from %t torrent-blast.", ThirdPersonDeathReason: null, ParentObject, ParentObject, ParentObject);
+                                cObj.GetAngryAt(ParentObject, -50);
+                            }
                         }
-                    }
 
-                    C.Splash("{{B|~}}");
-                    C.AddObject("SaltyWaterPuddle");
+                        C.Splash("{{B|~}}");
+                        C.AddObject("SaltyWaterPuddle");
+                    }
                 }
             }
         }

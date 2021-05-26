@@ -91,7 +91,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool ChangeLevel(int NewLevel)
         {
-            ACModifier = 0;
+            ACModifier = 0 + (NewLevel / 5);
             DVModifier = 1 + (NewLevel / 2);
             ArmorACModifier = ACModifier;
             ArmorDVModifier = DVModifier;
@@ -315,7 +315,7 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("Your barbs gouge into your foe, dealing extra damage!");
-                Target.TakeDamage(PermutationDamageQuills(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
+                Target.TakeDamage(PermutationDamageQuills(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
 
@@ -323,14 +323,14 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("You strangle your enemy with miasmic poisons, dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFP(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
+                Target.TakeDamage(PermutationDamagGFP(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
             else if (HasPermutation(ParentObject) == true && HasSynergyMutation.HasMutation("GelatinousFormAcid") == true)
             {
 
                 AddPlayerMessage("You strangle your enemy with your acidic form dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFA(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
+                Target.TakeDamage(PermutationDamagGFA(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
             else if (Synergies >= 1)
@@ -340,7 +340,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     AddPlayerMessage("Your barbs gouge into your foe, dealing extra damage!");
                 }
-                Target.TakeDamage(PermutationDamagGFA(), "from %t coils", null, "Crushed to death by muscled coiling.", ParentObject, ParentObject);
+                Target.TakeDamage(PermutationDamagGFA(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
         }

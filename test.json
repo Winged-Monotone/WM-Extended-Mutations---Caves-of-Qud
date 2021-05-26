@@ -1,0 +1,1747 @@
+{
+    "Limb": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Limb.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Limb.adj2.!random>"
+        ],
+        "adj1": [
+            "blood",
+            "meat",
+            "limb"
+        ],
+        "adj2": [
+            "bloody",
+            "severed",
+            "dismembered"
+        ],
+        "nounPlural": [
+            "$LimbDisplayName",
+            "meat",
+            "extremity",
+            "limb",
+            "appendage"
+        ],
+        "noun": [
+            "limb",
+            "appendage",
+            "meat"
+        ]
+    },
+    "Face": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Face.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Face.adj2.!random>"
+        ],
+        "adj1": [
+            "blood",
+            "meat",
+            "face"
+        ],
+        "adj2": [
+            "bloody",
+            "severed",
+            "dismembered",
+            "facial"
+        ],
+        "nounPlural": [
+            "$LimbDisplayName",
+            "meat",
+            "face",
+            "visage"
+        ],
+        "noun": [
+            "visage",
+            "face",
+            "meat"
+        ]
+    },
+    "Head": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Head.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Head.adj2.!random>"
+        ],
+        "adj1": [
+            "blood",
+            "meat",
+            "head",
+            "brain"
+        ],
+        "adj2": [
+            "bloody",
+            "severed",
+            "dismembered",
+            "brainy"
+        ],
+        "nounPlural": [
+            "$LimbDisplayName",
+            "meat",
+            "head",
+            "brain"
+        ],
+        "noun": [
+            "head",
+            "brain",
+            "meat"
+        ]
+    },
+    "Jerky": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Jerky.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Jerky.adj2.!random>"
+        ],
+        "adj1": [
+            "meat"
+        ],
+        "adj2": [
+            "dried",
+            "stripped",
+            "hearty",
+            "meaty"
+        ],
+        "nounPlural": [
+            "$JerkyDisplayName",
+            "meat"
+        ],
+        "noun": [
+            "jerky",
+            "meat",
+            "flesh"
+        ]
+    },
+    "Vinewafer Sheaf": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Vinewafer Sheaf.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Vinewafer Sheaf.adj2.!random>"
+        ],
+        "adj1": [
+            "wafer",
+            "vinewafer",
+            "watervine",
+            "water"
+        ],
+        "adj2": [
+            "watery",
+            "moist",
+            "soggy"
+        ],
+        "nounPlural": [
+            "wafers",
+            "vinewafers",
+            "freshwater",
+            "matz"
+        ],
+        "noun": [
+            "wafer",
+            "vinewafer",
+            "water",
+            "matz"
+        ]
+    },
+    "Phase Silk": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Phase Silk.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Phase Silk.adj2.!random>"
+        ],
+        "adj1": [
+            "phase",
+            "silk"
+        ],
+        "adj2": [
+            "silk",
+            "shimmering",
+            "ethereal",
+            "silky",
+            "spectral",
+            "<spice.cooking.recipeNames.ingredients.Phase Silk.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "adj_Special": [
+            "shimmering",
+            "ethereal",
+            "spectral"
+        ],
+        "nounPlural": [
+            "<spice.cooking.recipeNames.ingredients.Phase Silk.adj_Special.!random> silk",
+            "<spice.cooking.recipeNames.ingredients.Phase Silk.adj_Special.!random> fiber"
+        ],
+        "noun": [
+            "silk",
+            "fiber"
+        ]
+    },
+    "Congealed Shade Oil": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Shade Oil.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Shade Oil.adj2.!random>"
+        ],
+        "adj1": [
+            "phase",
+            "shade",
+            "oil",
+            "shadow"
+        ],
+        "adj2": [
+            "shimmering",
+            "ethereal",
+            "oily",
+            "shady",
+            "flickering",
+            "spectral",
+            "shadowy",
+            "<spice.cooking.recipeNames.ingredients.Congealed Shade Oil.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "shade oil",
+            "shade",
+            "shade oil tonic",
+            "tonic",
+            "shadow"
+        ],
+        "noun": [
+            "oil",
+            "shade",
+            "tonic",
+            "shadow"
+        ]
+    },
+    "Congealed Blaze": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Blaze.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Blaze.adj2.!random>"
+        ],
+        "adj1": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "hot",
+            "blazed"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "blazed",
+            "toasted",
+            "spicy",
+            "hot"
+        ],
+        "nounPlural": [
+            "blaze",
+            "open flame",
+            "char",
+            "smoke"
+        ],
+        "noun": [
+            "char",
+            "smoke",
+            "blaze"
+        ]
+    },
+    "Congealed Salve": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Salve.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Salve.adj2.!random>"
+        ],
+        "adj1": [
+            "herb",
+            "salve",
+            "balm",
+            "sooth"
+        ],
+        "adj2": [
+            "healing",
+            "curative",
+            "herbal",
+            "soothing"
+        ],
+        "nounPlural": [
+            "balm",
+            "salve",
+            "poultice",
+            "anodyne"
+        ],
+        "noun": [
+            "balm",
+            "salve",
+            "poultice",
+            "anodyne"
+        ]
+    },
+    "Soul Curd": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Soul Curd.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Soul Curd.adj2.!random>"
+        ],
+        "adj1": [
+            "life",
+            "soul"
+        ],
+        "adj2": [
+            "life",
+            "soul"
+        ],
+        "nounPlural": [
+            "soul curd"
+        ],
+        "noun": [
+            "soul curd"
+        ]
+    },
+    "Drop of Nectar": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Drop of Nectar.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Drop of Nectar.adj2.!random>"
+        ],
+        "adj1": [
+            "god"
+        ],
+        "adj2": [
+            "god",
+            "divine",
+            "godly"
+        ],
+        "nounPlural": [
+            "nectar"
+        ],
+        "noun": [
+            "nectar"
+        ]
+    },
+    "Congealed Love": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Love.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Love.adj2.!random>"
+        ],
+        "adj1": [
+            "love",
+            "lust"
+        ],
+        "adj2": [
+            "erotic",
+            "lusty"
+        ],
+        "nounPlural": [
+            "love",
+            "lust"
+        ],
+        "noun": [
+            "love",
+            "lust"
+        ]
+    },
+    "Congealed Hulk Honey": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Hulk Honey.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Hulk Honey.adj2.!random>"
+        ],
+        "adj1": [
+            "buff",
+            "big",
+            "growth"
+        ],
+        "adj2": [
+            "hulking",
+            "buff",
+            "big",
+            "growth"
+        ],
+        "nounPlural": [
+            "hulk honey",
+            "honey"
+        ],
+        "noun": [
+            "hulk honey",
+            "honey"
+        ]
+    },
+    "Congealed Skulk": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Congealed Skulk.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Congealed Skulk.adj2.!random>"
+        ],
+        "adj1": [
+            "slink",
+            "creep"
+        ],
+        "adj2": [
+            "skulking",
+            "slink",
+            "creep"
+        ],
+        "nounPlural": [
+            "skulk"
+        ],
+        "noun": [
+            "skulk"
+        ]
+    },
+    "Starapple Preserves": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Starapple Preserves.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Starapple Preserves.adj2.!random>"
+        ],
+        "adj1": [
+            "apple",
+            "apple juice",
+            "starapple",
+            "balsamic",
+            "fruit",
+            "tart"
+        ],
+        "adj2": [
+            "crisp",
+            "balsamic",
+            "fresh",
+            "fruit",
+            "tart",
+            "sweet"
+        ],
+        "nounPlural": [
+            "apples",
+            "starapples",
+            "jam",
+            "apple jam",
+            "starapple jam"
+        ],
+        "noun": [
+            "apple",
+            "starapple"
+        ]
+    },
+    "Spine Fruit Jam": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Spine Fruit Jam.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Spine Fruit Jam.adj2.!random>"
+        ],
+        "adj1": [
+            "spine fruit",
+            "spine",
+            "fruit"
+        ],
+        "adj2": [
+            "spiny",
+            "thorny",
+            "fruit",
+            "sweet",
+            "prickly",
+            "<spice.cooking.recipeNames.ingredients.Spine Fruit Jam.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "spine fruit",
+            "nettles",
+            "spines",
+            "jam",
+            "spine fruit jam",
+            "thorns"
+        ],
+        "noun": [
+            "spine fruit",
+            "nettle",
+            "spine",
+            "thorn"
+        ]
+    },
+    "Cured Dawnglider Tail": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Cured Dawnglider Tail.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Cured Dawnglider Tail.adj2.!random>"
+        ],
+        "adj1": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "scaled",
+            "hot"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "scaled",
+            "toasted",
+            "spicy",
+            "hot"
+        ],
+        "nounPlural": [
+            "dawnglider tail",
+            "scales",
+            "open flame",
+            "char",
+            "smoke"
+        ],
+        "noun": [
+            "dawnglider tail",
+            "scale",
+            "char",
+            "smoke"
+        ]
+    },
+    "Fire Ant Gaster Paste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Fire Ant Gaster Paste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Fire Ant Gaster Paste.adj2.!random>"
+        ],
+        "adj1": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "hot"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "toasted",
+            "spicy",
+            "hot"
+        ],
+        "nounPlural": [
+            "fire ant gaster paste",
+            "gaster paste",
+            "open flame",
+            "char",
+            "smoke",
+            "fire ant"
+        ],
+        "noun": [
+            "gaster",
+            "ant",
+            "char",
+            "smoke"
+        ]
+    },
+    "Freeze-Dried Hoarshrooms": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Freeze-Dried Hoarshrooms.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Freeze-Dried Hoarshrooms.adj2.!random>"
+        ],
+        "adj1": [
+            "mushroom",
+            "cold mushroom",
+            "fungus",
+            "hoarshroom"
+        ],
+        "adj2": [
+            "luminous",
+            "glowing",
+            "radiant",
+            "phosphorescent",
+            "freeze-dried",
+            "<spice.cooking.recipeNames.ingredients.Freeze-Dried Hoarshrooms.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "hoarshrooms",
+            "mushrooms",
+            "motes of light",
+            "fungus"
+        ],
+        "noun": [
+            "hoarshroom",
+            "mushroom",
+            "fungus"
+        ]
+    },
+    "Pickled Mushrooms": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Pickled Mushrooms.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Pickled Mushrooms.adj2.!random>"
+        ],
+        "adj1": [
+            "mushroom",
+            "briny mushroom",
+            "fungus"
+        ],
+        "adj2": [
+            "pickled",
+            "briny",
+            "salty",
+            "<spice.cooking.recipeNames.ingredients.Pickled Mushrooms.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "pickled mushrooms",
+            "mushrooms",
+            "pickled mushroom water",
+            "fungus"
+        ],
+        "noun": [
+            "brineshroom",
+            "mushroom",
+            "fungus"
+        ]
+    },
+    "Pickles": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Pickles.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Pickles.adj2.!random>"
+        ],
+        "adj1": [
+            "pickled",
+            "water",
+            "brine"
+        ],
+        "adj2": [
+            "pickled",
+            "briny",
+            "salty",
+            "<spice.cooking.recipeNames.ingredients.Pickles.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "pickles",
+            "pickle water",
+            "brine",
+            "water"
+        ],
+        "noun": [
+            "cucumber",
+            "pickle",
+            "water"
+        ]
+    },
+    "Fermented Yondercane": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Fermented Yondercane.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Fermented Yondercane.adj2.!random>"
+        ],
+        "adj1": [
+            "blink",
+            "tele-",
+            "far-",
+            "there-"
+        ],
+        "adj2": [
+            "blink",
+            "blinking",
+            "teleporting",
+            "fermented",
+            "<spice.cooking.recipeNames.ingredients.Fermented Yondercane.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "yondercane",
+            "fermented yondercane",
+            "yondercane",
+            "fermented yondercane",
+            "air"
+        ],
+        "noun": [
+            "yondercane",
+            "cane",
+            "yondercane",
+            "cane",
+            "air"
+        ]
+    },
+    "Voider Gland Paste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Voider Gland Paste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Voider Gland Paste.adj2.!random>"
+        ],
+        "adj1": [
+            "blink",
+            "tele-",
+            "far-",
+            "there-",
+            "pasty"
+        ],
+        "adj2": [
+            "blink",
+            "blinking",
+            "teleporting",
+            "pasty",
+            "<spice.cooking.recipeNames.ingredients.Voider Gland Paste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "voider gland paste",
+            "voider gland",
+            "voider",
+            "air"
+        ],
+        "noun": [
+            "voider",
+            "paste",
+            "air"
+        ]
+    },
+    "Spark Tick Plasma": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Spark Tick Plasma.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Spark Tick Plasma.adj2.!random>"
+        ],
+        "adj1": [
+            "spark",
+            "voltaic",
+            "jolt",
+            "electric"
+        ],
+        "adj2": [
+            "electric",
+            "crackling",
+            "sparky",
+            "voltaic",
+            "<spice.cooking.recipeNames.ingredients.Spark Tick Plasma.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "spark tick plasma",
+            "sparks",
+            "electric current",
+            "plasma",
+            "electricity",
+            "lightning"
+        ],
+        "noun": [
+            "plasma",
+            "spark",
+            "electron",
+            "volt",
+            "jolt"
+        ]
+    },
+    "Canned Have-It-All": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Canned Have-It-All.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Canned Have-It-All.adj2.!random>"
+        ],
+        "adj1": [
+            "all"
+        ],
+        "adj2": [
+            "all",
+            "<spice.cooking.recipeNames.ingredients.Canned Have-It-All.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "everything"
+        ],
+        "noun": [
+            "everything"
+        ]
+    },
+    "Fermented Yuckwheat Stem": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Fermented Yuckwheat Stem.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Fermented Yuckwheat Stem.adj2.!random>"
+        ],
+        "adj1": [
+            "yuck",
+            "yuckwheat",
+            "bitter"
+        ],
+        "adj2": [
+            "herbal",
+            "yucky",
+            "yuckwheat",
+            "medicinal",
+            "bitter",
+            "acrid",
+            "<spice.cooking.recipeNames.ingredients.Fermented Yuckwheat Stem.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "fermented yuckwheat",
+            "yuckwheat",
+            "medicine",
+            "yuckwheat"
+        ],
+        "noun": [
+            "yuckwheat",
+            "stem"
+        ]
+    },
+    "Mashed Lag": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Mashed Lag.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Mashed Lag.adj2.!random>"
+        ],
+        "adj1": [
+            "lag"
+        ],
+        "adj2": [
+            "starchy",
+            "lag",
+            "<spice.cooking.recipeNames.ingredients.Mashed Lag.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "lagroot",
+            "lag"
+        ],
+        "noun": [
+            "lagroot",
+            "mashed lag"
+        ]
+    },
+    "Dried Lah Petals": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Dried Lah Petals.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Dried Lah Petals.adj2.!random>"
+        ],
+        "adj1": [
+            "phobic",
+            "lah",
+            "spooky"
+        ],
+        "adj2": [
+            "phobic",
+            "lah",
+            "lah-rubbed",
+            "spooky",
+            "flowery",
+            "<spice.cooking.recipeNames.ingredients.Dried Lah Petals.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "lah",
+            "petals",
+            "flower"
+        ],
+        "noun": [
+            "lah",
+            "petal",
+            "flowers"
+        ]
+    },
+    "Dried Vanta Petals": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Dried Vanta Petals.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Dried Vanta Petals.adj2.!random>"
+        ],
+        "adj1": [
+            "void",
+            "dusk",
+            "black"
+        ],
+        "adj2": [
+            "shady",
+            "dusky",
+            "abyssal",
+            "darkling",
+            "stygian",
+            "<spice.cooking.recipeNames.ingredients.Dried Vanta Petals.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "vanta",
+            "petals",
+            "flower"
+        ],
+        "noun": [
+            "vanta",
+            "petal",
+            "flowers"
+        ]
+    },
+    "Compacted Bone Meal": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Compacted Bone Meal.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Compacted Bone Meal.adj2.!random>"
+        ],
+        "adj1": [
+            "bone"
+        ],
+        "adj2": [
+            "boney",
+            "calcified",
+            "ossified",
+            "skeletal",
+            "<spice.cooking.recipeNames.ingredients.Compacted Bone Meal.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "bones",
+            "bone meal"
+        ],
+        "noun": [
+            "bone",
+            "bone meal"
+        ]
+    },
+    "Crushed Grave Moss": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Crushed Grave Moss.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Crushed Grave Moss.adj2.!random>"
+        ],
+        "adj1": [
+            "moss"
+        ],
+        "adj2": [
+            "mossy",
+            "<spice.cooking.recipeNames.ingredients.Crushed Grave Moss.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "grave moss",
+            "moss"
+        ],
+        "noun": [
+            "grave moss",
+            "moss"
+        ]
+    },
+    "Sun-Dried Banana": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Sun-Dried Banana.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Sun-Dried Banana.adj2.!random>"
+        ],
+        "adj1": [
+            "fruit",
+            "sweet"
+        ],
+        "adj2": [
+            "fruity",
+            "sweet",
+            "<spice.cooking.recipeNames.ingredients.Sun-Dried Banana.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "bananas"
+        ],
+        "noun": [
+            "banana"
+        ]
+    },
+    "Psychal Gland Paste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Psychal Gland Paste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Psychal Gland Paste.adj2.!random>"
+        ],
+        "adj1": [
+            "thought",
+            "mind"
+        ],
+        "adj2": [
+            "mnemonic",
+            "nostalgic",
+            "psychal",
+            "<spice.cooking.recipeNames.ingredients.Psychal Gland Paste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "psychal gland paste",
+            "psychal gland",
+            "memories"
+        ],
+        "noun": [
+            "psyche",
+            "paste",
+            "memory"
+        ]
+    },
+    "Mirror Dust": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Mirror Dust.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Mirror Dust.adj2.!random>"
+        ],
+        "adj1": [
+            "mirror",
+            "dust",
+            "mimic"
+        ],
+        "adj2": [
+            "mirrored",
+            "reflective",
+            "glassy",
+            "<spice.cooking.recipeNames.ingredients.Mirror Dust.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "mirror dust",
+            "dust"
+        ],
+        "noun": [
+            "dust",
+            "mirror dust"
+        ]
+    },
+    "FireBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.FireBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.FireBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "hot"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "toasted",
+            "spicy",
+            "hot"
+        ],
+        "nounPlural": [
+            "flamebeard gland paste",
+            "open flame",
+            "char",
+            "smoke",
+            "flamebeard"
+        ],
+        "noun": [
+            "flamebeard",
+            "char",
+            "smoke"
+        ]
+    },
+    "ElderFireBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderFireBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderFireBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "hot"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "pasty",
+            "toasted",
+            "spicy",
+            "hot"
+        ],
+        "nounPlural": [
+            "concentrated flamebeard gland paste",
+            "open flame",
+            "char",
+            "smoke",
+            "elder flamebeard"
+        ],
+        "noun": [
+            "elder flamebeard",
+            "char",
+            "smoke"
+        ]
+    },
+    "IceBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.IceBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.IceBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "icy",
+            "ice",
+            "sleet"
+        ],
+        "adj2": [
+            "icy",
+            "ice",
+            "sleet",
+            "freezing",
+            "frozen"
+        ],
+        "nounPlural": [
+            "sleetbeard gland paste",
+            "ice",
+            "sleet",
+            "sleetbeard"
+        ],
+        "noun": [
+            "sleetbeard",
+            "ice",
+            "sleet"
+        ]
+    },
+    "ElderIceBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderIceBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderIceBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "icy",
+            "ice",
+            "sleet"
+        ],
+        "adj2": [
+            "icy",
+            "ice",
+            "sleet",
+            "freezing",
+            "frozen"
+        ],
+        "nounPlural": [
+            "concentrated sleetbeard gland paste",
+            "ice",
+            "sleet",
+            "elder sleetbeard"
+        ],
+        "noun": [
+            "elder sleetbeard",
+            "ice",
+            "sleet"
+        ]
+    },
+    "CorrosiveBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.CorrosiveBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.CorrosiveBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "acid"
+        ],
+        "adj2": [
+            "acidic",
+            "dissolved",
+            "corrosive",
+            "<spice.cooking.recipeNames.ingredients.CorrosiveBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "acid",
+            "tartbeard gland paste",
+            "tartbeard"
+        ],
+        "noun": [
+            "acid",
+            "tartbeard"
+        ]
+    },
+    "ElderCorrosiveBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderCorrosiveBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderCorrosiveBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "acid"
+        ],
+        "adj2": [
+            "acidic",
+            "dissolved",
+            "corrosive",
+            "<spice.cooking.recipeNames.ingredients.ElderCorrosiveBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "acid",
+            "concentrated tartbeard gland paste",
+            "elder tartbeard"
+        ],
+        "noun": [
+            "acid",
+            "elder tartbeard"
+        ]
+    },
+    "NormalityBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.NormalityBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.NormalityBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "null"
+        ],
+        "adj2": [
+            "null",
+            "nothing",
+            "<spice.cooking.recipeNames.ingredients.NormalityBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "nullity",
+            "nothing",
+            "nullbeard gland paste",
+            "nullbeard"
+        ],
+        "noun": [
+            "nullity",
+            "nothing",
+            "nullbeard"
+        ]
+    },
+    "ElderNormalityBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderNormalityBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderNormalityBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "null"
+        ],
+        "adj2": [
+            "null",
+            "nothing",
+            "<spice.cooking.recipeNames.ingredients.ElderNormalityBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "nullity",
+            "nothing",
+            "concentrated nullbeard gland paste",
+            "elder nullbeard"
+        ],
+        "noun": [
+            "nullity",
+            "nothing",
+            "elder nullbeard"
+        ]
+    },
+    "PoisonBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.PoisonBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.PoisonBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "poison",
+            "toxin"
+        ],
+        "adj2": [
+            "poisonous",
+            "toxic",
+            "<spice.cooking.recipeNames.ingredients.PoisonBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "poison",
+            "gallbeard gland paste",
+            "gallbeard"
+        ],
+        "noun": [
+            "poison",
+            "toxin",
+            "gallbeard"
+        ]
+    },
+    "ElderPoisonBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderPoisonBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderPoisonBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "poison",
+            "toxin"
+        ],
+        "adj2": [
+            "poisonous",
+            "toxic",
+            "<spice.cooking.recipeNames.ingredients.ElderPoisonBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "poison",
+            "concentrated gallbeard gland paste",
+            "elder gallbeard"
+        ],
+        "noun": [
+            "poison",
+            "toxin",
+            "elder gallbeard"
+        ]
+    },
+    "SleepBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.SleepBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.SleepBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "sleep",
+            "dream"
+        ],
+        "adj2": [
+            "sleepy",
+            "dreamy",
+            "lazy",
+            "drowsing",
+            "<spice.cooking.recipeNames.ingredients.SleepBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "dreams",
+            "dreambeard gland paste",
+            "dreambeard"
+        ],
+        "noun": [
+            "dream",
+            "sleep",
+            "dreambeard"
+        ]
+    },
+    "ElderSleepBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderSleepBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderSleepBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "sleep",
+            "dream"
+        ],
+        "adj2": [
+            "sleepy",
+            "dreamy",
+            "lazy",
+            "drowsing",
+            "<spice.cooking.recipeNames.ingredients.ElderSleepBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "dreams",
+            "concentrated dreambeard gland paste",
+            "elder dreambeard"
+        ],
+        "noun": [
+            "dream",
+            "sleep",
+            "elder dreambeard"
+        ]
+    },
+    "StunBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.StunBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.StunBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "stun",
+            "still"
+        ],
+        "adj2": [
+            "stun",
+            "still",
+            "<spice.cooking.recipeNames.ingredients.StunBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "stillbeard gland paste",
+            "stillbeard"
+        ],
+        "noun": [
+            "stillbeard"
+        ]
+    },
+    "ElderStunBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderStunBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderStunBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "stun",
+            "still"
+        ],
+        "adj2": [
+            "stun",
+            "still",
+            "<spice.cooking.recipeNames.ingredients.ElderStunBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "concentrated stillbeard gland paste",
+            "elder stillbeard"
+        ],
+        "noun": [
+            "elder stillbeard"
+        ]
+    },
+    "ConfusionBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ConfusionBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ConfusionBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "maze",
+            "puzzle"
+        ],
+        "adj2": [
+            "confusing",
+            "puzzling",
+            "<spice.cooking.recipeNames.ingredients.ConfusionBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "mazebeard gland paste",
+            "mazebeard"
+        ],
+        "noun": [
+            "mazebeard"
+        ]
+    },
+    "ElderConfusionBreatherGlandPaste": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ElderConfusionBreatherGlandPaste.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ElderConfusionBreatherGlandPaste.adj2.!random>"
+        ],
+        "adj1": [
+            "maze",
+            "puzzle"
+        ],
+        "adj2": [
+            "confusing",
+            "puzzling",
+            "<spice.cooking.recipeNames.ingredients.ElderConfusionBreatherGlandPaste.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "concentrated mazebeard gland paste",
+            "elder mazebeard"
+        ],
+        "noun": [
+            "elder mazebeard"
+        ]
+    },
+    "cider": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.cider.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.cider.adj2.!random>"
+        ],
+        "adj1": [
+            "cider",
+            "spice"
+        ],
+        "adj2": [
+            "fermented",
+            "spiced",
+            "fragrant",
+            "mulled",
+            "<spice.cooking.recipeNames.ingredients.cider.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "cider",
+            "spice"
+        ],
+        "noun": [
+            "cider",
+            "spice"
+        ]
+    },
+    "convalessence": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.convalessence.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.convalessence.adj2.!random>"
+        ],
+        "adj1": [
+            "cool",
+            "cold",
+            "convalessence",
+            "balm"
+        ],
+        "adj2": [
+            "cool",
+            "cold",
+            "rejuvenating",
+            "convalescent"
+        ],
+        "nounPlural": [
+            "convalessence",
+            "balm",
+            "elixir"
+        ],
+        "noun": [
+            "convalessence",
+            "balm",
+            "elixir"
+        ]
+    },
+    "honey": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.honey.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.honey.adj2.!random>"
+        ],
+        "adj1": [
+            "sweet",
+            "honey"
+        ],
+        "adj2": [
+            "sweet",
+            "honeyed",
+            "sweetened",
+            "sticky",
+            "<spice.cooking.recipeNames.ingredients.honey.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "honey"
+        ],
+        "noun": [
+            "honey"
+        ]
+    },
+    "salt": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.salt.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.salt.adj2.!random>"
+        ],
+        "adj1": [
+            "salt",
+            "brine"
+        ],
+        "adj2": [
+            "salty",
+            "briny",
+            "salted",
+            "tasty",
+            "<spice.cooking.recipeNames.ingredients.salt.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "salt"
+        ],
+        "noun": [
+            "salt"
+        ]
+    },
+    "asphalt": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.asphalt.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.asphalt.adj2.!random>"
+        ],
+        "adj1": [
+            "tar",
+            "asphalt"
+        ],
+        "adj2": [
+            "tarry",
+            "sticky",
+            "viscous",
+            "<spice.cooking.recipeNames.ingredients.asphalt.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "tar",
+            "asphalt",
+            "glue"
+        ],
+        "noun": [
+            "tar",
+            "asphalt",
+            "glue"
+        ]
+    },
+    "lava": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.lava.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.lava.adj2.!random>"
+        ],
+        "adj1": [
+            "lava",
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "hot"
+        ],
+        "adj2": [
+            "fire-roasted",
+            "flaming",
+            "seared",
+            "roasted",
+            "magmatic",
+            "molten",
+            "hot",
+            "<spice.cooking.recipeNames.ingredients.lava.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "lava",
+            "magma",
+            "smoke"
+        ],
+        "noun": [
+            "lava",
+            "magma",
+            "smoke"
+        ]
+    },
+    "slime": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.slime.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.slime.adj2.!random>"
+        ],
+        "adj1": [
+            "slime"
+        ],
+        "adj2": [
+            "slimy",
+            "<spice.cooking.recipeNames.ingredients.slime.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "slime"
+        ],
+        "noun": [
+            "slime"
+        ]
+    },
+    "goo": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.goo.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.goo.adj2.!random>"
+        ],
+        "adj1": [
+            "goo"
+        ],
+        "adj2": [
+            "gooey",
+            "<spice.cooking.recipeNames.ingredients.goo.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "goo"
+        ],
+        "noun": [
+            "goo"
+        ]
+    },
+    "sludge": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.sludge.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.sludge.adj2.!random>"
+        ],
+        "adj1": [
+            "sludge"
+        ],
+        "adj2": [
+            "sludgey",
+            "<spice.cooking.recipeNames.ingredients.sludge.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "sludge"
+        ],
+        "noun": [
+            "sludge"
+        ]
+    },
+    "ooze": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.ooze.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.ooze.adj2.!random>"
+        ],
+        "adj1": [
+            "ooze"
+        ],
+        "adj2": [
+            "oozing",
+            "<spice.cooking.recipeNames.ingredients.ooze.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "ooze"
+        ],
+        "noun": [
+            "ooze"
+        ]
+    },
+    "acid": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.acid.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.acid.adj2.!random>"
+        ],
+        "adj1": [
+            "acid"
+        ],
+        "adj2": [
+            "acidic",
+            "dissolved",
+            "corrosive",
+            "<spice.cooking.recipeNames.ingredients.acid.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "acid"
+        ],
+        "noun": [
+            "acid"
+        ]
+    },
+    "neutronflux": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.neutronflux.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.neutronflux.adj2.!random>"
+        ],
+        "adj1": [
+            "neutron",
+            "flux"
+        ],
+        "adj2": [
+            "dense",
+            "unstable",
+            "compact",
+            "heavy",
+            "degenerate",
+            "<spice.cooking.recipeNames.ingredients.neutronflux.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "flux",
+            "neutrons"
+        ],
+        "noun": [
+            "flux",
+            "neutron"
+        ]
+    },
+    "cloning": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.cloning.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.cloning.adj2.!random>"
+        ],
+        "adj1": [
+            "twice",
+            "thrice",
+            "cloned"
+        ],
+        "adj2": [
+            "cloned",
+            "homogenized",
+            "twice-cooked",
+            "thrice-cooked",
+            "<spice.cooking.recipeNames.ingredients.cloning.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "cloning draught"
+        ],
+        "noun": [
+            "cloninng draught"
+        ]
+    },
+    "Starch": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Starch.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Starch.adj2.!random>"
+        ],
+        "adj1": [
+            "starch"
+        ],
+        "adj2": [
+            "starchy",
+            "brisk",
+            "<spice.cooking.recipeNames.ingredients.Starch.noun.!random>-<spice.cooking.recipeNames.suffix.!random>"
+        ],
+        "nounPlural": [
+            "starch"
+        ],
+        "noun": [
+            "starch"
+        ]
+    },
+    "Lignin": {
+        "adj": [
+            "<spice.cooking.recipeNames.ingredients.Lignin.adj1.!random>",
+            "<spice.cooking.recipeNames.ingredients.Lignin.adj2.!random>"
+        ],
+        "adj1": [
+            "lignin"
+        ],
+        "adj2": [
+            "lignin",
+            "fresh",
+            "vitalizing"
+        ],
+        "nounPlural": [
+            "lignin"
+        ],
+        "noun": [
+            "lignin"
+        ]
+    },
+    "0f0efb02-fa95-4d89-9c52-483e6c2fa1a2": {
+        "Chitin Chips": {
+            "adj": [
+                "<^.adj1.!random>",
+                "<^.adj2.!random>"
+            ],
+            "adj1": [
+                "calcified",
+                "fried",
+                "crispy",
+                "chewy"
+            ],
+            "adj2": [
+                "sticky",
+                "crunchy"
+            ],
+            "nounPlural": [
+                "chitin-rolls",
+                "chitin-loafs",
+                "chitin-gelato"
+            ],
+            "noun": [
+                "chitin-loaf",
+                "chitin-chips",
+                "gelatin",
+                "chitin-wedges",
+                "chitin"
+            ]
+        }
+    }
+}

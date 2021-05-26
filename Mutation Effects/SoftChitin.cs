@@ -56,12 +56,14 @@ namespace XRL.World.Effects
 
         public override bool Apply(GameObject Object)
         {
+            int StrengthDeBuff = (int)((float)Object.Statistics["Strength"].BaseValue / 2);
             movementSpeedBuff = (int)((float)Object.Statistics["MoveSpeed"].BaseValue * 0.25f);
             StatShifter.SetStatShift("MoveSpeed", -movementSpeedBuff);
             StatShifter.SetStatShift("AV", -avDebuff);
+            StatShifter.SetStatShift("Strength", -StrengthDeBuff);
             if (Object.IsPlayer())
             {
-                Popup.Show("Your chitin is currently soft and malleable, until it hardens you lose your natural AV bonus, but now move slightly faster.", true);
+                Popup.Show("Your chitin is currently soft and malleable, until it hardens you lose your natural AV bonus and half of your strength bonus, but now move slightly faster.", true);
             }
             return true;
         }

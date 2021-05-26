@@ -48,6 +48,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
+
             this.ActivatedAbilityID = base.AddMyActivatedAbility("In-Gaze", "CommandSpecialLook", "Mental Mutation", "Gain meta-data through this special look command. [Must be activated at least once in each parasang, creature's that spawn as new entities on the map will also require you activate it again.]", "o", null, false, false, false, false, false, false, false, 10, null);
 
             return base.Mutate(GO, Level);

@@ -8,12 +8,12 @@ public class MyWishHandler
     [WishCommand]
     public static bool SwapBodiesTest()
     {
-        var OriginalBody = game.Player.Body;
+        var OriginalBody = XRL.The.Game.Player._Body;
 
-        Cell cell = game.Player.Body.pBrain.PickDirection();
+        Cell cell = XRL.The.Game.Player._Body.PickDirection();
         var TargetHusk = cell.GetFirstObjectWithPart("Brain");
 
-        game.Player.Body = TargetHusk;
+        XRL.The.Game.Player._Body = TargetHusk;
         // TargetHusk.FireEvent(Event.New("Result", "OriginalBody", ParentObject));
 
 
@@ -26,7 +26,7 @@ public class MyWishHandler
             XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(PrimaryFaction, -CreatureTier * 50, true);
         }
 
-        
+
 
 
 

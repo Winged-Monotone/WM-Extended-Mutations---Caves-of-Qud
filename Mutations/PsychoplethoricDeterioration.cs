@@ -232,7 +232,7 @@ namespace XRL.World.Parts.Mutation
                         TargetHusk.RequirePart<Survival_Trailblazer>();
                     }
 
-                    game.Player.Body = TargetHusk;
+                    XRL.The.Game.Player.Body = TargetHusk;
 
                     TargetHusk.UseEnergy(1000);
                     ParentObject.UseEnergy(5000);
@@ -420,7 +420,7 @@ namespace XRL.World.Parts.Mutation
                     if (!ParentObject.HasProperName)
                     {
                         ParentObject.DisplayName = OriginalBody.DisplayNameOnly;
-                        OriginalBody.DisplayName = HeroMaker.MakeHeroName(ParentObject, new string[0], new string[0], false);
+                        OriginalBody.DisplayName = Names.NameMaker.MakeName(ParentObject);
                     }
                     else
                     {

@@ -33,8 +33,10 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
-            // if (ParentObject != null)
-            // { XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Seekers", 1200, false); }
+            // string SciophagiainfoSource = "{ \"Sciophagia\": [\"*cult*, the Soul-Eaters\", \"Thought-Hunters *cult*\"] }";
+            // SimpleJSON.JSONNode SciophagiaInfo = SimpleJSON.JSON.Parse(SciophagiainfoSource);
+
+            // WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", SciophagiaInfo["Sciophagia"]);
 
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
@@ -47,7 +49,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool CanLevel()
         {
-            return false;
+            return true;
         }
         public override string GetDescription()
         {
@@ -56,7 +58,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{light blue|10%}} chance you will encode that creature's psyche onto the holograms of your own, gaining +1 to your ego score permanently.  \n"
+            return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{light blue|" + (10 + Level) + "}} chance you will encode that creature's psyche onto the holograms of your own, gaining +1 to your ego score permanently.  \n"
             + "\n";
         }
 
@@ -79,7 +81,7 @@ namespace XRL.World.Parts.Mutation
             var TargetsLevel = E.Dying.Stat("Level");
 
             var LevelDifference = OwnersLevel - TargetsLevel;
-            var DevourChance = Stat.Random(1, 100) <= 10 + (LevelDifference * 0.10);
+            var DevourChance = Stat.Random(1, 100) <= 10 + Level + (LevelDifference * 0.10);
 
             var Killed = E.Dying;
 

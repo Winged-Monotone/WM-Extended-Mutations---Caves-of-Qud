@@ -1,0 +1,31 @@
+{
+    "Chitin Chips": {
+        "adj": [
+            "<^.adj1.!random>",
+            "<^.adj2.!random>"
+        ],
+        "adj1": [
+            "calcified",
+            "fried",
+            "crispy",
+            "chewy"
+        ],
+        "adj2": [
+            "sticky",
+            "crunchy"
+        ],
+        "nounPlural": [
+            "chitinous-rolls",
+            "chitinous-loafs",
+            "chitinous-gelato"
+        ],
+        "noun": [
+            "chitinous-loaf",
+            "chitinous-chips",
+            "gelatin",
+            "chitinous-wedges",
+            "chitinous",
+            "chitin'nous-nous"
+        ]
+    }
+}

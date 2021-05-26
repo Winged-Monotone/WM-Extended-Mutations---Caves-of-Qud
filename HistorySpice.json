@@ -17,7 +17,7 @@
                 "*cult*, torrent-singers",
                 "sea-makers *cult*"
             ],
-            "Psychomaterialus": [
+            "Psychomateriartis": [
                 "*cult*, mind-smiths",
                 "Forgemasters *cult*"
             ],
@@ -29,6 +29,40 @@
                 "*cult*, God-Eye",
                 "Sultan's Sight *cult*"
             ]
+        },
+        "cooking": {
+            "recipeNames": {
+                "ingredients": {
+                    "Chitin Chips": {
+                        "adj": [
+                            "<^.adj1.!random>",
+                            "<^.adj2.!random>"
+                        ],
+                        "adj1": [
+                            "calcified",
+                            "fried",
+                            "crispy",
+                            "chewy"
+                        ],
+                        "adj2": [
+                            "sticky",
+                            "crunchy"
+                        ],
+                        "nounPlural": [
+                            "chitin-rolls",
+                            "chitin-loafs",
+                            "chitin-gelato"
+                        ],
+                        "noun": [
+                            "chitin-loaf",
+                            "chitin-chips",
+                            "gelatin",
+                            "chitin-wedges",
+                            "chitin"
+                        ]
+                    }
+                }
+            }
         }
     }
 }

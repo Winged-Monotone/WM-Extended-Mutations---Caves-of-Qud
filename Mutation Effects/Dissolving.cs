@@ -28,9 +28,7 @@ namespace XRL.World.Effects
         {
             return "Your acidic gelatin is reacting to concentrated salt! You are dissolving!\n";
         }
-        public override bool WantEvent(int ID, int cascade)
-        {
-            return base.WantEvent(ID, cascade) || ID == EndTurnEvent.ID;
-        }
+
+
     }
 }

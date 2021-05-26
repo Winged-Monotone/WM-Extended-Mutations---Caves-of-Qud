@@ -39,10 +39,11 @@
     <mutation Code="bom" BearerDescription="those who summon the great flow" Exclusions="" Class="Hydropartum" MaxSelected="1" Cost="3" Name="Hydropartuma"></mutation>
     <mutation Code="mom" BearerDescription="those who spin weaponized-thoughts" Exclusions="" Class="Psychomateriartis" MaxSelected="1" Cost="4" Name="Psychomateriartus"></mutation>
     <mutation Code="via" BearerDescription="those with the sacred eyes" Exclusions="" Class="VitaIntuita" MaxSelected="1" Cost="1" Name="Vita Intuita"></mutation>
-    <mutation Code="tia" BearerDescription="those who warm and cool the wild world." Exclusions="" Class="Thermokinesis" MaxSelected="1" Cost="4" Name="Thermokinesis"></mutation>
-    <mutation Code="tei" BearerDescription="those who shimmer like the stars." Exclusions="" Class="Electrokinesis" MaxSelected="1" Cost="4" Name="Electrokinesis"></mutation>
-    <mutation Code="dea" BearerDescription="the friends in the dark." Exclusions="" Class="Umbranimae" MaxSelected="1" Cost="3" Name="Umbranimae"></mutation>
+    <mutation Code="tia" BearerDescription="those who warm and cool the wild world" Exclusions="" Class="Thermokinesis" MaxSelected="1" Cost="4" Name="Thermokinesis"></mutation>
+    <mutation Code="umb" BearerDescription="those hiding in the shadows" Exclusions="" Class="Umbrameum" MaxSelected="1" Cost="3" Name="Umbrameum"></mutation>
 
   </category>
 
 </mutations>
+
+<!-- <mutation Code="ele" BearerDescription="those who shimmer like the stars" Exclusions="" Class="Electrokinesis" MaxSelected="1" Cost="7" Name="Electrokinesis"></mutation> -->

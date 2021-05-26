@@ -30,7 +30,7 @@ namespace XRL.World.Parts
 
         public override bool HandleEvent(EquipperEquippedEvent E)
         {
-            if (E.Actor == ParentObject && E.Actor.IsPlayer() && E.Item.HasPart("Armor") && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
+            if (E.Actor == ParentObject && E.Actor.IsPlayer() && E.Item.HasPart("Armor") && !E.Item.HasPart("NaturalWeapon") && !E.Item.HasPart("NaturalEquipment"))
             {
                 if (E.Item.GetTier() < 5)
                 {
@@ -43,13 +43,13 @@ namespace XRL.World.Parts
             }
             else if (E.Actor == ParentObject && E.Item.HasPart("Armor"))
             {
-                if (E.Item.GetTier() < 5 && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
+                if (E.Item.GetTier() < 5 && !E.Item.HasPart("NaturalWeapon") && !E.Item.HasPart("NaturalEquipment"))
                 {
                     // AddPlayerMessage("2 check");
                     E.Item.ForceUnequip();
                 }
             }
-            if (E.Item.GetTier() <= 5 && E.Item.IsEquippedProperly() && E.Item.HasPart("Armor") && !E.Item.HasTagOrProperty("NaturalWeapon") && !E.Item.HasTagOrProperty("NaturalEquipment"))
+            if (E.Item.GetTier() <= 5 && E.Item.IsEquippedProperly() && E.Item.HasPart("Armor") && !E.Item.HasPart("NaturalWeapon") && !E.Item.HasPart("NaturalEquipment"))
             {
                 E.Item.Destroy("Destroyed by " + ParentObject.its + " acidic body.", false, false);
                 // AddPlayerMessage("3 check");

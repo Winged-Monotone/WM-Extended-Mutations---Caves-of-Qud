@@ -82,7 +82,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (ParentObject.HasEffect(x => DiseaseEffects.Contains(x.ClassName)) && ParentObject.GetStatValue("Hitpoints") <= 1)
             {
-                ParentObject.Die(null, null, "Your form withers away to your pathogenic guest.", false, null, null, false);
+                ParentObject.Die(null, null, "Your form withers away to your pathogenic guest.");
             }
             return base.WantTurnTick();
         }

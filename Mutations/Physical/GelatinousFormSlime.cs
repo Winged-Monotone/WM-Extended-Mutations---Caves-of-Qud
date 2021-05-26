@@ -108,7 +108,7 @@ namespace XRL.World.Parts.Mutation
                         if (!cell.IsOccluding() && Stat.Random(1, 100) <= 10 + (5 * Level / 2))
                         {
                             GameObject SlimeContainer = GameObject.create(this.SlimePool);
-                            cell.AddObject(SlimeContainer, true, false, false, null);
+                            cell.AddObject(SlimeContainer, true, false, false, false, null);
                         }
                     }
                 }
@@ -127,36 +127,39 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "CommandSpitSlime")
             {
-                List<Cell> list = PickBurst(1, 8, false, AllowVis.OnlyVisible);
-                if (list == null)
+                if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
                 {
-                    return true;
-                }
-                foreach (Cell item in list)
-                {
-                    if (item.DistanceTo(ParentObject) > 9)
+                    List<Cell> list = PickBurst(1, 8, false, AllowVis.OnlyVisible);
+                    if (list == null)
                     {
-                        if (ParentObject.IsPlayer())
-                        {
-                            Popup.Show("That is out of range! (8 squares)");
-                        }
                         return true;
                     }
-                }
-                if (list != null)
-                {
-                    SlimeGlands.SlimeAnimation("&G", ParentObject.CurrentCell, list[0]);
-                    CooldownMyActivatedAbility(ActivatedAbilityID, 40);
-                    int num = 0;
-                    foreach (Cell item2 in list)
+                    foreach (Cell item in list)
                     {
-                        if (num == 0 || Stat.Random(1, 100) <= 80)
+                        if (item.DistanceTo(ParentObject) > 9)
                         {
-                            item2.AddObject(GameObject.create("SlimePool"));
+                            if (ParentObject.IsPlayer())
+                            {
+                                Popup.Show("That is out of range! (8 squares)");
+                            }
+                            return true;
                         }
-                        num++;
                     }
-                    UseEnergy(1000);
+                    if (list != null)
+                    {
+                        SlimeGlands.SlimeAnimation("&G", ParentObject.CurrentCell, list[0]);
+                        CooldownMyActivatedAbility(ActivatedAbilityID, 40);
+                        int num = 0;
+                        foreach (Cell item2 in list)
+                        {
+                            if (num == 0 || Stat.Random(1, 100) <= 80)
+                            {
+                                item2.AddObject(GameObject.create("SlimePool"));
+                            }
+                            num++;
+                        }
+                        UseEnergy(1000);
+                    }
                 }
             }
             return base.FireEvent(E);

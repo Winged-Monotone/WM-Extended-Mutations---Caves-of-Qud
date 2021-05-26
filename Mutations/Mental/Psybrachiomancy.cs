@@ -23,7 +23,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool ChangeLevel(int NewLevel)
         {
-            XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", 100, false);
+            // XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("highly entropic beings", 100, false);
             return base.ChangeLevel(NewLevel);
         }
         public override bool CanLevel()
@@ -47,6 +47,11 @@ namespace XRL.World.Parts.Mutation
         }
         public override bool Mutate(GameObject GO, int Level)
         {
+            // string PsybrachiomancyinfoSource = "{ \"Psybrachiomancy\": [\"*cult*, the Asuran\", \"Many-Armed *cult*\"] }";
+            // SimpleJSON.JSONNode PsybrachiomancyInfo = SimpleJSON.JSON.Parse(PsybrachiomancyinfoSource);
+
+            // WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", PsybrachiomancyInfo["Psybrachiomancy"]);
+
             Mutations GainPSiFocus = GO.GetPart<Mutations>();
             if (!GainPSiFocus.HasMutation("FocusPsi"))
             {

@@ -67,7 +67,7 @@ namespace XRL.World.Parts
         }
         public override bool WantEvent(int ID, int cascade)
         {
-            if (!base.WantEvent(ID, cascade) && ID != CanBeModdedEvent.ID && ID != GetDisplayNameEvent.ID && ID != GetMaximumLiquidExposureEvent.ID && ID != GetShortDescriptionEvent.ID && ID != GetShortDisplayNameEvent.ID && ID != ModificationAppliedEvent.ID)
+            if (!base.WantEvent(ID, cascade) && ID != CanBeModdedEvent.ID && ID != GetDisplayNameEvent.ID && ID != GetMaximumLiquidExposureEvent.ID && ID != GetShortDescriptionEvent.ID && ID != GetDisplayNameEvent.ID && ID != ModificationAppliedEvent.ID)
             {
                 return ID == ObjectCreatedEvent.ID
                         || ID == StatChangeEvent.ID
@@ -210,7 +210,7 @@ namespace XRL.World.Parts
         {
             return false;
         }
-        public override bool HandleEvent(IDisplayNameEvent E)
+        public override bool HandleEvent(GetDisplayNameEvent E)
         {
             if (!ParentObject.Understood() || !ParentObject.HasProperName)
             {

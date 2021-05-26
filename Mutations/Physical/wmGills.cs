@@ -107,6 +107,7 @@ namespace XRL.World.Parts.Mutation
             ParentObject.RegisterPartEvent((IPart)this, "DeepStrikeCommand");
             ParentObject.RegisterPartEvent((IPart)this, "EndTurn");
             ParentObject.RegisterPartEvent((IPart)this, "AIGetOffensiveMutationList");
+            ParentObject.RegisterPartEvent((IPart)this, "BeginTakeAction");
 
 
             base.Register(ParentObject);
@@ -126,15 +127,15 @@ namespace XRL.World.Parts.Mutation
                 Cell Cell = E.GetParameter("DestinationCell") as Cell;
                 if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.IsPlayer() && ParentObject.HasEffect("Submerged")))
                 {
-                    if (Popup.ShowYesNo("Surface and go ashore?") == 0)
+                    if (Popup.ShowYesNo("Surface and go ashore?") == (int)DialogResult.Yes)
                     {
                         ParentObject.Splash("{{b|*}}");
                         ParentObject.RemoveEffect("Submerged");
-                        return true;
                     }
                     else
                     {
-                        return true;
+
+                        return false;
                     }
                 }
             }
@@ -143,13 +144,21 @@ namespace XRL.World.Parts.Mutation
                 Cell Cell = ParentObject.GetCurrentCell();
 
                 Mutations ParentsMutations = ParentObject.GetPart<Mutations>();
-                if (!Cell.HasObjectWithPart("LiquidVolume"))
+                if (ParentObject.HasEffect("Flying"))
+                {
+                    if (IsPlayer())
+                        AddPlayerMessage("You cannot do this while flying");
+                    return false;
+                }
+                else if (!Cell.HasObjectWithPart("LiquidVolume"))
                 {
                     AddPlayerMessage("You try to dive into the earth, you imagine this would be easier if the ground were, say, just a tad less hard.");
+                    return false;
                 }
                 else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200)
                 {
                     AddPlayerMessage("Its too shallow to dive in!");
+                    return false;
                 }
                 else if (ParentObject.HasEffect("Submerged"))
                 {
@@ -169,12 +178,16 @@ namespace XRL.World.Parts.Mutation
                     ParentObject.ApplyEffect(new Submerged(Duration: Effect.DURATION_INDEFINITE));
                 }
             }
-
             else if (E.ID == "EndTurn")
             {
                 Cell Cell = ParentObject.GetCurrentCell();
 
-                if (ParentObject.IsHealingPool() && ParentObject.HasEffect("Submerged"))
+                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("Submerged")))
+                {
+                    ParentObject.RemoveEffect(new Flying());
+                    AddPlayerMessage("Removing Paradox Incident.");
+                }
+                else if (ParentObject.IsHealingPool() && ParentObject.HasEffect("Submerged"))
                 {
                     ParentObject.Heal(+ParentObject.Statistics["Toughness"].Modifier);
                 }
@@ -185,7 +198,7 @@ namespace XRL.World.Parts.Mutation
                     return false;
                 }
             }
-            //...
+            //...---------------------------------------------------------------------------------------------
             else if (E.ID == "DeepStrikeCommand")
             {
                 if (!ParentObject.HasEffect("Submerged") && ParentObject.IsPlayer())
@@ -196,7 +209,7 @@ namespace XRL.World.Parts.Mutation
                 {
 
                 }
-                else
+                else if (ParentObject.HasEffect("Submerged"))
                 {
                     string Direction = E.GetStringParameter("Direction");
 
@@ -222,7 +235,6 @@ namespace XRL.World.Parts.Mutation
                     }
                 }
             }
-
             else if (E.ID == "AIGetOffensiveMutationList")
             {
                 //AddPlayerMessage("I'mma keel yo ass.");
@@ -239,6 +251,14 @@ namespace XRL.World.Parts.Mutation
                     E.AddAICommand("DeepStrikeCommand");
                 }
 
+            }
+            else if (E.ID == "BeginTakeAction")
+            {
+                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("Submerged")))
+                {
+                    ParentObject.RemoveEffect(new Flying());
+                    AddPlayerMessage("Removing Paradox Incident.");
+                }
             }
 
             return base.FireEvent(E);

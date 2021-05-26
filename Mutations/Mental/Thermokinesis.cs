@@ -295,93 +295,97 @@ namespace XRL.World.Parts.Mutation
 
             MaximumRadius = Math.Min(1 + Level, 8);
 
-            if (PsiMutation == null)
+            if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
             {
-                // AddPlayerMessage("You lack the ability to do this.");
-                string verb1 = "lack";
-                string extra1 = "ability to do this";
-                string termiPun1 = "!";
-                XDidY(ParentObject, verb1, extra1, termiPun1);
-                return;
-            }
-            if (IsPlayer())
-            {
-                ChargesSpent = Popup.AskString("Expend how many charges", "1", 3, 1, "0123456789");
-            }
-            if (IsPlayer())
-            {
-                RadiusChoice = Popup.AskString("Radius of the effect " + "(Maximum Radius: " + MaximumRadius + ")", "1", 3, 1, "0123456789");
-            }
-
-            int Charges = Convert.ToInt32(ChargesSpent);
-            int Radius = Convert.ToInt32(RadiusChoice);
-
-            if (Radius > MaximumRadius)
-            {
-                AddPlayerMessage("The Radius you've chosen is greater than you can yield.");
-                ChargesSpent += Charges;
-                return;
-            }
-            if (Radius <= 0)
-            {
-                AddPlayerMessage("Not a valid input for radius.");
-                ChargesSpent += Charges;
-                return;
-            }
-            if (!PsiMutation.usePsiCharges(Charges))
-            {
-                AddPlayerMessage("You do not have enough psi-charges!");
-                return;
-            }
-            if (IsPlayer() && Charges <= 0)
-            {
-                AddPlayerMessage("That's not a valid amount of charges.");
-                return;
-            }
-            if (Charges > 1 + ParentsEgo + ParentsLevel / 2 && !ParentObject.HasEffect("Psiburdening"))
-            {
-                int fatigueVar = 25;
-                ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
-            }
-
-
-            int Range = 6 + Level / 2 + ParentsEgo;
-
-
-            List<Cell> Cells = PickBurst(Radius, Range, false, AllowVis.OnlyExplored);
-
-            if (AmbientTempChoices == "Increase Temperature")
-            {
-                foreach (var c in Cells)
+                if (PsiMutation == null)
                 {
-                    c.TemperatureChange(Charges * 100, ParentObject);
-                    if (Charges >= 15)
-                    {
-                        c.LargeFireblast();
-                    }
-                    GameObject cTarget = c.GetFirstObjectWithPart("Brain");
-                    if (cTarget != null)
-                        cTarget.GetAngryAt(ParentObject, 100);
+                    // AddPlayerMessage("You lack the ability to do this.");
+                    string verb1 = "lack";
+                    string extra1 = "ability to do this";
+                    string termiPun1 = "!";
+                    XDidY(ParentObject, verb1, extra1, termiPun1);
+                    return;
                 }
-            }
-            else if (AmbientTempChoices == "Decrease Temperature")
-            {
-                foreach (var c in Cells)
+                if (IsPlayer())
                 {
-                    c.TemperatureChange((Charges * 100) * -1, ParentObject);
-                    //
-                    if (Charges >= 15)
-                    {
-                        c.AddObject("CryoGas").GetPart<Gas>().Density = 1 * Charges;
-                    }
-                    GameObject cTarget = c.GetFirstObjectWithPart("Brain");
-                    if (cTarget != null)
-                        cTarget.GetAngryAt(ParentObject, 100);
+                    ChargesSpent = Popup.AskString("Expend how many charges", "1", 3, 1, "0123456789");
                 }
-            }
+                if (IsPlayer())
+                {
+                    RadiusChoice = Popup.AskString("Radius of the effect " + "(Maximum Radius: " + MaximumRadius + ")", "1", 3, 1, "0123456789");
+                }
 
-            PlayWorldSound("ambientaltered");
-            CooldownMyActivatedAbility(ActivateThermokinesisAbilityID, Charges * 15);
+                int Charges = Convert.ToInt32(ChargesSpent);
+                int Radius = Convert.ToInt32(RadiusChoice);
+
+                if (Radius > MaximumRadius)
+                {
+                    AddPlayerMessage("The Radius you've chosen is greater than you can yield.");
+                    ChargesSpent += Charges;
+                    return;
+                }
+                if (Radius <= 0)
+                {
+                    AddPlayerMessage("Not a valid input for radius.");
+                    ChargesSpent += Charges;
+                    return;
+                }
+                if (!PsiMutation.usePsiCharges(Charges))
+                {
+                    AddPlayerMessage("You do not have enough psi-charges!");
+                    return;
+                }
+                if (IsPlayer() && Charges <= 0)
+                {
+                    AddPlayerMessage("That's not a valid amount of charges.");
+                    return;
+                }
+                if (Charges > 1 + ParentsEgo + ParentsLevel / 2 && !ParentObject.HasEffect("Psiburdening"))
+                {
+                    int fatigueVar = 25;
+                    ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
+                }
+
+
+                int Range = 6 + Level / 2 + ParentsEgo;
+
+
+                List<Cell> Cells = PickBurst(Radius, Range, false, AllowVis.OnlyExplored);
+
+                if (AmbientTempChoices == "Increase Temperature")
+                {
+                    foreach (var c in Cells)
+                    {
+                        c.TemperatureChange(Charges * 100, ParentObject);
+                        if (Charges >= 15)
+                        {
+                            c.LargeFireblast();
+                        }
+                        GameObject cTarget = c.GetFirstObjectWithPart("Brain");
+                        if (cTarget != null)
+                            cTarget.GetAngryAt(ParentObject, -100);
+                    }
+                }
+                else if (AmbientTempChoices == "Decrease Temperature")
+                {
+                    foreach (var c in Cells)
+                    {
+                        c.TemperatureChange((Charges * 100) * -1, ParentObject);
+                        //
+                        if (Charges >= 15)
+                        {
+                            c.AddObject("CryoGas").GetPart<Gas>().Density = 1 * Charges;
+                        }
+                        GameObject cTarget = c.GetFirstObjectWithPart("Brain");
+                        if (cTarget != null)
+                            cTarget.GetAngryAt(ParentObject, -100);
+                    }
+                }
+
+
+                PlayWorldSound("ambientaltered");
+                CooldownMyActivatedAbility(ActivateThermokinesisAbilityID, Charges * 15);
+            }
         }
 
         public override bool FireEvent(Event E)
