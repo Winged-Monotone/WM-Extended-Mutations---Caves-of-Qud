@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using XRL.World;
+using XRL.World.Capabilities;
 using XRL.World.Effects;
 using XRL.World.Parts;
 
@@ -85,6 +86,14 @@ namespace XRL.World.Parts.Mutation
                 "Feet",
                 "Roots",
                 "Thrown Weapon"
+                });
+                ReadyBody.AddPartAt("Missile Weapon", Laterality.RIGHT, null, null, "Psionic-Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
+                {
+                "Missile Weapon"
+                });
+                ReadyBody.AddPartAt("Missile Weapon", Laterality.LEFT, null, null, "Psionic-Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
+                {
+                "Missile Weapon"
                 });
             }
         }
