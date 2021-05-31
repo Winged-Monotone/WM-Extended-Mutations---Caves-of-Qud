@@ -1,0 +1,27 @@
+Thermokinesis 
+
+Your can alter the latent temperatures of things around you.
+-------------------------------------------------------------------
+
+post scripting
+
+
+This ability also includes a GUI System. It allows the play to select a target or an area and depending on the points used, alter the area's ambient temperature, or alter a creatures resistances both negatively and positively.
+
+I'm still not sure what happens when you alter the temperature of an area around you. [guess we're gonna see :p]
+
+the GUI will have some commands:
+
+Increase resistances
+Decrease resistances
+
+    An Ask Dialogue appears, requiring the player to pay a certain amount of charges, each charge is equivelent to 5 + [Ego Mod] in terms of units. After which the player is prompted to select a target and then the target have an effect applied ot them, this effect will handle all the changes in terms of the thermokinesis change to their resistance.
+    In terms, this effect will handle the increase or decrease in resistances, there may be a way to get both the increase and decrease in resistances
+-
+
+Alter Latent Temperatures
+
+selecting these will bring up another prompt to spent charges, the charges spent, will alter the temperate by ab amount base dont the charges spent, zone temperature may differ from cell temp, we'll have to see
+
+    Increase
+    Decrease

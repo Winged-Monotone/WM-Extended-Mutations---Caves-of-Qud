@@ -1,0 +1,21 @@
+Umbranimea
+
+An aura of darkness is about you, stealing the light from the world around you. You hide your light--along with your glimmer.
+
+Umbral aura is a mental mutation that, unlike Light Manipulation, does the inverse, creating a space of darkness around the player that cuts enemy line of sight (hopefully) the ability also makes one more difficult for glimmer-sensing entities to find you and invisible to both clairvoyance and Sense Psychic.
+
+Cast a shadow on an area or emit a constant fume of darkness around yourself. You are innately more difficult to sense through the glimmer, abilities like clairvoyance, and sense psychic are less effective on you.
+
+ideas for balancing mutations
+
+Combustion Blast, add a psi buff debuff if they fire too many charges in a row, possibly add a "Charges Fired Threshold" which essentially will be a duration that, checks how many times you fired psi charges during this tick down, which will scale with your level.
+
+
+Ideas for Umbral
+
+possibly create something like walls that have a part that register's their distance from the player, despawning themselves when the player leaves a cell, vanish on a check, creating the illusion of sight occlusion
+or it creates a lingering visual effect, that is instead maybe like a gas that blocks vision and then dissipates after some time.
+
+alright, time to learn to make food
+
+time to make chitin husk into a recipe. 

@@ -1,0 +1,66 @@
+Psychomaterialus
+
+Conjure your thoughtstuff, and materialize weapons as sharp as your mind.
+
+So,
+
+So it enters a GUI. and this UI has a couple things working for it.  Here is the menu structure and the mechanics
+
+Weave Psi-Weapon
+Dismiss Psi-Weapon
+Cancel
+
+---
+
+[Weave Psi-Weapon]
+
+Takes you to this menu, which list all the weapons you can make, I may make it so that you can only make weapons you have the associated skill for, but we'll see.
+Some things about the Psionic weapons created by Psychomaterialus: 
+    - They do not function exactly like the Seeker Psionic weapons. 
+    - They will have an attached part that checks who they are equipped on, with a built in duration that will cause the weapon to automatically dissipate if ever equipped by anyone but the the creator of the weapon for extended periods of time. 
+    - Their stats are similar to Seeker Psionic weapons, however, to keep things balanced, I'm implementing a few changes to these in particular. 
+       - They do not have a sell value. (Or the sell value is incredibly small in scale, maybe 10% at the most of any weapon of the same calibur, mninimum to 1.)
+       - The MA-Penetration scales with the level of the Mutation, the level of the user and their ego score. Starting Psionic weapons will have very little if no MA penetration, however as the previous factors are met, the option to make more powerful weapons is given access to the creature with this mutation until it eventually functions like normal Psionic weapons, due to the nature of mental mutations, this will scale endlessly, so eventually the psionic weapons you create at much higher levels will be more powerful than Seeker versions.
+       - Since this means that there's very little difference between the low tier weapons and psionic weapons, the mutation comes with a [return] command that allows you to summon the weapon into your hand if it is ever lost due to disarming etc. giving at least some practical function. 
+
+Then you are given the option to create one of these:
+
+[Longswords
+Shortswords
+Daggers
+Maces/Clubs
+Shields
+Staffs
+Axes]
+
+
+((I may add psionic arrows to the list that deal MA pen from a distance.)) 
+
+
+---
+
+
+[Weapon Selected]
+
+When you select one of the options up there, the game will again look at the mutation level and level of the user.
+A scaling randomizer will generate a weapon based on those factors, the higher your level, the higher the chance to make a much higher quality
+psionic weapon, with the margin to make very low quality either being non-existent or very difficult.
+
+Example: By level 25, your chances of making a Zetachrome weapon or higher should be around 30%, Fulcrete and weapons considered 'mid-tier' should sit in 60%, weaker weapons would sit in the remaining 10% or lower.
+At level 1, Zetachrome weapons will be 1% or less, and the margin for midtier sits around 10% with the remainer being bronze and steel tier.
+
+((if I am not lazy, I may make it so that you can choose what weapon you can make straight down to its make, but this would be more complicated and time consuming as I think I'd have to list every single item due to how the gui works))
+
+In order to materialize a psionic weapon, you must meet a psi-point requirement. You can summon more than one weapon at a time, up to the limit of your psi-points.
+
+---
+
+[Dismiss Psi-Weapon]
+
+Finds and dismisses a psionic weapon you are wielding, or is in your inventory. Has to be one created by yourself.
+
+[Cancel]
+
+
+
+

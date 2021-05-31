@@ -1,0 +1,7 @@
+I'm thinking, about breaking off the Mercy element I added to the mma mod, and turning it into its own thing, I had this idea in my head that if you instead choose to beat a hero mob unconscious instead of killing it, it'll wake up and perform a series of checks that could end in:
+
+Acknowledging they were defeated. (Doesn't do much, adds a little note in your journal saying you beat em.)
+Admirance - they admire your combat talent and your mercy is treated as an act of kindness, you'll gain a reputation boost in regards to their faction.
+            - Honor - Even smaller chance, the creature will be open to joining you, in order to grow stronger, or learn from your strength.
+Rivalry - they take your act of mercy as a sign of weakness, or shame against themselves, your reputation with this faction is further lowered.
+            - Antagonist - Smaller chance, this creature may appear again with the intent to kill you at a random time.

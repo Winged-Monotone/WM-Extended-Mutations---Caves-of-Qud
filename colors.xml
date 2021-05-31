@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<colors>
+
+  <solidcolors>
+    <solidcolor Name="black" Color="K" LightTone="y" ShowInPicker="true" />
+    <solidcolor Name="dark blue" Color="b" LightTone="B" ShowInPicker="true" />
+    <solidcolor Name="blue" Color="B" DarkTone="b" ShowInPicker="true" />
+    <solidcolor Name="light blue" Color="C" DarkTone="c" ShowInPicker="true" />
+    <solidcolor Name="cyan" Color="c" LightTone="C" ShowInPicker="true" />
+    <solidcolor Name="dark green" Color="g" LightTone="G" ShowInPicker="true" />
+    <solidcolor Name="green" Color="G" DarkTone="g" ShowInPicker="true" />
+    <solidcolor Name="dark red" Color="r" LightTone="R" ShowInPicker="true" />
+    <solidcolor Name="red" Color="R" DarkTone="r" ShowInPicker="true" />
+    <solidcolor Name="violet" Color="m" LightTone="M" ShowInPicker="true" />
+    <solidcolor Name="pink" Color="M" DarkTone="m" ShowInPicker="true" />
+    <solidcolor Name="yellow" Color="W" DarkTone="w" ShowInPicker="true" />
+    <solidcolor Name="brown" Color="w" LightTone="W" ShowInPicker="true" />
+    <solidcolor Name="dark orange" Color="o" LightTone="O" ShowInPicker="true" />
+    <solidcolor Name="orange" Color="O" DarkTone="o" ShowInPicker="true" />
+    <solidcolor Name="white" Color="Y" DarkTone="y" ShowInPicker="true" />
+    <solidcolor Name="gray" Color="y" LightTone="Y" DarkTone="K" ShowInPicker="true" />
+    <solidcolor Name="azure" Color="B" DarkTone="b" />
+    <solidcolor Name="crimson" Color="r" LightTone="R" />
+    <solidcolor Name="scarlet" Color="R" DarkTone="r" />
+    <solidcolor Name="purple" Color="m" LightTone="M" />
+    <solidcolor Name="teal" Color="c" LightTone="C" />
+    <solidcolor Name="dark gray" Color="K" LightTone="y" />
+  </solidcolors>
+
+  <shaders>
+    <shader Name="fleshy" Type="sequence" Colors="M-m-y-y" />
+    <shader Name="poisonous" Type="sequence" Colors="G-g-m-M-g-G-M-m" />
+    <shader Name="buggopanion" Type="sequence" Colors="g-g-Y-Y-M-M-Y-Y" />
+    <shader Name="shyrhak" Type="sequence" Colors="K-y-O-o-K-y-R-r" />
+    <shader Name="jade" Type="alternation" Colors="G-g-c" />
+    <shader Name="putridvita" Type="alternation" Colors="R-r-y-Y" />
+    <shader Name="crystened" Type="sequence" Colors="M-m-c-C-b-c" />
+  </shaders>
+
+</colors>

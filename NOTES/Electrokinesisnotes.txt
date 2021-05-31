@@ -1,0 +1,87 @@
+Electrokinesis 
+
+Unlike Thermo which effects most things around you, Electro Kinesis is all about personal defense and and making enemies regret taking you head on while also having some nuances 
+
+electrokinesis creates a shroud around the user after spending psi points, ((Shimmering Shroud)), the amount of psi-points spent adds to a Potency Counter in the Effect Associated ((Shimmering Shroud's Potency)) 
+
+What does Shimmering Shroud do, and what does it represent:
+
+When the creature in question has the Shimmering Shroud Effect, they gain a pleathora of benefits associated to essentially becoming a living battery. The Potency of the ability, which may or may not be immediately distinguishable to the player provides a bunch of effects which, only display themselves when the player reaches certain potency requirements. Potency will be tied to both the duration of the ability, which both accumulatively and decummuilitivly lowers the said duration and the 'ammunition' required to perform certain actions as depicted below.
+
+Effects to be sorted into potency
+
+Potency = the force of your 1500 (or 1.5V) 
+Ability Increase Potential - 1 - its threshold where it maintains itself is around Electric Charge
+Percentage of voltage decreases cost of electric charge, current Potency is affected by your maximum Charge
+damage scale = x 0.1 per Potency
+Decay Threshhold = half of current Electric Charge
+
+
+
+
+
+Eletric Charge Scaling:
+
+-   1 Electricity Resistance amplified by potency.
+    Exchange Potency for Charges in Cells that take Electric energy only. 
+
+-   2 -
+
+-   3 -
+
+-   4 - Charge Sense, detect conductive things around you. 
+
+-   5 -
+
+ - 6 When struck with a weapon that has metals or conductive materials within it, you now deal electric damage to your enemies. If wearing Metal armor, enemies will take this damage if they are using anything that is both conductive or counts as a natural bodypart.
+
+- 7 weapons you wield gain the Electric effect, so long as they are made of steel or is a metallic weapon. 
+
+9 Potency
+- blocking with a metal shield will shock your enemies, potentially stunning them and dealing damage.
+- Laser damage does reduced damage to you.
+
+14 Potency
+-Laser damage does no damage to you
+
+19 Potency
+- Laser damage does no damage to you and you now absorb Electricity as extra Potency.
+
+21
+
+- If an attack that has the electric trait fails to penetrate or deal damage to you, you absorb the electricity adding it to your potency.
+- for one charge, you can fire an shimmering ray beam not unlike flaming hands, called Shimmering Hands
+
+
+30 <
+release a emp blast on activation that deactivates eletrical items around
+Now every sqaure around you at random intervals the eletricity striking enemies, a bit of charge is being used which natural decreases your potential which weakens it overtime. 
+Lightning Strike? Blast? Spend Electric Charges for big boom
+
+99 
+Self Destruct 
+
+
+Now, when you have high potency or any potency, certain things like stepping into water, will set off a discharge effect that passes into other water squares, this automatically lowers the potency, meaning you have to avoid water while having high potency, the amount it gets lowered by is a set random, however the discharge into water spreads from where the player is standing and anything caught in it will take damage and possibly be stunned/dazed
+
+CalculatePotencySystemAbilitySwitch(ElectroHook.Potency, 1, PotencyForChargesAbility, "Charge Batteries", "ChargeBatteryEvent", "Ability", "Expend Potency for Charges.", "p", "You can now recharge batteries by expending Potency.\n\n\n [To deactivate these messages, toggle the Electrokinesis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystemAbilitySwitch(ElectroHook.Potency, 8, ToggleChargeSenseAbility, "Charge Sense", "TogglingChargeVisionEvent", "Ability", "\n\n\nSense electromagnetic fields around you.", "p", "You can now sense electromagnetic fields around you such as robots and machinery.\n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 12, "\n\n\nCreatures that strike you while wielding any form of conductive weapon, now take damage upon successeful penetrations. If you are wearing armor, this extends to creatures' natural equipment as well.\n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 14, "\n\n\nSuccessfully blocking an attack will deal damage to an enemy as long as you are using a conductive shield. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 18, "\n\n\nLaser Weaponry reduced damage to you. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 28, "\n\n\nRobotic and mechanical enemies must make a save or be stunned upon dealing damage to you. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 28, "\n\n\nLaser Weaponry deals no damage to you. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 38, "\n\n\nLaser weapons now transfers damage into potency. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystem(ElectroHook.Potency, 42, "\n\n\nElectricity damage is now converted into potency. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystemAbilitySwitch(ElectroHook.Potency, 42, ShimmeringRayAbility, "Shimmering Ray", "ShimmeringRayEvent", "Ability", "Direct of beam of electricity at your enemies.", "p", "\n\n\nYou can now direct a shimmering beam of electric energy at your foes in the form of Shimmering Ray at the cost of potency. You can also release a blast of electric energy that emp's nearby equipment. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");
+
+                CalculatePotencySystemAbilitySwitch(ElectroHook.Potency, 60, ShimmeringRayAbility, "Thunder Strike", "ThunderingStrikeEvent", "Ability", "Call forth an thundering strike upon your enemies.", "p", "\n\n\nYou can now call a great lightning strike on your enemies at the cost of Potency. \n\n\n [To deactivate these messages, toggle the Electrokenisis Prompts in the Command menu to OFF.]");

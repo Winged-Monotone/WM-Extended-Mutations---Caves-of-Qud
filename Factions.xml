@@ -1,0 +1,46 @@
+<factions>
+	<faction Name="Arachnids" Load="Merge">
+		<partreputation About="ChitinousSkin" Value="100" />
+	</faction>
+
+	<faction Name="Insects" Load="Merge">
+		<partreputation About="ChitinousSkin" Value="100" />
+	</faction>
+
+	<faction Name="Seekers" Load="Merge">
+		<partreputation About="PsychoplethoricDeterioration" Value="400" />
+		<partreputation About="Sciophagia" Value="100" />
+
+	</faction>
+
+	<faction Name="Unshelled Reptiles" Load="Merge">
+		<partreputation About="SerpentineForm" Value="100" />
+		<partreputation About="RoughScales" Value="100" />
+	</faction>
+
+	<faction Name="Apes" Load="Merge">
+		<partreputation About="SerpentineForm" Value="-200" />
+	</faction>
+
+	<faction Name="Cats" Load="Merge">
+		<partreputation About="NineLivesParadox" Value="500" />
+	</faction>
+
+	<faction Name="Oozes" Load="Merge">
+		<partreputation About="GelatinousFormPoison" Value="200" />
+		<partreputation About="GelatinousFormAcid" Value="200" />
+		<partreputation About="GelatinousFormSlime" Value="200" />
+
+
+	</faction>
+
+	<faction Name="Frogs" Load="Merge">
+		<partreputation About="Gills" Value="100" />
+	</faction>
+
+	<faction Name="Fish" Load="Merge">
+		<partreputation About="wmGills" Value="100" />
+		<partreputation About="Fins" Value="100" />
+	</faction>
+
+</factions>
