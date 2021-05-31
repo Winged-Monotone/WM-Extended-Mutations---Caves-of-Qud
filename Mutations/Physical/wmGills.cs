@@ -68,7 +68,7 @@ namespace XRL.World.Parts.Mutation
             //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Frogs", 100, false);
             // }
 
-            this.DeepStrikeActivatedAbility = base.AddMyActivatedAbility("Deep-Strike", "DeepStrikeCommand", "Power", null, "v", null, false, false, false, false, false);
+            this.DeepStrikeActivatedAbility = base.AddMyActivatedAbility("Submerged-Strike", "DeepStrikeCommand", "Power", null, "v", null, false, false, false, false, false);
             this.DiveActivatedAbility = base.AddMyActivatedAbility("Dive", "DiveCommand", "Physical Mutation", null, "v", null, false, false, false, false, false);
 
             return base.Mutate(GO, Level);
