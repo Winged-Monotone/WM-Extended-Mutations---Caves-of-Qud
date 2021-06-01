@@ -205,13 +205,10 @@ namespace XRL.World.Parts.Mutation
                 {
                     AddPlayerMessage("You must be submerged in deep pools of liquid to use this attack.");
                 }
-<<<<<<< HEAD
-=======
                 else if (!ParentObject.HasEffect("Submerged") && !ParentObject.IsPlayer())
                 {
 
                 }
->>>>>>> c17229fa8a0afe6a0549c517a03cccdee7ea13f9
                 else if (ParentObject.HasEffect("Submerged"))
                 {
                     string Direction = E.GetStringParameter("Direction");
