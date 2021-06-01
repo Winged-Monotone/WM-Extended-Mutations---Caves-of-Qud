@@ -57,10 +57,10 @@ namespace XRL.World.Parts.Mutation
             + "\n";
         }
 
-        public override bool AllowStaticRegistration()
-        {
-            return true;
-        }
+        // public override bool AllowStaticRegistration()
+        // {
+        //     return true;
+        // }
 
         public override bool WantEvent(int ID, int cascade)
         {
@@ -69,7 +69,7 @@ namespace XRL.World.Parts.Mutation
             || ID == KilledPlayerEvent.ID;
         }
 
-        public override bool HandleEvent(IDeathEvent E)
+        public bool HandleDeathEvent(IDeathEvent E)
         {
             AddPlayerMessage("Starting Scio Grab.");
 
@@ -116,69 +116,29 @@ namespace XRL.World.Parts.Mutation
                     JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + ".", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + ".", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
                 }
             }
-
+            else
+            {
+                int ABSORB_CHANCE = 10;
+                if (Stat.Random(1, 100) <= ABSORB_CHANCE)
+                {
+                    string value = (E.Killer.pBrain.GetPrimaryFaction() == "Seekers") ? "You were resorbed into the Mass Mind." : ((!ABSORB_CHANCE.in100()) ? ("You were killed by " + ParentObject.DisplayNameOnly + "&Y.") : ("Your psyche exploded, and its psionic bits were encoded on the holographic boundary surrounding the psyche of " + Grammar.MakePossessive(ParentObject.DisplayNameOnly) + "&Y."));
+                    E.Reason = value;
+                }
+            }
             return base.HandleEvent(E);
         }
         public override bool HandleEvent(KilledEvent E)
         {
-            AddPlayerMessage("Starting Scio Grab.");
-
-            var DyingEgo = E.Dying.Statistics["Ego"].Modifier;
-            var KillerEgo = ParentObject.Statistics["Ego"].Modifier;
-
-            AddPlayerMessage("Got Ego Parameters.");
-
-            var OwnersLevel = ParentObject.Statistics["Level"].Value;
-            var TargetsLevel = E.Dying.Statistics["Level"].Value;
-
-            AddPlayerMessage("Got Level Parameters.");
-
-            var LevelDifference = OwnersLevel - TargetsLevel;
-            var DevourChance = Stat.Random(1, 100) <= 10 + Level + (LevelDifference * 0.10);
-
-            AddPlayerMessage("Setting Varitability.");
-
-            var Killed = E.Dying;
-
-            AddPlayerMessage("Got target");
-
-            if (E.Killer == ParentObject && E.Killer.IsPlayer() && DyingEgo > KillerEgo)
-            {
-                AddPlayerMessage("Setting Kill Bool.");
-                if (DevourChance)
-                {
-                    AddPlayerMessage("Devour Chance Procced");
-                    if (Popup.ShowYesNo("&yAt the moment of victory, your swelling ego curves the psychic aether and causes the psyche of " + Killed.ShortDisplayName + "&y, to collide with your own. As the weaker of the two, its binding energy is exceeded and it explodes. Would you like to encode its psionic bits on the holographic boundary of your own psyche? \n\n(+1 Ego permanently)") == DialogResult.Yes)
-                    {
-                        AddPlayerMessage("You Cghose Yes");
-                        IComponent<GameObject>.ThePlayer.Statistics["Ego"].BaseValue += 1;
-                        Popup.Show("&yYou encode the psyche of " + Killed.ShortDisplayName + " and gain +&C1 &YEgo&y!");
-                        JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + " and encoded their psyche's psionic bits on the holographic boundary of your own psyche.", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + " and absorbed " + Killed.its + " psyche, thickening toward Godhood.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.High, null, -1L);
-                    }
-                    else
-                    {
-                        Popup.Show("&yYou pause as the psyche of " + Killed.ShortDisplayName + " radiates into nothingness.");
-                        JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + " and watched their psyche radiate into nothingness.", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + " and watched " + Killed.its + " their psyche radiate into nothingness.", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
-                    }
-                }
-                else
-                {
-                    JournalAPI.AddAccomplishment("You slew " + Killed.DisplayNameOnly + ".", "After a climactic battle of wills, =name= slew " + Killed.the + Killed.DisplayNameOnlyDirect + ".", "general", JournalAccomplishment.MuralCategory.Slays, JournalAccomplishment.MuralWeight.Medium, null, -1L);
-                }
-            }
+            HandleDeathEvent(E);
 
             return base.HandleEvent(E);
         }
-
         public override bool HandleEvent(KilledPlayerEvent E)
         {
-            int ABSORB_CHANCE = 10;
-            string value = (ParentObject.pBrain.GetPrimaryFaction() == "Seekers") ? "You were resorbed into the Mass Mind." : ((!ABSORB_CHANCE.in100()) ? ("You were killed by " + ParentObject.DisplayNameOnly + "&Y.") : ("Your psyche exploded, and its psionic bits were encoded on the holographic boundary surrounding the psyche of " + Grammar.MakePossessive(ParentObject.DisplayNameOnly) + "&Y."));
-            E.Reason = value;
+            HandleDeathEvent(E);
 
             return base.HandleEvent(E);
         }
-
         public override bool FireEvent(Event E)
         {
             // if (E.ID == "KilledPlayer")
