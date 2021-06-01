@@ -16,9 +16,6 @@ namespace XRL.World.Parts.Mutation
             this.DisplayName = "Sciophagia";
             this.Type = "Mental";
         }
-
-
-
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "BeforeDie");
@@ -125,19 +122,15 @@ namespace XRL.World.Parts.Mutation
                     E.Reason = value;
                 }
             }
-            return base.HandleEvent(E);
+            return true;
         }
         public override bool HandleEvent(KilledEvent E)
         {
-            HandleDeathEvent(E);
-
-            return base.HandleEvent(E);
+            return HandleDeathEvent(E);
         }
         public override bool HandleEvent(KilledPlayerEvent E)
         {
-            HandleDeathEvent(E);
-
-            return base.HandleEvent(E);
+            return HandleDeathEvent(E);
         }
         public override bool FireEvent(Event E)
         {
