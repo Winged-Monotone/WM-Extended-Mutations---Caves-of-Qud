@@ -515,63 +515,89 @@ namespace XRL.World.Parts.Mutation
             ScreenBuffer Buffer = TextConsole.ScrapBuffer;
             Core.XRLCore.Core.RenderMapToBuffer(Buffer);
 
-            var line = PickBurst(0, 999, false, AllowVis.OnlyVisible, "EndPoint");
+            var TargetCell = PickDestinationCell(9, AllowVis.OnlyVisible);
+            var zone = TargetCell.ParentZone;
 
-            foreach (var C in line)
+            var SkyCell = zone.GetCell(TargetCell.X, 0);
+
+            List<Point> Lightningline = Zone.Line(SkyCell.X, SkyCell.Y, TargetCell.X, TargetCell.Y);
+
+            List<string> SparkySparkyChars = new List<string>() { "\xf8", "*", "." };
+
+            for (int index = 0; index < Lightningline.Count; index++)
             {
-                GameObject Target = C.GetFirstObjectWithPart("Combat");
+                Point point = Lightningline[index];
+                Cell cell = zone.GetCell(point);
 
-                AddPlayerMessage("Target: " + Target.DisplayName);
+                char DisplayBeam = Lightningline[index].DisplayChar;
+                Buffer.Goto(cell.X, cell.Y);
+                Buffer.Write("&Y^b" + DisplayBeam);
 
-                Cell TargetCell = Target.CurrentCell;
+                Cell SparkyBeam = cell.GetRandomLocalAdjacentCell();
+                Buffer.Goto(SparkyBeam.X, SparkyBeam.Y);
+                Buffer.Write("&Y" + SparkySparkyChars.GetRandomElement());
+                _TextConsole.DrawBuffer(Buffer);
+                System.Threading.Thread.Sleep(18);
 
-                AddPlayerMessage("Target Cell Found?: " + TargetCell.DebugName);
-
-                Zone TargetsZone = Target.CurrentZone;
-
-                AddPlayerMessage("Target Zone Found?: " + TargetsZone.DebugName);
-
-                var SkyCell = TargetsZone.GetCell(24, TargetCell.Y);
-
-                AddPlayerMessage("Sky Cell Found?: " + SkyCell.DebugName);
-
-
-                List<string> ElectricChars = new List<string>() { "\xf8", "*", "." };
-                // List<Point> Lightningline = Zone.Line(line[0].X, line[0].Y, TargetCell.X, SkyCell.Y);
-
-                int num = 1;
-
-                int dx = Math.Abs(num - num), sx = num < -num ? 1 : -1;
-                int dy = Math.Abs(num - num), sy = num < -num ? 1 : -1;
-
-                XRLCore.ParticleManager.Add(ElectricChars.GetRandomElement(), TargetCell.X, SkyCell.Y, -dx, -dy, 1, 0f, 0f);
-
-                AddPlayerMessage("Lightining Code Fired.");
-
-                // for (int index = 1; index < line.Count; index++)
-                // {
-                //     Cell cell = line[index];
-                //     char DisplayLightning = Lightningline[index].DisplayChar;
-                //     Buffer.Goto(cell.X, cell.Y);
-                //     Buffer.Write("&B^b" + DisplayLightning);
-
-                //     Cell LightningStrike = cell.GetRandomLocalAdjacentCell();
-                //     Buffer.Goto(LightningStrike.X, LightningStrike.Y);
-                //     Buffer.Write("&W" + ElectricChars.GetRandomElement());
-                //     _TextConsole.DrawBuffer(Buffer);
-                //     System.Threading.Thread.Sleep(18);
-                //     // Find a solid object and combat id on obj in line, to hit in this cell.
-                //     GameObject obj = cell.FindObject(o => (o.HasPart("Combat")));
-
-
-                //     if (obj != null)
-                //     {
-                //         TargetCell = cell;
-                //         break;
-                //     }
-                // }
-                break;
             }
+
+
+
+            // foreach (var C in line)
+            // {
+            //     GameObject Target = C.GetFirstObjectWithPart("Combat");
+
+            //     AddPlayerMessage("Target: " + Target.DisplayName);
+
+            //     Cell TargetCell = Target.CurrentCell;
+
+            //     AddPlayerMessage("Target Cell Found?: " + TargetCell.DebugName);
+
+            //     Zone TargetsZone = Target.CurrentZone;
+
+            //     AddPlayerMessage("Target Zone Found?: " + TargetsZone.DebugName);
+
+
+
+            //     AddPlayerMessage("Sky Cell Found?: " + SkyCell.DebugName);
+
+
+            //     List<string> ElectricChars = new List<string>() { "\xf8", "*", "." };
+            //     // List<Point> Lightningline = Zone.Line(line[0].X, line[0].Y, TargetCell.X, SkyCell.Y);
+
+            //     int num = 1;
+
+            //     int dx = Math.Abs(num - num), sx = num < -num ? 1 : -1;
+            //     int dy = Math.Abs(num - num), sy = num < -num ? 1 : -1;
+
+            //     XRLCore.ParticleManager.Add(ElectricChars.GetRandomElement(), TargetCell.X, SkyCell.Y, -dx, -dy, 1, 0f, 0f);
+
+            //     AddPlayerMessage("Lightining Code Fired.");
+
+            //     // for (int index = 1; index < line.Count; index++)
+            //     // {
+            //     //     Cell cell = line[index];
+            //     //     char DisplayLightning = Lightningline[index].DisplayChar;
+            //     //     Buffer.Goto(cell.X, cell.Y);
+            //     //     Buffer.Write("&B^b" + DisplayLightning);
+
+            //     //     Cell LightningStrike = cell.GetRandomLocalAdjacentCell();
+            //     //     Buffer.Goto(LightningStrike.X, LightningStrike.Y);
+            //     //     Buffer.Write("&W" + ElectricChars.GetRandomElement());
+            //     //     _TextConsole.DrawBuffer(Buffer);
+            //     //     System.Threading.Thread.Sleep(18);
+            //     //     // Find a solid object and combat id on obj in line, to hit in this cell.
+            //     //     GameObject obj = cell.FindObject(o => (o.HasPart("Combat")));
+
+
+            //     //     if (obj != null)
+            //     //     {
+            //     //         TargetCell = cell;
+            //     //         break;
+            //     //     }
+            //     // }
+            //     break;
+            // }
         }
         public void ReverseParticleText(string Text, float Velocity, int Life)
         {
