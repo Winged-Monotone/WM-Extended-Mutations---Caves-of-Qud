@@ -65,7 +65,7 @@ namespace XRL.World.Parts.Mutation
             + "Charges above the first used increase the cooldown of this mutation by 25.\n"
             + "\n"
             + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.\n\n"
-            + "Due to way the beam projects itself from the forehead, attempting to project this beam while wearing a helmet also &Yhas &Rfatal &Rconsequences&y.";
+            + "The beam projects itself from the forehead, attempting to project this beam while wearing a helmet also has &Rfatal &Rconsequences&y.";
         }
         public int GetForce(int Level, int Charges)
         {

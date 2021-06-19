@@ -520,7 +520,8 @@ namespace XRL.World.Parts.Mutation
 
             var SkyCell = zone.GetCell(TargetCell.X, 0);
 
-            List<Point> Lightningline = Zone.Line(SkyCell.X, SkyCell.Y, TargetCell.X, TargetCell.Y);
+            List<Point> SpawningLine = Zone.Line(9, 0, 16, 0);
+            List<Point> Lightningline = Zone.Line(SpawningLine.GetRandomElement().X, SpawningLine.GetRandomElement().Y, TargetCell.X, TargetCell.Y);
 
             List<string> SparkySparkyChars = new List<string>() { "\xf8", "*", "." };
 
@@ -529,7 +530,14 @@ namespace XRL.World.Parts.Mutation
                 Point point = Lightningline[index];
                 Cell cell = zone.GetCell(point);
 
-                char DisplayBeam = Lightningline[index].DisplayChar;
+
+                char DisplayBeam;
+
+                if (index % 2 == 0)
+                { DisplayBeam = '/'; }
+                else
+                { DisplayBeam = '\\'; }
+
                 Buffer.Goto(cell.X, cell.Y);
                 Buffer.Write("&Y^b" + DisplayBeam);
 

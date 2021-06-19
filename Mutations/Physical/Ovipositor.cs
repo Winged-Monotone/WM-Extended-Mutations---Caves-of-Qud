@@ -36,7 +36,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetDescription()
         {
-            return "You can periodically lay eggs, and spawn drones of yourself who will do your bidding.\n";
+            return "You can periodically lay eggs, and spawn drones of yourself who will do your bidding.";
         }
         public override string GetLevelText(int Level)
         {

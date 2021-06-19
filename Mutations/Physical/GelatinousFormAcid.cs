@@ -80,20 +80,19 @@ namespace XRL.World.Parts.Mutation
             string text = string.Empty;
             if (Level == base.Level)
             {
-                text += "You gain a 25% damage resistance bonus to melee weapons and immunity from the element acid, but take more damage from projectiles and explosives.\n";
-                text += "\n";
-                text += "When dealt damage or struck from a melee weapon, there's a random chance you bleed acid in a random square around you, dealing damage to your enemies.\n";
-                text += "\nYou can spit acid at your foes.\n";
-                text += "\n";
-                text += "\nYou cannot wear armor below tier 5.\n";
-                text += "\nYou quickly regenerate lost limbs.\n";
+                text += "25% damage resistance bonus to melee weapons and immunity from the element acid.\n";
+                text += "Take more damage from projectiles and explosives.\n";
+                text += "When dealt damage, there's a random chance you bleed acid in a random square around you, dealing damage to your enemies.\n";
+                text += "You can spit acid at your foes.\n";
+                text += "You cannot wear armor below tier 5.\n";
+                text += "You quickly regenerate lost limbs.\n";
                 text += "+200 rep with {{blue|oozes}}\n";
                 text += "\n{{red|Stay away from salt.}}\n";
             }
             else
             {
                 text += "Increased chance of acid release by 5%, and the density of acid release upon being struck by an enemy.";
-                text += "\nYou quickly regenerate lost limbs.";
+                text += "\nYou regenerate lost limbs more quickly.";
             }
             return text;
         }

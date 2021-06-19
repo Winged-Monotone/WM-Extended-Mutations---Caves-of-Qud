@@ -122,16 +122,19 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "{{white|Movement Speed:}} -5\n"
-            + "{{white|DV Bonus:}} " + Level / 2 + "\n"
-            + "{{white|Swimming Speed increased by 50%}}\n"
-            + "\n"
-            + "{{white|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n"
-            + "\n"
-            + "While constricted, foe cannot move and takes your STR modifier per turn in damage plus the mutation's level.\n"
-            + "\n"
-            + "Escape Save: " + 10 + " + " + Level + " + Your STR Modifier.\n"
-            + "[Slime Body, and Quills or Scales, provide extra damage on constriction.]";
+            if (Level < 1)
+                return "";
+            else
+                return "{{white|Movement Speed:}} -5\n"
+                + "{{white|DV Bonus:}} " + Level / 2 + "\n"
+                + "{{white|Swimming Speed increased by 50%}}\n"
+                + "\n"
+                + "{{white|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n"
+                + "\n"
+                + "While constricted, foe cannot move and takes your STR modifier per turn in damage plus the mutation's level.\n"
+                + "\n"
+                + "Escape Save: " + 10 + " + " + Level + " + Your STR Modifier.\n"
+                + "[Slime Body, and Quills or Scales, provide extra damage on constriction.]";
             // Write in ProcessTurnCostricted, IF statement before PerformDamage, use check has these mutations,
             // then add to damage using Method ExtraMutationsDamage or something, and assign damage on bool, but don't return
             // So that ProcessDamage still fires off. 

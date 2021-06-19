@@ -26,7 +26,7 @@ namespace XRL.World.Parts.Mutation
         public int Duration;
         public GelatinousFormSlime()
         {
-            DisplayName = "Gelatinous Form {{lightgreen|(Slime)}}";
+            DisplayName = "Gelatinous Form {{light green|(Slime)}}";
         }
 
         public override bool CanLevel()
@@ -70,17 +70,19 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You lack a muscuskeletal system, your genome chose an amorphous eukaryote's physique. Yours is especially {{lightgreen|slimy.}}\n";
+            return "You lack a muscuskeletal system, your genome chose an amorphous eukaryote's physique. Yours is especially {{light green|slimy.}}";
         }
 
         public override string GetLevelText(int Level)
         {
             string text = string.Empty;
-            if (Level == base.Level)
+            if (Level > 1)
+                return "";
+            else if (Level == base.Level)
             {
-                text += "You gain a 25% damage resistance bonus to melee weapons, but take more damage from projectiles and explosives.\n";
-                text += "\n";
-                text += "When dealt damage or struck from a melee weapon, there's a random chance you bleed slime in a random square around you, smothering your foes in slime.\n";
+                text += "You gain a 25% damage resistance bonus to melee weapons.\n";
+                text += "Take more damage from projectiles and explosives.\n";
+                text += "When dealt damage, there's a random chance you bleed slime in a random tile around you.\n";
                 text += "\nYou can spit slime at your foes.\n";
                 text += "+200 rep with {{blue|oozes}}\n";
             }

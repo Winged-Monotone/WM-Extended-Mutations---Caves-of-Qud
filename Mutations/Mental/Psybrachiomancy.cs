@@ -40,7 +40,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "You can manifest psionic arm's with your thoughtstuff.\n"
-                    + "\n{{white|+100 Reputation with}} {{orange|highly entropic beings.}}\n";
+                    + "\n{{white|+100 Reputation with}} {{orange|highly entropic beings.}}";
         }
         public override string GetLevelText(int Level)
         {
