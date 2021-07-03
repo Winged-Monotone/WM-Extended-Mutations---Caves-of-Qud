@@ -28,6 +28,10 @@
 
 	<faction Name="Oozes" Load="Merge">
 		<partreputation About="GelatinousFormPoison" Value="200" />
+		<partreputation About="GelatinousFormAcid" Value="200" />
+		<partreputation About="GelatinousFormSlime" Value="200" />
+
+
 	</faction>
 
 	<faction Name="Frogs" Load="Merge">

@@ -5,6 +5,8 @@ using ConsoleLib.Console;
 using XRL.World.ZoneBuilders;
 using XRL.World.Effects;
 using XRL.World.Parts.Skill;
+using System.Collections.Generic;
+using XRL.World.AI.GoalHandlers;
 
 
 namespace XRL.World.Parts.Mutation
@@ -186,7 +188,7 @@ namespace XRL.World.Parts.Mutation
                 int OwnersLevel = ParentObject.Stat("Level");
                 int TargetsLevel = TargetHusk.Stat("Level");
 
-                var LevelDifference = OwnersLevel - TargetsLevel;
+                var LevelDifference = TargetsLevel - OwnersLevel;
 
 
                 if (!TargetHusk.MakeSave("Willpower", 8 + LevelDifference, ParentObject, "Ego", ParentObject.It + " attempted to shunt " + TargetHusk.Its + " mind from " + TargetHusk.Its + " body.", false, false, false, false))
@@ -232,7 +234,10 @@ namespace XRL.World.Parts.Mutation
                         TargetHusk.RequirePart<Survival_Trailblazer>();
                     }
 
-                    XRL.The.Game.Player.Body = TargetHusk;
+                    if (ParentObject.IsPlayer())
+                        XRL.The.Game.Player.Body = TargetHusk;
+                    else
+                        XRL.The.Game.Player.Body = ParentObject;
 
                     TargetHusk.UseEnergy(1000);
                     ParentObject.UseEnergy(5000);
@@ -262,6 +267,19 @@ namespace XRL.World.Parts.Mutation
 
         public override bool FireEvent(Event E)
         {
+            if (E.ID == "AIGetOffensiveMutationList")
+            {
+                int intParameter = E.GetIntParameter("Distance");
+                if (intParameter <= 1 & IsMyActivatedAbilityCoolingDown(ActivatedAbilityID, ParentObject))
+                {
+                    GameObject gameObjectParameter2 = E.GetGameObjectParameter("Target");
+                    if (gameObjectParameter2.PhaseAndFlightMatches(ParentObject))
+                    {
+                        List<AICommandList> list = E.GetParameter("List") as List<AICommandList>;
+                        list.Add(new AICommandList("CommandSoulShunt", 1));
+                    }
+                }
+            }
             if (E.ID == "DamageFromDecay")
             {
                 int DegradateLevel = ParentObject.Stat("Level");
