@@ -85,7 +85,7 @@ namespace XRL.World.Parts.Mutation
             else if (Level == base.Level)
             {
                 text += "You gain a 25% damage resistance bonus to melee weapons and immunity from poison.";
-                text += "take more damage from projectiles and explosives.\n";
+                text += "Take more damage from projectiles and explosives.\n";
                 text += "When dealt damage, there's a random chance you release poison ichor in tiles around you.\n";
                 text += "You quickly regenerate lost limbs.\n\n";
                 text += "+200 rep with {{blue|oozes}}";
