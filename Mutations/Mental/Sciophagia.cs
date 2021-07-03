@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "Your consciousness predates on other minds, devour the animuses of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds.\n"
-                    + "\n{{white|+200 Reputation with}} {{blue|Seekers of the Sightless Way.}}\n\n";
+                    + "\n{{white|+200 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
         }
         public override string GetLevelText(int Level)
         {

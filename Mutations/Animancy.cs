@@ -7,9 +7,10 @@ namespace XRL.World.Parts.Mutation
 {
     [Serializable]
 
-
     public class Animancy : BaseMutation
     {
+        public bool ProccedAnimaBonus = false;
+        public int FactorIncreaseHolder = 0;
         public const string MOD_PREFIX = "Animancy";
 
         public Animancy()
@@ -32,7 +33,9 @@ namespace XRL.World.Parts.Mutation
 
         public override bool WantEvent(int ID, int cascade)
         {
-            return base.WantEvent(ID, cascade) || ID == AwardingXPEvent.ID;
+            return base.WantEvent(ID, cascade)
+             || ID == AwardingXPEvent.ID
+             || ID == AwardedXPEvent.ID;
         }
 
         private List<Action<Animancy, Event>> VividChoices = new List<Action<Animancy, Event>>()
@@ -46,26 +49,47 @@ namespace XRL.World.Parts.Mutation
                 Popup.Show("The sight of your foe drawing their last breath excites the primitive shadows lurking in your mind. Your body adapts, and your instinct hones its killing edge.\n" + "[{{blue|The anima favors you ...}}" + "[Bonus Experience Awarded : " + E.GetIntParameter("Amount") + "]");
             },
         };
-
+        public override int GetMaxLevel()
+        {
+            return 9999;
+        }
         public override bool HandleEvent(AwardingXPEvent E)
         {
             var SeededRandom = ParentObject.GetSeededRandom("Animancy");
             int SavantChance = SeededRandom.Next(1, 100);
-            int AnimaMultiplier = Stat.Random(2, 7);
+            var AnimaMultiplier = ParentObject.GetSeededRandom("Animancy");
             int currentXPAward = E.Amount;
-
-            int FlavourTextSum = currentXPAward * AnimaMultiplier;
 
             if (SavantChance <= 10 + this.Level - 1)
             {
-                E.Amount = currentXPAward * AnimaMultiplier;
-                AddPlayerMessage("[{{blue|You receive a gift from the anima.}}" + "[Bonus Experience Awarded : " + E.Amount + "]");
+                // AddPlayerMessage("Unedited XP Award : " + E.Amount);
+                // AddPlayerMessage("Previous EXP : " + ParentObject.Statistics["XP"].Value);
+
+                ProccedAnimaBonus = true;
+                FactorIncreaseHolder = AnimaMultiplier.Next(2, 7);
+
+                E.Amount = currentXPAward * FactorIncreaseHolder;
+
+                // AddPlayerMessage("Edited XP Award : " + E.Amount);
                 if (this.Level >= 10 && Stat.Random(1, 100) <= 10)
                 {
-                    int BaseBonusExpAward = currentXPAward * SeededRandom.Next(2, 7);
+                    int BaseBonusExpAward = currentXPAward * FactorIncreaseHolder;
                     E.Amount = BaseBonusExpAward;
                     VividChoices.GetRandomElement();
                 }
+
+            }
+
+            return base.HandleEvent(E);
+        }
+
+        public override bool HandleEvent(AwardedXPEvent E)
+        {
+            if (ProccedAnimaBonus == true && E.Actor.IsPlayer())
+            {
+                AddPlayerMessage("{{blue|You receive a gift from the anima.}} " + "(x" + FactorIncreaseHolder + ")");
+                // AddPlayerMessage("New Total EXP : " + ParentObject.Statistics["XP"].Value);
+                ProccedAnimaBonus = false;
             }
 
             return base.HandleEvent(E);

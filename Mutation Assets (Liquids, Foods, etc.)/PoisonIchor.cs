@@ -89,10 +89,12 @@ public class PoisonIchor : BaseLiquid
         ExitInterface = true;
         return true;
     }
-    public override void RenderBackground(LiquidVolume Liquid, RenderEvent eRender)
+    public override void RenderBackgroundPrimary(LiquidVolume Liquid, RenderEvent eRender)
     {
         eRender.ColorString = "^M" + eRender.ColorString;
+        base.RenderBackgroundPrimary(Liquid, eRender);
     }
+
     public override void BaseRenderPrimary(LiquidVolume Liquid)
     {
         if (Liquid.IsWadingDepth())

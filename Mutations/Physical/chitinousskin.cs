@@ -73,12 +73,16 @@ namespace XRL.World.Parts.Mutation
             int Math1 = (int)Math.Ceiling((Decimal)(Level / 2));
             int Math2 = (int)Math.Ceiling((Decimal)(Level / 2));
 
-            return "+" + (object)(1 + Math1) + " AV\n"
-            + "+" + (object)(1 + Math1) + " Strength Score\n"
-            + "-" + (object)(3 + Math2) + " to saves vs. Disease\n"
-            + "Take " + (object)(10 * Math1) + "% more Poison Damage\n"
-            + "You molt periodically, losing your armor bonus for a small period at the cost of a small bonus to movement speed."
-            + "+100 reputation with &Cinsects&y and &Carachnids&y\n";
+            if (ParentObject != null)
+                return "Your chitinous form gives you a strong, durable body. You molt periodically, losing your armor bonus for some time but gaining a small bonus to movement speed. You however are more susceptible to poison, venom and disease."
+                            + "+100 reputation with &Cinsects&y and &Carachnids&y";
+            else
+                return "+" + (object)(1 + Math1) + " AV\n"
+                + "+" + (object)(1 + Math1) + " Strength Score\n"
+                + "-" + (object)(3 + Math2) + " to saves vs. Disease\n"
+                + "Take " + (object)(10 * Math1) + "% more Poison Damage\n"
+                + "You molt periodically, losing your armor bonus for a small period at the cost of a small bonus to movement speed.\n"
+                + "+100 reputation with &Cinsects&y, &Ccrabs&y and &Carachnids&y\n";
         }
 
         // the method to call for the E.ID registers that were registered above. Everytime an event list an ID in the registry list, it will call it.

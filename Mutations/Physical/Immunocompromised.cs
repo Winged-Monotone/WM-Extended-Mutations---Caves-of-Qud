@@ -24,7 +24,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "Your cellular structure is particularly vulnerable to pathogenic and fungal predators.\n";
+            return "Your cellular structure is particularly vulnerable to pathogenic and fungal predators.";
         }
 
         private List<string> DiseaseEffects = new List<string>()
