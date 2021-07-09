@@ -20,8 +20,7 @@
                 <part Name="Description" Short="What you might mistaken as a dried, mangled carcass is instead the ominous remains of an insectoid's or mutant's husk, pure chitin held stiff by the shedded membranous cuticles spanning the creature's ligaments."></part>
                 <part Name="PreservableItem" Result="Chitin Chips" Number="5" />
                 <tag Name="ChooseToPreserve" />
-        </object>w23    1+
-
+        </object>
         <object Name="GamerGirlMoltQuality" Inherits="Item">
                 <part Name="Render" DisplayName="quality {{yellow|chitin}} husk" RenderString="]" ColorString="&amp;y" DetailColor="W" Tile="Items/sw_skinsuit.bmp"></part>
                 <part Name="Commerce" Value="500"></part>
