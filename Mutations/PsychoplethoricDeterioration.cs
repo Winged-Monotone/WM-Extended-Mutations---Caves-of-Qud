@@ -421,7 +421,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     try
                     {
-                        XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(PrimaryFaction, -CreatureTier * 50, true);
+                        XRL.Core.XRLCore.Core.Game.PlayerReputation.modify(NewBodyPrimaryFaction, -CreatureTier * 50, true);
                     }
                     catch
                     {

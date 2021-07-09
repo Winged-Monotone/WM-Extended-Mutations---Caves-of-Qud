@@ -237,18 +237,21 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "AIGetOffensiveMutationList")
             {
-                //AddPlayerMessage("I'mma keel yo ass.");
-                if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
+                if (ParentObject.CurrentCell.HasSwimmingDepthLiquid())
                 {
-                    if (!ParentObject.HasEffect("Submerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)
+                    //AddPlayerMessage("I'mma keel yo ass.");
+                    if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
                     {
-                        E.AddAICommand("DiveCommand");
+                        if (!ParentObject.HasEffect("Submerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)
+                        {
+                            E.AddAICommand("DiveCommand");
+                        }
                     }
-                }
-                int intParameter = E.GetIntParameter("Distance");
-                if (E.GetGameObjectParameter("Target") != null && intParameter <= 1 && !ParentObject.IsFrozen() && IsMyActivatedAbilityAIUsable(DeepStrikeActivatedAbility))
-                {
-                    E.AddAICommand("DeepStrikeCommand");
+                    int intParameter = E.GetIntParameter("Distance");
+                    if (E.GetGameObjectParameter("Target") != null && intParameter <= 1 && !ParentObject.IsFrozen() && IsMyActivatedAbilityAIUsable(DeepStrikeActivatedAbility))
+                    {
+                        E.AddAICommand("DeepStrikeCommand");
+                    }
                 }
 
             }
