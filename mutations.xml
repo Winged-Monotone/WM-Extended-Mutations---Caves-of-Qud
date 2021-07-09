@@ -20,7 +20,7 @@
   <category Name="Physical">
     <mutation Code="fu" BearerDescription="those with flesh as hard as chitin" Exclusions="Gelatinous Form (Acid),Gelatinous Form (Poison)" Class="ChitinousSkin" MaxSelected="1" Cost="3" Name="Chitinous Skin"></mutation>
     <mutation Load="Merge" Name="Multiple Legs" Cost="4" MaxSelected="1" Class="MultipleLegs" Exclusions="SerpentineForm" BearerDescription="the many-legged" Code="bo"></mutation>
-    <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
+    <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs,Hooks for Feet" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
     <mutation Code="sm" BearerDescription="those who are covered in scales" Exclusions="Chitinous Skin" Class="RoughScales" MaxSelected="1" Cost="1" Name="Rough Scales"></mutation>
     <mutation Code="se" BearerDescription="those with the progeniteor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
     <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid),Rough Scales,Gelatinous Form (Slime)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>

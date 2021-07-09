@@ -26,13 +26,13 @@ namespace XRL.World.Parts.Mutation
         {
             return "Your body is lined with elegant blades of cartiligenic ridges.\n\n"
 
-            + "{{B|+100 Reputation with Fish.}}";
+            + "{{cyan|+100}} Reputation with Fish.";
         }
 
         public override string GetLevelText(int Level)
         {
             return "You have fins that aid in swimming.\n"
-            + "Swimming penalty reduced by: {{B|" + (Level * 10) + "%}} ";
+            + "Swimming penalty reduced by: {{cyan|" + (Level * 10) + "%}} ";
         }
 
         public override bool WantEvent(int ID, int cascade)

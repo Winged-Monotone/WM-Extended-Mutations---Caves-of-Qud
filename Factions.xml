@@ -11,11 +11,15 @@
 		<partreputation About="ChitinousSkin" Value="100" />
 	</faction>
 
+	<faction Name="highly entropic beings" Load="Merge">
+		<partreputation About="PsychoplethoricDeterioration" Value="-400" />
+	</faction>
+
 
 	<faction Name="Seekers" Load="Merge">
-		<partreputation About="PsychoplethoricDeterioration" Value="400" />
+		<partreputation About="PsychoplethoricDeterioration" Value="100" />
 		<partreputation About="Sciophagia" Value="100" />
-
+		<partreputation About="Umbramaeum" Value="-200" />
 	</faction>
 
 	<faction Name="Unshelled Reptiles" Load="Merge">

@@ -56,9 +56,9 @@ namespace XRL.World.Parts.Mutation
         {
             return "Deliver concussive tail-whips at your foes periodically:\n"
             + "\n"
-            + "{{light blue|" + GetLevelValueSwingChance(Level) + "}}% chance to tail-whip your foe.\n"
-            + "{{light blue|" + GetLevelValueBaseDamage(Level) + "}} + {{red|STR-MOD}} Bludgeoning Damage.\n"
-            + "{{green|+" + GetLevelValuePenetration(Level) + "}} Penetration Value.\n"
+            + "{{cyan|" + GetLevelValueSwingChance(Level) + "}}% chance to tail-whip your foe.\n"
+            + "{{cyan|" + GetLevelValueBaseDamage(Level) + "}} + {{red|STR-MOD}} Bludgeoning Damage.\n"
+            + "{{cyan|+" + GetLevelValuePenetration(Level) + "}} Penetration Value.\n"
             + "\n"
             + "\n"
             + "Attaining other mutations may cause Thick Tail to evolve into more powerful variants, check the equipment tab to see what bonuses you may receive.\n"

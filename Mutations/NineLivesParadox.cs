@@ -37,7 +37,7 @@ namespace XRL.World.Parts.Mutation
         {
             return "Petting a feline creature leaves an imprint on the time-flux ley-lines--creating a paradox.\n"
             + "\n"
-            + "{{green|+400}} Reputation with {{blue|cats}}.\n"
+            + "{{cyan|+400}} Reputation with {{cyan|cats}}.\n"
             + "\n"
             + "Whenever you would die, you are teleported to the last cats you've pet.\n"
             + "Dying removes both a level from the mutation and {{red|-50}} reputation with cats.\n";

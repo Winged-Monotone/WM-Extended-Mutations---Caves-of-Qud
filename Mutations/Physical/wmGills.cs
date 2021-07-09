@@ -32,23 +32,11 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            if (ParentObject != null)
-            {
-                return "You can now submerge yourself in deep enough pools of liquid, gaining a pleathora of benefits:"
-               + "\n\n"
-               + "Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
-               + "You regenerate HP twice as fast while submerged.\n"
-               + "{{B|+100}} Reputation with Fish and Frogs.";
-            }
-            else
-            {
-                return "Submerge yourself in deep enough pools of liquid, gaining a pleathora of benefits:"
-               + "\n\n"
-               + "Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
-               + "You regenerate HP twice as fast while submerged.\n"
-               + "{{B|+100}} Reputation with Fish and Frogs.";
-
-            }
+            return "You can now submerge yourself in deep enough pools of liquid, gaining a pleathora of benefits:"
+           + "\n\n"
+           + "Enemies cannot reach you unless they have a ranged weapon or are also submerged.\n"
+           + "You regenerate HP twice as fast while submerged.\n"
+           + "{{cyan|+100}} Reputation with Fish and Frogs.";
         }
         public override bool CanLevel()
         {

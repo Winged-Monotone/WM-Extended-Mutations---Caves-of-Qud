@@ -31,7 +31,9 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "+1 AV\n+5 Acid Resistance\n+100 reputation with &Cunshelled reptiles";
+            return "{{cyan|+1}} AV\n"
+            + "{{cyan|+5}} Acid Resistance\n"
+            + "{{cyan|+100}} reputation with &Cunshelled reptiles";
         }
 
         public override bool FireEvent(Event E)

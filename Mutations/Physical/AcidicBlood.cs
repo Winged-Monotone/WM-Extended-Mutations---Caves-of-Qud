@@ -21,10 +21,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            if (Level < 1)
-                return "";
-            else
-                return "You release {{green|acidic}} blood upon being wounded by an attack that would make you bleed, you're also immune to {{green|acid}}.";
+            return "You release {{green|acidic}} blood upon being wounded by an attack that would make you bleed, you're also immune to {{green|acid}}.";
         }
 
         public override bool CanLevel()

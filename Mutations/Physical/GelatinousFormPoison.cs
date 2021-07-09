@@ -71,6 +71,10 @@ namespace XRL.World.Parts.Mutation
         {
             ParentObject.SetStringProperty("BleedLiquid", "poisonichor-1000");
             ParentObject.AddPart<PoisonImmunity>(true);
+            if (!ParentObject.HasIntProperty("Slimewalking"))
+            {
+                ParentObject.SetIntProperty("Slimewalking", 1);
+            }
             return base.Mutate(GO, Level);
         }
 
@@ -80,15 +84,15 @@ namespace XRL.World.Parts.Mutation
         {
             string text = string.Empty;
 
-            if (Level < 1)
-                return " ";
-            else if (Level == base.Level)
+
+            if (Level == base.Level)
             {
-                text += "You gain a 25% damage resistance bonus to melee weapons and immunity from poison.";
+                text += "You gain a {{cyan|25%}} damage resistance bonus to melee weapons.\n";
+                text += "Immunity from poison.\n";
                 text += "Take more damage from projectiles and explosives.\n";
                 text += "When dealt damage, there's a random chance you release poison ichor in tiles around you.\n";
                 text += "You quickly regenerate lost limbs.\n\n";
-                text += "+200 rep with {{blue|oozes}}";
+                text += "{{cyan|+200 reputation with oozes}}";
             }
             else
             {

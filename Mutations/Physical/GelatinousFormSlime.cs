@@ -76,15 +76,19 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
             string text = string.Empty;
-            if (Level > 1)
-                return "";
-            else if (Level == base.Level)
+
+            if (Level == base.Level)
             {
-                text += "You gain a 25% damage resistance bonus to melee weapons.\n";
+                text += "You gain a {{blueSs|25%}} damage resistance bonus to melee weapons.\n";
                 text += "Take more damage from projectiles and explosives.\n";
                 text += "When dealt damage, there's a random chance you bleed slime in a random tile around you.\n";
                 text += "\nYou can spit slime at your foes.\n";
-                text += "+200 rep with {{blue|oozes}}\n";
+                text += "{{cyan|+200 rep with oozes}}\n";
+            }
+            else
+            {
+                text += "Increased density of slime release upon being struck.";
+                text += "You regenerate lost limbs more quickly.\n";
             }
             return text;
         }
@@ -171,6 +175,10 @@ namespace XRL.World.Parts.Mutation
             Unmutate(GO);
             ParentObject.SetStringProperty("BleedLiquid", "Slime-1000");
             ActivatedAbilityID = AddMyActivatedAbility("Spit Slime", "CommandSpitSlime", "Physical Mutation", null, "*", null, false);
+            if (!ParentObject.HasIntProperty("Slimewalking"))
+            {
+                ParentObject.SetIntProperty("Slimewalking", 1);
+            }
             return base.Mutate(GO, Level);
         }
 

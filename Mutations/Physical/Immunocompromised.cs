@@ -90,9 +90,9 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "You are 30% more likely to catch diseases and it is 25% harder for you to fight off diseases."
+            return "You are {{cyan|30%}} more likely to catch diseases and it is {{cyan|25%}} harder for you to fight off diseases."
             + "\n"
-            + "\nIf ever diseased, your maximum hitpoints are reduced by 1 per every 2400 turns until the disease is cured. If your maximum hitpoints reach 1, you die.";
+            + "\nIf ever diseased, your maximum hitpoints are reduced by {{cyan|1}} per every {{bcyanlue|2400}} turns until the disease is cured. If your maximum hitpoints reach {{red|1}}, you die.";
         }
     }
 }

@@ -376,9 +376,9 @@ namespace XRL.World.Parts.Mutation
                 var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
 
                 return "Create an electric shroud around yourself and manipulate powerful electric forces dependent on a careful balancing of both electric charge and potency.\n\n"
-              + "Potency towards Resistance Alteration: " + "{{M|" + ParentsEgo + "}}" + " * " + "{{B|Charges}}\n"
-              + "Potency towards Shimmering Shroud: " + "{{W|" + 0.1f + "}}" + " * " + "{{B|Potency}}\n\n"
-              + "Save Target Vs' Negative Resistance Changes: " + "{{B|" + (10 + ParentsEgo + Level) + "}}";
+              + "Potency towards Resistance Alteration: " + "{{cyan|" + ParentsEgo + "}}" + " * " + "{{cyan|Charges}}\n"
+              + "Potency towards Shimmering Shroud: " + "{{cyan|" + 0.1f + "}}" + " * " + "{{cyan|Potency}}\n\n"
+              + "Save Target Vs' Negative Resistance Changes: " + "{{cyan|" + (10 + ParentsEgo + Level) + "}}";
             }
             catch
             {

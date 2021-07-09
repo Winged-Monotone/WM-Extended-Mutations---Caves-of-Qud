@@ -1,3 +1,4 @@
+using AiUnity.NLog.Core.LayoutRenderers;
 using Qud.API;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace XRL.World.Parts.Mutation
         public int PsiCost;
         public int NewPsiCost;
         public int WeaponCounter = 0;
+        private int TensPlaceOfLevel = 0;
         public Guid ManifestPsiWeaponActivatedAbilityID;
         public Guid ReturnPsiWeaponActivatedAbilityID;
         public string PsiWeaponsID => ParentObject.id + "::Psychomaterialus" + WeaponCounter;
@@ -852,20 +854,24 @@ namespace XRL.World.Parts.Mutation
         {
             return "Conjure your thoughtstuff, and materialize weapons as sharp as your mind.\n"
                 + "\n"
-                + "{{light blue|+50 reputation the Seekers of the Sightless Way.\n\n}}";
+                + "{{cyan|+50 reputation the Seekers of the Sightless Way.\n\n}}";
         }
         public override string GetLevelText(int Level)
         {
-            if (ParentObject != null)
-                return "";
-            else if (Level < 9)
+
+            if (Level < 9)
+            {
                 return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
-                + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
-                + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
+                + "Current Ego Magnitude: {{cyan|" + Level + ".0}}\n"
+                + "Current Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+            }
             else
+            {
+                TensPlaceOfLevel = (int)Math.Floor(Level * 0.10);
                 return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
-                + "Current Ego Magnitude: {{B|0." + Level + "0}}\n"
-                + "Current Weapon Level: {{B|" + GetPsychoMatLevel() + "}}\n";
+                    + "Current Ego Magnitude: {{cyan|" + TensPlaceOfLevel + "}}\n"
+                    + "Current Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+            }
         }
         public override bool Mutate(GameObject GO, int Level)
         {

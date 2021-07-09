@@ -57,7 +57,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "An aura of darkness is about you, stealing light from the world. You hide your light--along with your glimmer.\n"
-            + "\n{{white|-200 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
+            + "\n{{cyan|-200 Reputation with}} {{cyan|Seekers of the Sightless Way.}}";
         }
 
         public override string GetLevelText(int Level)

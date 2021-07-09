@@ -117,27 +117,25 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "A long, thick prehensile tail has replaced your legs. You now slither instead of walk and can constrict foes and prey alike in a deadly coil.\n"
-                    + "\n{{white|+100 Reputation with}} {{violet|unshelled reptiles.}}"
-                    + "\n{{white|-200 Reputation with}} {{violet|apes.}}";
+                    + "\n{{cyan|+100 Reputation with}} {{cyan|unshelled reptiles.}}"
+                    + "\n{{cyan|-200 Reputation with}} {{cyan|apes.}}";
         }
         public override string GetLevelText(int Level)
         {
-            if (Level < 1)
-                return "";
+            if (Level == base.Level)
+                return "{{cyan|Movement Speed:}} {{cyan|-5\n}}"
+                + "{{cyan|DV Bonus:}} {{blue|" + Level / 2 + "\n}}"
+                + "{{cyan|Swimming Speed increased by {{cyan|50%}}}}\n"
+                + "\n"
+                + "{{cyan|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n";
             else
-                return "{{white|Movement Speed:}} -5\n"
-                + "{{white|DV Bonus:}} " + Level / 2 + "\n"
-                + "{{white|Swimming Speed increased by 50%}}\n"
+            {
+                return "{{white|Movement Speed:}} {{cyan|-5\n}}"
+                + "{{white|DV Bonus:}} {{cyan|" + Level / 2 + "\n}}"
                 + "\n"
-                + "{{white|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n"
-                + "\n"
-                + "While constricted, foe cannot move and takes your STR modifier per turn in damage plus the mutation's level.\n"
-                + "\n"
-                + "Escape Save: " + 10 + " + " + Level + " + Your STR Modifier.\n"
-                + "[Slime Body, and Quills or Scales, provide extra damage on constriction.]";
-            // Write in ProcessTurnCostricted, IF statement before PerformDamage, use check has these mutations,
-            // then add to damage using Method ExtraMutationsDamage or something, and assign damage on bool, but don't return
-            // So that ProcessDamage still fires off. 
+                + "Escape Save: {{white|" + 10 + " + " + Level + "}} + your STR Modifier.\n";
+            }
+
         }
         public override bool WantEvent(int ID, int cascade)
         {
@@ -404,7 +402,7 @@ namespace XRL.World.Parts.Mutation
             }
             // AddPlayerMessage("Phase: 1");
             // !Target.CanChangeMovementMode("Constricted", false, true, false) 
-            if (!Target.CanChangeBodyPosition("Constricted", false, true, false))
+            if (!Target.CanChangeBodyPosition("Constricted", false, true, false) && !Target.IsFrozen())
             {
                 if (ParentObject.IsPlayer())
                 {

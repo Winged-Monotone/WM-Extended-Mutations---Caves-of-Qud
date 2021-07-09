@@ -46,11 +46,11 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "Your consciousness predates on other minds, devour the animuses of sentient beings as sustenance for a growing psychic in this grander aether and contend with other mass minds.\n"
-                    + "\n{{white|+200 Reputation with}} {{blue|Seekers of the Sightless Way.}}";
+                    + "\n{{cyan|+200 Reputation with}} {{cyan|Seekers of the Sightless Way.}}";
         }
         public override string GetLevelText(int Level)
         {
-            return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{light blue|" + (9 + Level) + "%}} chance you will encode that creature's psyche onto the holograms of your own, gaining +1 to your ego score permanently.  \n"
+            return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{cyan|" + (9 + Level) + "%}} chance you will encode that creature's psyche onto the holograms of your own, gaining {{cyan|+1}} to your ego score permanently.  \n"
             + "\n";
         }
 

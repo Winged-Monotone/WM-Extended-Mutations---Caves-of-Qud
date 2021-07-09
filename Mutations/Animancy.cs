@@ -23,7 +23,7 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "Effect: " + (10 + Level - 1) + "% chance to gain bonus experience points, this mutation grants more experience at 10th Level.";
+            return "Effect: {{cyan|" + (10 + Level - 1) + "%}} chance to gain bonus experience points, this mutation grants more experience at 10th Level.";
         }
 
         public override bool AllowStaticRegistration()

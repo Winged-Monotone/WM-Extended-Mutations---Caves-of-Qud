@@ -60,7 +60,9 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You bear chitinous flesh, as if incased in lacquered leather--you're resistant to physical attacks, but dread its compromise.\n";
+            return "You bear chitinous flesh, as if incased in lacquered leather--you're resistant to physical attacks, but dread its compromise.\n\n"
+                + "Your chitinous form gives you a strong, durable body increasing your AV. You molt periodically, losing your armor bonus for some time but gaining a small bonus to movement speed. You are more susceptible to poison, venom and disease."
+                + "{{cyan|+100}} reputation with &Cinsects&y, &Ccrabs&y and &Carachnids&y\n";
         }
 
         // this gets the description of the mutation and shows the mutations changes overtime with each level both in the effects list, and the mutation select screen.
@@ -69,20 +71,13 @@ namespace XRL.World.Parts.Mutation
         {
             // the 'return' gives a description "+" being that is adds the (object) which is the mutation itself, plus the "1" integer Math.Ceiling((Decimal) (Level / 2))), in plain english its + whatever it is divided by 2 and then rounded up and then added to the av/n value descripter. Math.Ceiling((Decimal) is representitive of rounding up. \n denounces a new line in the description.
 
-
             int Math1 = (int)Math.Ceiling((Decimal)(Level / 2));
             int Math2 = (int)Math.Ceiling((Decimal)(Level / 2));
 
-            if (ParentObject != null)
-                return "Your chitinous form gives you a strong, durable body. You molt periodically, losing your armor bonus for some time but gaining a small bonus to movement speed. You however are more susceptible to poison, venom and disease."
-                            + "+100 reputation with &Cinsects&y and &Carachnids&y";
-            else
-                return "+" + (object)(1 + Math1) + " AV\n"
-                + "+" + (object)(1 + Math1) + " Strength Score\n"
-                + "-" + (object)(3 + Math2) + " to saves vs. Disease\n"
-                + "Take " + (object)(10 * Math1) + "% more Poison Damage\n"
-                + "You molt periodically, losing your armor bonus for a small period at the cost of a small bonus to movement speed.\n"
-                + "+100 reputation with &Cinsects&y, &Ccrabs&y and &Carachnids&y\n";
+            return "+" + (object)(1 + Math1) + " AV\n"
+           + "+{{cyan|" + (object)(1 + Math1) + "}} Strength Score\n"
+           + "-{{cyan|" + (object)(3 + Math2) + "}} to saves vs. Disease\n"
+           + "Take {{cyan|" + (object)(10 * Math1) + "}}% more Poison Damage\n";
         }
 
         // the method to call for the E.ID registers that were registered above. Everytime an event list an ID in the registry list, it will call it.
