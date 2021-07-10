@@ -86,8 +86,8 @@ namespace XRL.World.Parts.Mutation
                 text += "When dealt damage, there's a random chance you bleed acid in a random square around you, dealing damage to your enemies.\n";
                 text += "You can spit acid at your foes.\n";
                 text += "You cannot wear armor below tier {{cyan|5}}.\n";
-                text += "You quickly regenerate lost limbs.\n";
-                text += "{{cyan|+200 rep with oozes}}\n";
+                text += "You quickly regenerate lost limbs.\n\n";
+                text += "{{cyan|+200 reputation with oozes}}\n";
                 text += "\n{{red|Stay away from salt.}}\n";
             }
             else

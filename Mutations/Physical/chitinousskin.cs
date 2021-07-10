@@ -61,8 +61,8 @@ namespace XRL.World.Parts.Mutation
         public override string GetDescription()
         {
             return "You bear chitinous flesh, as if incased in lacquered leather--you're resistant to physical attacks, but dread its compromise.\n\n"
-                + "Your chitinous form gives you a strong, durable body increasing your AV. You molt periodically, losing your armor bonus for some time but gaining a small bonus to movement speed. You are more susceptible to poison, venom and disease."
-                + "{{cyan|+100}} reputation with &Cinsects&y, &Ccrabs&y and &Carachnids&y\n";
+                + "Your chitinous form gives you a strong, durable body increasing your AV and strength. You molt periodically, losing your armor bonus for some time but gain a small bonus to movement speed. You are more susceptible to poison, venom and disease.\n\n"
+                + "{{cyan|+100}} reputation with &Cinsects&y, &Ccrabs&y and &Carachnids&y";
         }
 
         // this gets the description of the mutation and shows the mutations changes overtime with each level both in the effects list, and the mutation select screen.
@@ -74,10 +74,11 @@ namespace XRL.World.Parts.Mutation
             int Math1 = (int)Math.Ceiling((Decimal)(Level / 2));
             int Math2 = (int)Math.Ceiling((Decimal)(Level / 2));
 
-            return "+" + (object)(1 + Math1) + " AV\n"
+
+            return "+{{cyan|" + (object)(1 + Math1) + "}} AV\n"
            + "+{{cyan|" + (object)(1 + Math1) + "}} Strength Score\n"
            + "-{{cyan|" + (object)(3 + Math2) + "}} to saves vs. Disease\n"
-           + "Take {{cyan|" + (object)(10 * Math1) + "}}% more Poison Damage\n";
+           + "Take {{cyan|" + (object)(10 * Math1) + "%}} more Poison Damage\n";
         }
 
         // the method to call for the E.ID registers that were registered above. Everytime an event list an ID in the registry list, it will call it.

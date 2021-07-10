@@ -123,17 +123,17 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
             if (Level == base.Level)
-                return "{{cyan|Movement Speed:}} {{cyan|-5\n}}"
-                + "{{cyan|DV Bonus:}} {{blue|" + Level / 2 + "\n}}"
-                + "{{cyan|Swimming Speed increased by {{cyan|50%}}}}\n"
+                return "{{gray|Movement Speed:}} {{cyan|-5\n}}"
+                + "{{gray|DV Bonus:}} {{cyan|" + Level / 2 + "\n}}"
+                + "{{gray|Swimming Speed increased by {{cyan|50%}}}}\n"
                 + "\n"
-                + "{{cyan|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n";
+                + "{{cyan|Constrict:}} Constrict enemies, opposing foe must make Toughness Saving Throw, upon failing they are constricted.\n"
+                + "Escape Save: {{cyan|" + (10 + Level) + "}} (STR Modifier Included.)\n";
+
             else
             {
-                return "{{white|Movement Speed:}} {{cyan|-5\n}}"
-                + "{{white|DV Bonus:}} {{cyan|" + Level / 2 + "\n}}"
-                + "\n"
-                + "Escape Save: {{white|" + 10 + " + " + Level + "}} + your STR Modifier.\n";
+                return "{{gray|DV Bonus:}} {{cyan|" + Level / 2 + "\n}}"
+                + "Escape Save increased to: {{cyan|" + (10 + Level) + "}} (STR Modifier Included.)\n";
             }
 
         }

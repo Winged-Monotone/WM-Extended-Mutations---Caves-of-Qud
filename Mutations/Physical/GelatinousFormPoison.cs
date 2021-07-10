@@ -96,7 +96,7 @@ namespace XRL.World.Parts.Mutation
             }
             else
             {
-                text += "Increased density of poison release upon hit.";
+                text += "Increased chance of acid release by {{cyan|5%}}, and the density of acid release upon being struck by an enemy.\n";
                 text += "You regenerate lost limbs more quickly.\n";
             }
             return text;

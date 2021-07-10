@@ -61,11 +61,16 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "Base Damage: {{cyan|" + GetDamage(Level, 1) + "}} Per Charge.\n"
-            + "Charges above the first used increase the cooldown of this mutation by {[cyan|25}}.\n"
-            + "\n"
-            + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.\n\n"
-            + "The beam projects itself from the forehead, attempting to project this beam while wearing a helmet also has &Rfatal &Rconsequences&y.";
+            if (Level == base.Level)
+                return "Base Damage: {{cyan|" + GetDamage(Level, 1) + "}} Per Charge.\n"
+                + "Charges above the first used increase the cooldown of this mutation by {{cyan|25}}.\n"
+                + "\n"
+                + "Due to the amount of concentration it requires to perform this ability, attempting to project this beam while &Wdazed &Yor &Wconfused &Yhas &Rfatal &Rconsequences&y.\n\n"
+                + "The beam projects itself from the forehead, attempting to project this beam while wearing a helmet also has &Rfatal &Rconsequences&y.";
+            else
+            {
+                return "Base Damage: {{cyan|" + GetDamage(Level, 1) + "}} Per Charge.\n";
+            }
         }
         public int GetForce(int Level, int Charges)
         {

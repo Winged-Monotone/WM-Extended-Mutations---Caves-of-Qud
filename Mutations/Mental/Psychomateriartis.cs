@@ -149,7 +149,7 @@ namespace XRL.World.Parts.Mutation
                     return "{{zetachrome|Zetachrome}}";
                 }
             }
-            return null;
+            return "{{brown| Bronze}}";
         }
         public string GetWeaponTileColor(string colorChoice)
         {
@@ -854,23 +854,41 @@ namespace XRL.World.Parts.Mutation
         {
             return "Conjure your thoughtstuff, and materialize weapons as sharp as your mind.\n"
                 + "\n"
-                + "{{cyan|+50 reputation the Seekers of the Sightless Way.\n\n}}";
+                + "{{cyan|+50 reputation the Seekers of the Sightless Way.}}";
         }
         public override string GetLevelText(int Level)
         {
-
-            if (Level < 9)
+            string ConvertedLevelString = Level.ToString();
+            if (Level == base.Level)
             {
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
-                + "Current Ego Magnitude: {{cyan|" + Level + ".0}}\n"
-                + "Current Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                if (Level <= 9)
+                {
+
+                    return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}"
+
+                   + "\n\nEgo Magnitude: {{cyan|0." + Level + "}}\n"
+                   + "Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                }
+                else
+                {
+                    return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}"
+
+                   + "\n\nEgo Magnitude: {{cyan|" + ConvertedLevelString.Insert(1, ".") + "}}\n"
+                   + "Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                }
             }
             else
             {
-                TensPlaceOfLevel = (int)Math.Floor(Level * 0.10);
-                return "{{gray|Materialize psionic weaponry, psionic weaponry gains bonus penetration equivocal to your ego modifier and the mutations' ego magnitude. Psionic arms are bonded to its wielder, you may return your first materialized weapon to your hand as long as you are in the same zone and the weapon hasn't been destroyed.}}\n\n"
-                    + "Current Ego Magnitude: {{cyan|" + TensPlaceOfLevel + "}}\n"
-                    + "Current Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                if (Level <= 9)
+                {
+                    return "Increased Ego Magnitude: {{cyan|0." + Level + "}}\n"
+                    + "Increased Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                }
+                else
+                {
+                    return "Increased Ego Magnitude: {{cyan|" + ConvertedLevelString.Insert(1, ".") + "}}\n"
+                    + "Increased Weapon Level: {{cyan|" + GetPsychoMatLevel() + "}}\n";
+                }
             }
         }
         public override bool Mutate(GameObject GO, int Level)

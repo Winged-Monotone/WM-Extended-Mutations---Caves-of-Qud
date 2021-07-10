@@ -39,7 +39,14 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "Create a cone of surging water in front of you, enemies in the torrent are pushed back and take damage, higher levels summon larger piles of water at a larger distance.";
+            if (((byte)Level) == base.Level)
+                return "Create a cone of surging water in front of you, enemies in the torrent are pushed back and take damage, higher levels summon larger piles of water at a larger distance.\n\n"
+
+                + "Torrent Range {{cyan|+" + Level + "}}"
+                + "\n Damage Multiplier {{cyan|x" + 2 * Level + ".0}}";
+            else
+                return "Increased Torrent Range {{cyan|+" + Level + "}}"
+                + "\n Increased Damage Multiplier {{cyan|x" + 2 * Level + ".0}}";
         }
 
         public static string[] ColorList = new string[5]

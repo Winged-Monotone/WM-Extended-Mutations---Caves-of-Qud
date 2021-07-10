@@ -3,6 +3,7 @@ using XRL.Rules;
 using XRL.UI;
 using Qud.API;
 using XRL.Language;
+using System.Timers;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -50,8 +51,11 @@ namespace XRL.World.Parts.Mutation
         }
         public override string GetLevelText(int Level)
         {
-            return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{cyan|" + (9 + Level) + "%}} chance you will encode that creature's psyche onto the holograms of your own, gaining {{cyan|+1}} to your ego score permanently.  \n"
-            + "\n";
+            if (Level == base.Level)
+                return "{{white|Upon defeating an enemy with higher ego than your own, there is a {{cyan|" + (9 + Level) + "%}} chance you will encode that creature's psyche onto the holograms of your own, gaining {{cyan|+1}} to your ego score permanently.\n"
+                + "\n";
+            else
+                return "Chance of Absorption: " + "{{cyan|" + (9 + Level) + "%}}";
         }
 
         // public override bool AllowStaticRegistration()

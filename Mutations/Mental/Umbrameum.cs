@@ -62,8 +62,16 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return "{{white|Cast a deep shadow on an area or emit a constant fume of darkness around yourself, hampering the visibility of your enemies and yourself. You are innately more difficult to sense through the glimmer, abilities like clairvoyance, and sense psychic are less effective on you.\n"
-            + "\n";
+            if (Level == base.Level)
+                return "{{white|Cast a deep shadow on an area or emit a constant fume of darkness around yourself, hampering the visibility of your enemies and yourself. You are innately more difficult to sense through the glimmer, abilities like clairvoyance, and sense psychic are less effective on you.\n"
+                + "\n"
+                + "Glimmer Reduced by {{cyan|50%}}\n"
+                + "Radius: {{cyan|" + 8 + Level + "}}\n"
+                + "Self-cast Duration {{cyan|}}: " + ((Level * (10) / 2)) + "}}";
+            else
+                return "Radius: {{cyan|" + 8 + Level + "}}\n"
+                + "Self-cast Duration {{cyan|}}: " + ((Level * (10) / 2)) + "}}";
+
         }
 
         public override bool AllowStaticRegistration()

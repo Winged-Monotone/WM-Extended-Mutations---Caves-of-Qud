@@ -139,11 +139,17 @@ namespace XRL.World.Parts.Mutation
                 var ParentsEgo = ParentObject.Statistics["Ego"].Modifier;
                 MaximumRadius = 1 + Level;
 
-                return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you."
-              + "Charge Potency towards Resistance Alteration: " + "{{cyan|" + ParentsEgo + "}}" + " * " + "{{cyan|Charges}}\n"
-              + "Charge Potency towards Ambient Temperature Manipulation: " + "{{cyan|" + 250 + "}}" + " * " + "{{cyan|Charges}}\n\n"
-              + "Save Target Vs' Negative Resistance Changes: " + "{{cyan|" + (10 + ParentsEgo + Level) + "}}"
-              + "Maximum Radius: " + MaximumRadius;
+                if (Level == base.Level)
+                    return "Alter the resistances of creatures at your will, or change the ambient temperature of an area around you.\n"
+                  + "Charge Potency towards Resistance Alteration: " + "{{cyan|" + ParentsEgo + "}}" + " * " + "{{cyan|Charges}}\n"
+                  + "Charge Potency towards Ambient Temperature Manipulation: " + "{{cyan|" + 250 + "}}" + " * " + "{{cyan|Charges}}\n\n"
+                  + "Save Target Vs' Negative Resistance Changes: " + "{{cyan|" + (10 + ParentsEgo + Level) + "}}\n"
+                  + "Maximum Radius: {{cyan|" + MaximumRadius + "}}";
+                else
+                    return "Save Target Vs' Negative Resistance Changes: " + "{{cyan|" + (10 + ParentsEgo + Level) + "}}\n"
+                      + "Maximum Radius: {{cyan|" + MaximumRadius + "}}";
+
+
             }
             catch
             {
