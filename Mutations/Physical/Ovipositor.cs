@@ -30,6 +30,8 @@ namespace XRL.World.Parts.Mutation
         public int TailID;
         const int PlaceHolder = 20000;
 
+        public List<string> CollectedGeneSpice;
+
         public Ovipositor()
         {
             DisplayName = "Ovipositor";
@@ -45,6 +47,41 @@ namespace XRL.World.Parts.Mutation
         public override bool CanLevel()
         {
             return false;
+        }
+
+        public override bool WantEvent(int ID, int cascade)
+        {
+            return base.WantEvent(ID, cascade)
+            || ID == GetWaterRitualLiquidEvent.ID;
+        }
+
+        public override bool HandleEvent(GetWaterRitualLiquidEvent E)
+        {
+            AddPlayerMessage("1");
+            var GeneSpicer = E.Target;
+
+            if (E.Actor.IsPlayer() && GeneSpicer != null)
+            {
+                if (Popup.ShowYesNo("Would you like to take on this individuals gene-spice?", false, DialogResult.Yes) == DialogResult.Yes)
+                {
+                    var Genes = GeneSpicer.GetPart<Mutations>();
+                    var GeneList = Genes.MutationList;
+
+                    foreach (var M in GeneList)
+                    {
+                        var mStringed = M.ToString();
+
+                        CollectedGeneSpice.Add(mStringed);
+                    }
+
+                    Popup.Show("This will spice up your next brood.");
+                }
+                else
+                {
+
+                }
+            }
+            return base.HandleEvent(E);
         }
 
         public void BirthEgg()

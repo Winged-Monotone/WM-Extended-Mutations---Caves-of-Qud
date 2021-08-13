@@ -530,6 +530,7 @@ namespace XRL.World.Parts.Mutation
                 Point point = Lightningline[index];
                 Cell cell = zone.GetCell(point);
 
+                int Jaggeds = Stat.Random(1,7);
 
                 char DisplayBeam;
 

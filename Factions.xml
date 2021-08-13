@@ -16,6 +16,11 @@
 	</faction>
 
 
+	<faction Name="Birds" Load="Merge">
+		<partreputation About="LustrousFeathers" Value="100" />
+	</faction>
+
+
 	<faction Name="Seekers" Load="Merge">
 		<partreputation About="PsychoplethoricDeterioration" Value="100" />
 		<partreputation About="Sciophagia" Value="100" />

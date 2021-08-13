@@ -1,10 +1,26 @@
 
 using System;
 using System.Collections.Generic;
-using XRL.World;
-using XRL.World.Capabilities;
-using XRL.World.Effects;
+using System.Threading;
+using System.Linq;
+using System.Text;
+
 using XRL.World.Parts;
+using XRL.World;
+using XRL.World.Effects;
+using XRL.World.AI.GoalHandlers;
+using XRL.World.Parts.Mutation;
+using XRL.World.Capabilities;
+
+using XRL.Core;
+using XRL.Rules;
+using XRL.Messages;
+using XRL.UI;
+
+using UnityEngine;
+using AiUnity.NLog.Core.Targets;
+using HarmonyLib;
+using ConsoleLib.Console;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -46,6 +62,25 @@ namespace XRL.World.Parts.Mutation
         {
             return "{{gray|You can weave psionic arms into reality, they function like any other arm, but dissipate entirely upon being dismembered.}}";
         }
+        public override bool WantEvent(int ID, int cascade)
+        {
+            return base.WantEvent(ID, cascade)
+            || ID == AttackerDealingDamageEvent.ID;
+        }
+
+        public override bool HandleEvent(AttackerDealingDamageEvent E)
+        {
+            var EgoSum = ParentObject.Statistics["Ego"].Modifier;
+
+
+            if (E.Actor == ParentObject && E.Weapon.IsEquippedOnLimbType("Psionic") && E.Projectile == null)
+            {
+                var aDamage = E.Damage.Amount;
+                E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
+            }
+            return base.HandleEvent(E);
+        }
+
         public override bool Mutate(GameObject GO, int Level)
         {
             // string PsybrachiomancyinfoSource = "{ \"Psybrachiomancy\": [\"*cult*, the Asuran\", \"Many-Armed *cult*\"] }";

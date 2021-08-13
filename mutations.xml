@@ -23,12 +23,13 @@
     <mutation Code="sf1" BearerDescription="those with lamial forms" Exclusions="Multiple Legs,Hooks for Feet" Class="SerpentineForm" MaxSelected="1" Cost="3" Name="Serpentine Form"></mutation>
     <mutation Code="sm" BearerDescription="those who are covered in scales" Exclusions="" Class="RoughScales" MaxSelected="1" Cost="1" Name="Rough Scales"></mutation>
     <mutation Code="se" BearerDescription="those with the progeniteor's burden" Exclusions="Thick Tail,Stinger (Confusing Venom),Stinger (Paralyzing Venom),Stinger (Poisoning Venom)" Class="Ovipositor" MaxSelected="1" Cost="3" Name="Ovipositor"></mutation>
-    <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid),Gelatinous Form (Slime)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
-    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Poison),Gelatinous Form (Slime)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
-    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,Gelatinous Form (Acid),Gelatinous Form (Poison)" Class="GelatinousFormSlime" MaxSelected="1" Cost="2" Name="Gelatinous Form (Slime)"></mutation>
+    <mutation Code="gel" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,LustrousFeathers,Gelatinous Form (Acid),Gelatinous Form (Slime)" Class="GelatinousFormPoison" MaxSelected="1" Cost="3" Name="Gelatinous Form (Poison)"></mutation>
+    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,LustrousFeathers,Gelatinous Form (Poison),Gelatinous Form (Slime)" Class="GelatinousFormAcid" MaxSelected="1" Cost="3" Name="Gelatinous Form (Acid)"></mutation>
+    <mutation Code="gal" BearerDescription="those whose forms are gelatinous" Exclusions="Rough Scales,LustrousFeathers,Gelatinous Form (Acid),Gelatinous Form (Poison)" Class="GelatinousFormSlime" MaxSelected="1" Cost="2" Name="Gelatinous Form (Slime)"></mutation>
     <mutation Code="tit" BearerDescription="those who bleed acid" Exclusions="Gelatinous Form (Acid)" Class="AcidicBlood" MaxSelected="1" Cost="2" Name="Acidic Blood"></mutation>
-    <mutation Code="gl" BearerDescription="those with glistening gills" Exclusions="GelatinousFormPoison,GelatinousFormAcid" Class="wmGills" MaxSelected="1" Cost="2" Name="Gills"></mutation>
+    <mutation Code="gl" BearerDescription="those with glistening gills" Exclusions="" Class="wmGills" MaxSelected="1" Cost="2" Name="Gills"></mutation>
     <mutation Code="fl" BearerDescription="those with glistening fins" Exclusions="" Class="Fins" MaxSelected="1" Cost="1" Name="Fins"></mutation>
+    <mutation Code="fb" BearerDescription="those lusciously feathered" Exclusions="" Class="LustrousFeathers" MaxSelected="1" Cost="1" Name="Lustrously Feathered"></mutation>
 
   </category>
 

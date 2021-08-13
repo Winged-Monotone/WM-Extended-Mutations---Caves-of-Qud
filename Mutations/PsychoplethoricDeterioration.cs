@@ -66,7 +66,7 @@ namespace XRL.World.Parts.Mutation
             }
 
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            this.ActivatedAbilityID = activatedAbilities.AddAbility("Soulshunt", "CommandSoulShunt", "Mental Mutation", "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{light blue|(+10)}} or be shunted from its body; you assume control of the target's body permanently. Your new husk will wither over time. On a successful soulshunt you gain a 10% chance to increase your ego score by {{light blue|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", "(O)", null, false, false, false, false, false, false, false, false, -1);
+            this.ActivatedAbilityID = activatedAbilities.AddAbility("Soulshunt", "CommandSoulShunt", "Mental Mutation", "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{cyan|(+10)}} or be shunted from its body; you assume control of the target's body permanently and its INT, WIL, and EGO become your own. Your new husk will wither over time. On a successful soulshunt you have a {{cyan|10%}} chance to increase your ego score by {{cyan|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", "(O)", null, false, false, false, false, false, false, false, false, -1);
             return base.Mutate(GO, Level);
         }
 
@@ -188,7 +188,7 @@ namespace XRL.World.Parts.Mutation
                 int OwnersLevel = ParentObject.Stat("Level");
                 int TargetsLevel = TargetHusk.Stat("Level");
 
-                var LevelDifference = TargetsLevel - OwnersLevel;
+                var LevelDifference = OwnersLevel - TargetsLevel;
 
 
                 if (!TargetHusk.MakeSave("Willpower", 8 + LevelDifference, ParentObject, "Ego", ParentObject.It + " attempted to shunt " + TargetHusk.Its + " mind from " + TargetHusk.Its + " body.", false, false, false, false))

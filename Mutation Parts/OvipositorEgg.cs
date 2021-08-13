@@ -23,11 +23,36 @@ namespace XRL.World.Parts
             {
                 // string Hatched = "Crack!";
                 OvipositorHandler = ParentObject;
+                var MothersGenes = Mother.GetPart<Ovipositor>();
 
                 GameObject Droneling = Cloning.GenerateClone(Mother, C: currentCell);
                 var CheckOvi = Droneling.GetPart<Mutations>();
                 var GetOvi = CheckOvi.GetMutation("Ovipositor");
-                CheckOvi.RemoveMutation(GetOvi);
+
+                if (MothersGenes.CollectedGeneSpice != null)
+                {
+                    var MutationSpice1 = MothersGenes.CollectedGeneSpice.GetRandomElement();
+                    var MutationSpice2 = MothersGenes.CollectedGeneSpice.GetRandomElement();
+                    var MutationSpice3 = MothersGenes.CollectedGeneSpice.GetRandomElement();
+
+
+                    CheckOvi.RemoveMutation(GetOvi);
+
+                    if (!CheckOvi.HasMutation(MutationSpice1))
+                    {
+                        CheckOvi.AddMutation(MutationSpice1, 1);
+                    }
+                    if (!CheckOvi.HasMutation(MutationSpice2))
+                    {
+                        CheckOvi.AddMutation(MutationSpice2, 1);
+                    }
+                    if (!CheckOvi.HasMutation(MutationSpice3))
+                    {
+                        CheckOvi.AddMutation(MutationSpice3, 1);
+                    }
+                }
+
+
                 Droneling.DisplayName = Names.MutantNameMaker.MakeMutantName();
                 Droneling.GetPart<Description>().Short = "One of your loyal drones.";
                 Droneling.RemoveIntProperty("ProperNoun");

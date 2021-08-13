@@ -845,6 +845,7 @@ namespace XRL.World.Parts.Mutation
         public Psychomateriartis()
         {
             this.DisplayName = "Psychomateriartus";
+            this.Type = "Mental";
         }
         public override bool AllowStaticRegistration()
         {
