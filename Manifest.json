@@ -1,0 +1,10 @@
+{
+	"id": "WMexMutations",
+	"loadorder": 1,
+	"title": "{{M|WM Extended Mutations}}",
+	"description": "Adds some more mutations to the game.",
+	"tags": "Extended,Mutation,Mutations",
+	"version": "1.0",
+	"author": "WingyTone",
+	"previewImage": "preview.png"
+}

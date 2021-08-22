@@ -230,6 +230,7 @@ namespace XRL.World.Parts.Mutation
                 turnsTilMolt = (int)Stat.GaussianRandom(360001.0f, 77664.06416574f);
                 // turnsTilMolt = 10;
                 totalTurnsTilMolt = turnsTilMolt;
+
             }
 
             return base.FireEvent(E);

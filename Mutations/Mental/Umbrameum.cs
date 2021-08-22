@@ -7,6 +7,11 @@ using System.Linq;
 using ConsoleLib.Console;
 using System.Threading;
 using XRL.Core;
+using XRL.World.Encounters;
+using XRL.World.Capabilities;
+using XRL.World;
+using Qud.API;
+
 
 namespace XRL.World.Parts.Mutation
 {
@@ -90,6 +95,7 @@ namespace XRL.World.Parts.Mutation
             try
             {
                 int CurrentGlimmer = ParentObject.GetPsychicGlimmer();
+
 
                 ParentObject.SetIntProperty("GlimmerModifier", CurrentGlimmer / 2);
                 ParentObject.SetIntProperty("Glimmer", CurrentGlimmer / 2);

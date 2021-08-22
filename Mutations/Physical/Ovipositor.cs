@@ -10,6 +10,7 @@ using UnityEngine;
 using XRL.Language;
 using XRL.Rules;
 using XRL.UI;
+using System.Reflection;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -29,8 +30,8 @@ namespace XRL.World.Parts.Mutation
 
         public int TailID;
         const int PlaceHolder = 20000;
-
-        public List<string> CollectedGeneSpice;
+        // Make sure to close out your stuff via new list<string>(), these crash if you 
+        public List<string> CollectedGeneSpice = new List<string>();
 
         public Ovipositor()
         {
@@ -55,34 +56,34 @@ namespace XRL.World.Parts.Mutation
             || ID == GetWaterRitualLiquidEvent.ID;
         }
 
-        public override bool HandleEvent(GetWaterRitualLiquidEvent E)
-        {
-            AddPlayerMessage("1");
-            var GeneSpicer = E.Target;
+        // public override bool HandleEvent(GetWaterRitualLiquidEvent E)
+        // {
+        //     // AddPlayerMessage("1");
+        //     var GeneSpicer = E.Target;
 
-            if (E.Actor.IsPlayer() && GeneSpicer != null)
-            {
-                if (Popup.ShowYesNo("Would you like to take on this individuals gene-spice?", false, DialogResult.Yes) == DialogResult.Yes)
-                {
-                    var Genes = GeneSpicer.GetPart<Mutations>();
-                    var GeneList = Genes.MutationList;
+        //     if (E.Actor.IsPlayer() && GeneSpicer != null)
+        //     {
+        //         if (Popup.ShowYesNo("Take on this individuals gene-spice, this will improve your next brood by taking on the mutation aspects of your water-sib?", false, DialogResult.Yes) == DialogResult.Yes)
+        //         {
+        //             var Genes = GeneSpicer.GetPart<Mutations>();
+        //             var GeneList = Genes.MutationList;
 
-                    foreach (var M in GeneList)
-                    {
-                        var mStringed = M.ToString();
+        //             foreach (var M in GeneList)
+        //             {
+        //                 var mStringed = M.ToString();
 
-                        CollectedGeneSpice.Add(mStringed);
-                    }
+        //                 CollectedGeneSpice.Add(mStringed);
+        //             }
 
-                    Popup.Show("This will spice up your next brood.");
-                }
-                else
-                {
+        //             Popup.Show("This will spice up your next brood.");
+        //         }
+        //         else
+        //         {
 
-                }
-            }
-            return base.HandleEvent(E);
-        }
+        //         }
+        //     }
+        //     return base.HandleEvent(E);
+        // }
 
         public void BirthEgg()
         {
@@ -106,10 +107,13 @@ namespace XRL.World.Parts.Mutation
         {
             go.RegisterPartEvent((IPart)this, "EndTurn");
             go.RegisterPartEvent((IPart)this, "CommandLayEgg");
+            go.RegisterPartEvent((IPart)this, "ShowConversationChoices");
         }
 
         public override bool FireEvent(Event E)
         {
+
+
             if (E.ID == "CommandLayEgg")
             {
                 {
@@ -121,6 +125,61 @@ namespace XRL.World.Parts.Mutation
                 }
 
             }
+            else if (E.ID == "ShowConversationChoices")
+            {
+
+                // AddPlayerMessage("1");
+
+                var eCurrentNode = E.GetParameter<ConversationNode>("CurrentNode");
+                var eChoice = E.GetParameter<List<ConversationChoice>>("Choices");
+
+
+                // AddPlayerMessage("2");
+
+                if (eCurrentNode.ID == "*waterritual")
+                {
+                    var field = typeof(WaterRitualNode).GetField("currentInitializedSpeaker", BindingFlags.Static | BindingFlags.NonPublic);
+                    var speaker = field?.GetValue(null) as GameObject;
+
+                    var choice = new ConversationChoice();
+
+                    choice.ParentNode = eCurrentNode;
+                    choice.GotoID = choice.ParentNode.ID;
+                    choice.Text = "{{M|Take on this individuals' gene-spice?}}";
+
+                    choice.onAction = () =>
+                    {
+                        var SpeakerProperty = speaker.HasIntProperty("GeneSpiced");
+
+                        speaker.SetIntProperty("GeneSpiced", 1);
+
+                        if (!SpeakerProperty)
+                        {
+                            var Genes = speaker.GetPart<Mutations>();
+                            var GeneList = Genes.MutationList;
+
+                            foreach (var M in GeneList)
+                            {
+                                var mStringed = M.Name;
+
+                                CollectedGeneSpice.Add(mStringed);
+                            }
+
+                            Popup.Show("{{M|This will spice up your next brood.}}");
+                        }
+
+                        return !SpeakerProperty;
+                    };
+                    if (!speaker.HasIntProperty("GeneSpiced"))
+                    {
+                        eChoice.Add(choice);
+                        choice.ParentNode.SortEndChoicesToEnd();
+                    }
+
+                }
+            }
+
+
 
             return base.FireEvent(E);
         }

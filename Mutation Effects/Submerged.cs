@@ -9,16 +9,16 @@ using XRL.World.Parts;
 namespace XRL.World.Effects
 {
     [Serializable]
-    public class Submerged : Effect
+    public class wmSubmerged : Effect
     {
-        public Submerged() : base()
+        public wmSubmerged() : base()
         {
             base.DisplayName = "{{B|submerged}}";
             Duration = 1;
 
         }
 
-        public Submerged(int Duration) : this()
+        public wmSubmerged(int Duration) : this()
         {
             base.Duration = Duration;
             // base.Duration = 1;

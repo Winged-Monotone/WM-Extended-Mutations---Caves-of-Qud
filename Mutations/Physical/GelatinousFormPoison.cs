@@ -5,6 +5,7 @@ using XRL.World.Effects;
 using System.Collections.Generic;
 using ConsoleLib.Console;
 using XRL.Core;
+using XRL.Liquids;
 
 
 namespace XRL.World.Parts.Mutation
@@ -96,7 +97,7 @@ namespace XRL.World.Parts.Mutation
             }
             else
             {
-                text += "Increased chance of acid release by {{cyan|5%}}, and the density of acid release upon being struck by an enemy.\n";
+                text += "Increased chance of poison release by {{cyan|5%}}, and the amount of poison release upon being struck by an enemy.\n";
                 text += "You regenerate lost limbs more quickly.\n";
             }
             return text;
@@ -108,11 +109,11 @@ namespace XRL.World.Parts.Mutation
             {
                 Damage parameter = E.GetParameter("Damage") as Damage;
                 if (parameter.HasAttribute("Slashing"))
-                    parameter.Amount = (int)((double)parameter.Amount * (0.25 * (int)Math.Ceiling((Decimal)Level / new Decimal(2))));
+                    parameter.Amount -= (int)((double)parameter.Amount * (0.25 * (int)new Decimal(2)));
                 else if (parameter.HasAttribute("Melee"))
-                    parameter.Amount = (int)((double)parameter.Amount * (0.25 * (int)Math.Ceiling((Decimal)Level / new Decimal(2))));
+                    parameter.Amount -= (int)((double)parameter.Amount * (0.25 * (int)new Decimal(2)));
                 else if (parameter.HasAttribute("Ranged"))
-                    parameter.Amount = (int)((double)parameter.Amount * (1 + (0.25 * (int)Math.Ceiling((Decimal)Level / new Decimal(2)))));
+                    parameter.Amount += (int)((double)parameter.Amount * (1 + (0.25 * (int)new Decimal(2))));
 
                 if (ParentObject.CurrentCell != null && parameter.Amount != 0)
                 {
@@ -120,9 +121,11 @@ namespace XRL.World.Parts.Mutation
                     adjacentCells1.Add(ParentObject.CurrentCell);
                     foreach (Cell cell in adjacentCells1)
                     {
-                        if (!cell.IsOccluding() && Stat.Random(1, 100) >= 90)
+                        if (!cell.IsOccluding() && Stat.Random(1, 100) <= 10 + (5 * Level / 2))
                         {
                             GameObject IchorContainer = GameObject.create(this.PoisonIchorObj);
+                            var IchorProperties = IchorContainer.GetPart<LiquidVolume>();
+                            IchorProperties.Volume *= Level;
                             cell.AddObject(IchorContainer);
                         }
                     }

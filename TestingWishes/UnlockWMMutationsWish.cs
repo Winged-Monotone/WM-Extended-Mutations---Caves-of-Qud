@@ -34,7 +34,7 @@ using static XRL.World.IComponent<XRL.World.IPart>;
 
 
 
-namespace MMAWishes
+namespace WMEMWishes
 {
     [HasWishCommand]
     class MMAWishHandler
@@ -46,7 +46,7 @@ namespace MMAWishes
 
         [WishCommand(Command = "AllWMMutations")]
 
-        public static void MasterMartialArts()
+        public static void WMAllMutations()
         {
 
             AddPlayerMessage("All mutations from WM Mutations has been added, enjoy ...");

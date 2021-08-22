@@ -47,6 +47,12 @@ namespace XRL.World
             string VitaIntuitainfoSource = "{ \"VitaIntuita\": [\"*cult*, God-Eye\", \"Sultan's Sight *cult*\"] }";
             SimpleJSON.JSONNode VitaIntuitaInfo = SimpleJSON.JSON.Parse(VitaIntuitainfoSource);
 
+            string UmbrameuminfoSource = "{ \"Umbrameum\": [\"*cult*, Dark-Stalkers\", \"Shadow-Makers *cult*\"] }";
+            SimpleJSON.JSONNode UmbrameumInfo = SimpleJSON.JSON.Parse(UmbrameuminfoSource);
+
+            string FocusPsiinfoSource = "{ \"Umbrameum\": [\"*cult*, Dark-Stalkers\", \"Shadow-Makers *cult*\"] }";
+            SimpleJSON.JSONNode FocusPsiInfo = SimpleJSON.JSON.Parse(FocusPsiinfoSource);
+
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", CombustionInfo["CombustionBlast"]);
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", SciophagiaInfo["Sciophagia"]);
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", PsybrachiomancyInfo["Psybrachiomancy"]);
@@ -54,6 +60,8 @@ namespace XRL.World
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", PsychomateriartisInfo["Psychomateriartis"]);
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", ThermokinesisInfo["Thermokinesis"]);
             WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", VitaIntuitaInfo["VitaIntuita"]);
+            WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", UmbrameumInfo["Umbrameum"]);
+            WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", FocusPsiInfo["FocusPsi"]);
 
         }
     }

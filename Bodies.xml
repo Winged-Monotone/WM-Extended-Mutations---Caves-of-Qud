@@ -7,9 +7,9 @@
 
   <bodyparttypevariants>
 
-    <bodyparttypevariant VariantOf="Arm" Description="{{psionic|Psionic Arm}}" Type="Psionic-Arm" Category="Psionic" Extrinsic="true" />
-    <bodyparttypevariant VariantOf="Hand" Description="{{psionic|Psionic-Hand}}" Type="Psionic-Hand" DefaultBehavior="PsionicFist" Category="Psionic" Extrinsic="true" UsuallyOnVariant="Psionic-Arm" />
-    <bodyparttypevariant VariantOf="Hands" Description="{{psionic|Psionic-Hands}}" Type="Psionic-Hands" Category="Psionic" Extrinsic="true" ImpliedBy="Psionic-Hand" />
+    <bodyparttypevariant VariantOf="Arm" Description="{{psionic|Psionic Arm}}" Type="Psionic Arm" Category="Psionic" Extrinsic="true" />
+    <bodyparttypevariant VariantOf="Hand" Description="{{psionic|Psionic-Hand}}" Type="Psionic Hand" DefaultBehavior="PsionicFist" Category="Psionic" Extrinsic="true" UsuallyOnVariant="Psionic-Arm" />
+    <bodyparttypevariant VariantOf="Hands" Description="{{psionic|Psionic-Hands}}" Type="Psionic Hands" Category="Psionic" Extrinsic="true" ImpliedBy="Psionic-Hand" />
     <bodyparttypevariant VariantOf="Missile Weapon" Type="{{psionic|Psionic Arm (Missile)}}" LimbBlueprintProperty="PsionicMissile" LimbBlueprintDefault="PsionicArm" RequiresType="" Category="Psionic" Abstract="false" Appendage="true" UsuallyOn="Body" Branching="Lateral,Vertical,Stratal,Longitudinal" />
 
   </bodyparttypevariants>

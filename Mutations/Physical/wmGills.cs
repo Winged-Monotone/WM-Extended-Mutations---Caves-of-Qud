@@ -96,6 +96,7 @@ namespace XRL.World.Parts.Mutation
             ParentObject.RegisterPartEvent((IPart)this, "EndTurn");
             ParentObject.RegisterPartEvent((IPart)this, "AIGetOffensiveMutationList");
             ParentObject.RegisterPartEvent((IPart)this, "BeginTakeAction");
+            ParentObject.RegisterPartEvent((IPart)this, "BeginTakeAction");
 
 
             base.Register(ParentObject);
@@ -158,12 +159,12 @@ namespace XRL.World.Parts.Mutation
                 {
                     AddPlayerMessage("You feel right at home.");
                     ParentObject.Splatter("{{B|*}}");
-                    ParentObject.ApplyEffect(new Submerged(Duration: Effect.DURATION_INDEFINITE));
+                    ParentObject.ApplyEffect(new wmSubmerged(Duration: Effect.DURATION_INDEFINITE));
                 }
                 else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200 && !ParentsMutations.HasMutation("Amphibious"))
                 {
                     ParentObject.Splatter("{{B|*}}");
-                    ParentObject.ApplyEffect(new Submerged(Duration: Effect.DURATION_INDEFINITE));
+                    ParentObject.ApplyEffect(new wmSubmerged(Duration: Effect.DURATION_INDEFINITE));
                 }
             }
             else if (E.ID == "EndTurn")

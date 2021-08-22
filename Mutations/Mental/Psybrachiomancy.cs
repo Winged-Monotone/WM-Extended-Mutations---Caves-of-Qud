@@ -29,7 +29,7 @@ namespace XRL.World.Parts.Mutation
     {
         public int ArmCounter = 0;
         public int ArmCost;
-        public int NewArmCost;
+        public int NewArmCost = 0;
         // private bool PsionicArmActive = false;
         public string ManagerID => ParentObject.id + "::Psybrachiomancy";
         public Guid ActivatedAbilityID = Guid.Empty;
@@ -68,18 +68,31 @@ namespace XRL.World.Parts.Mutation
             || ID == AttackerDealingDamageEvent.ID;
         }
 
-        public override bool HandleEvent(AttackerDealingDamageEvent E)
-        {
-            var EgoSum = ParentObject.Statistics["Ego"].Modifier;
+        // public override bool HandleEvent(AttackerDealingDamageEvent E)
+        // {
+        //     var EgoSum = ParentObject.Statistics["Ego"].Modifier;
+        //     var Attacker = E.Actor;
+        //     var Defender = E.Object;
+        //     var GetEquippedPsionicLimb = E.Weapon?.EquippedOn();
 
 
-            if (E.Actor == ParentObject && E.Weapon.IsEquippedOnLimbType("Psionic") && E.Projectile == null)
-            {
-                var aDamage = E.Damage.Amount;
-                E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
-            }
-            return base.HandleEvent(E);
-        }
+
+        //     AddPlayerMessage("Attacker : " + Attacker.DisplayName);
+
+        //     AddPlayerMessage("Defender : " + Defender.DisplayName);
+
+        //     // AddPlayerMessage("LimbAttacking? : " + GetEquippedPsionicLimb.Description);
+
+
+        //     if (E.Actor == ParentObject && (GetEquippedPsionicLimb?.VariantType == "Psionic Hands") && E.Projectile == null)
+        //     {
+        //         AddPlayerMessage("Firing Damage reduction for multiple arms.");
+        //         var aDamage = E.Damage.Amount;
+        //         E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
+        //     }
+        //     return base.HandleEvent(E);
+        // }
+
 
         public override bool Mutate(GameObject GO, int Level)
         {
@@ -107,26 +120,26 @@ namespace XRL.World.Parts.Mutation
             if (SourceBody != null)
             {
                 BodyPart ReadyBody = SourceBody.GetBody();
-                BodyPart AttatchArmTemplate = ReadyBody.AddPartAt("Psionic-Arm", 2, null, null, null, null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Arm", new string[4]
+                BodyPart AttatchArmTemplate = ReadyBody.AddPartAt("Psionic Arm", 2, null, null, null, null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Arm", new string[4]
                 {
                 "Hands",
                 "Feet",
                 "Roots",
                 "Thrown Weapon"
                 });
-                AttatchArmTemplate.AddPart("Psionic-Hand", 2, null, "Psionic-Hands", null, null, ManagerID + ArmCounterStrings(), 17);
-                ReadyBody.AddPartAt(AttatchArmTemplate, "Psionic-Arm", 1, null, null, null, null, ManagerID + ArmCounterStrings(), 17).AddPart("Psionic-Hand", 1, null, "Psionic-Hands", null, null, ManagerID + ArmCounterStrings(), 17);
-                ReadyBody.AddPartAt("Psionic-Hands", 0, null, null, "Psionic-Hands", null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[3]
+                AttatchArmTemplate.AddPart("Psionic Hand", 2, null, "Psionic Hands", null, null, ManagerID + ArmCounterStrings(), 17);
+                ReadyBody.AddPartAt(AttatchArmTemplate, "Psionic Arm", 1, null, null, null, null, ManagerID + ArmCounterStrings(), 17).AddPart("Psionic Hand", 1, null, "Psionic Hands", null, null, ManagerID + ArmCounterStrings(), 17);
+                ReadyBody.AddPartAt("Psionic Hands", 0, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[3]
                 {
                 "Feet",
                 "Roots",
                 "Thrown Weapon"
                 });
-                ReadyBody.AddPartAt("Missile Weapon", Laterality.RIGHT, null, null, "Psionic-Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
+                ReadyBody.AddPartAt("Missile Weapon", Laterality.RIGHT, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
                 {
                 "Missile Weapon"
                 });
-                ReadyBody.AddPartAt("Missile Weapon", Laterality.LEFT, null, null, "Psionic-Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
+                ReadyBody.AddPartAt("Missile Weapon", Laterality.LEFT, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
                 {
                 "Missile Weapon"
                 });
@@ -150,7 +163,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (E.ID == "CommandManifestLimb")
             {
-                ArmCost = (2 + ArmCounter) + (2 * ArmCounter) - 1;
+                ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
                 NewArmCost = ArmCost;
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)

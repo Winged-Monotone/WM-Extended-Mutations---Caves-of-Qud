@@ -28,6 +28,14 @@
             "VitaIntuita": [
                 "*cult*, God-Eye",
                 "Sultan's Sight *cult*"
+            ],
+            "FocusPsi": [
+                "*cult*, Mind-Summoners",
+                "Thought-Makers *cult*"
+            ],
+            "Umbrameum": [
+                "*cult*, Shadow-Walkers",
+                "Dark-Singers *cult*"
             ]
         },
         "cooking": {

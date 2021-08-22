@@ -29,27 +29,24 @@ namespace XRL.World.Parts
                 var CheckOvi = Droneling.GetPart<Mutations>();
                 var GetOvi = CheckOvi.GetMutation("Ovipositor");
 
-                if (MothersGenes.CollectedGeneSpice != null)
+                CheckOvi.RemoveMutation(GetOvi);
+
+                for (int i = 0; i < 3; i++)
                 {
-                    var MutationSpice1 = MothersGenes.CollectedGeneSpice.GetRandomElement();
-                    var MutationSpice2 = MothersGenes.CollectedGeneSpice.GetRandomElement();
-                    var MutationSpice3 = MothersGenes.CollectedGeneSpice.GetRandomElement();
+                    var spice = MothersGenes.CollectedGeneSpice.GetRandomElement();
+                    if (spice == null) break;
 
+                    // check & add spice mutations here
 
-                    CheckOvi.RemoveMutation(GetOvi);
+                    // AddPlayerMessage("Preparing GeneSpicing");
 
-                    if (!CheckOvi.HasMutation(MutationSpice1))
+                    if (!CheckOvi.HasMutation(spice))
                     {
-                        CheckOvi.AddMutation(MutationSpice1, 1);
+                        // AddPlayerMessage("Gene 1");
+
+                        CheckOvi.AddMutation(spice, 1);
                     }
-                    if (!CheckOvi.HasMutation(MutationSpice2))
-                    {
-                        CheckOvi.AddMutation(MutationSpice2, 1);
-                    }
-                    if (!CheckOvi.HasMutation(MutationSpice3))
-                    {
-                        CheckOvi.AddMutation(MutationSpice3, 1);
-                    }
+
                 }
 
 
