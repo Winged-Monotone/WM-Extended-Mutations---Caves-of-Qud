@@ -91,7 +91,7 @@ namespace XRL.World.Parts.Mutation
         //         E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
         //     }
         //     return base.HandleEvent(E);
-        // }
+        // } 
 
 
         public override bool Mutate(GameObject GO, int Level)
@@ -163,11 +163,11 @@ namespace XRL.World.Parts.Mutation
         {
             if (E.ID == "CommandManifestLimb")
             {
-                ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
-                NewArmCost = ArmCost;
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)
                 {
+                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
+                    NewArmCost = ArmCost;
                     ArmCounter += 1;
                     focusPsi.focusPsiCurrentCharges = focusPsi.maximumPsiCharge();
                     AddPsionicArms();

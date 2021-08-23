@@ -22,6 +22,8 @@ using AiUnity.NLog.Core.Targets;
 using HarmonyLib;
 using ConsoleLib.Console;
 
+using EMPMutationPart = XRL.World.Parts.Mutation.ElectromagneticPulse;
+
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
@@ -513,7 +515,7 @@ namespace XRL.World.Parts.Mutation
         {
             TextConsole _TextConsole = UI.Look._TextConsole;
             ScreenBuffer Buffer = TextConsole.ScrapBuffer;
-            Core.XRLCore.Core.RenderMapToBuffer(Buffer);
+
 
             var TargetCell = PickDestinationCell(9, AllowVis.OnlyVisible);
             var zone = TargetCell.ParentZone;
@@ -521,16 +523,87 @@ namespace XRL.World.Parts.Mutation
             var SkyCell = zone.GetCell(TargetCell.X, 0);
 
             List<Point> SpawningLine = Zone.Line(9, 0, 16, 0);
-            List<Point> Lightningline = Zone.Line(SpawningLine.GetRandomElement().X, SpawningLine.GetRandomElement().Y, TargetCell.X, TargetCell.Y);
+
+            Point CurrentLightningPosition = SpawningLine.GetRandomElement();
+            Point NextLightning = new Point(TargetCell.X, TargetCell.Y);
+
+            List<Point> Lightning = new List<Point>();
+
+            float DeltaX = NextLightning.X - CurrentLightningPosition.X;
+            float DeltaY = NextLightning.Y - CurrentLightningPosition.Y;
+
+            float RandomLength = Stat.Random(0.0f, 0.25f);
+
+            NextLightning = new Point(CurrentLightningPosition.X + (int)Math.Round(DeltaX * RandomLength, MidpointRounding.AwayFromZero), CurrentLightningPosition.Y + (int)Math.Round(DeltaY * RandomLength, MidpointRounding.AwayFromZero));
+
+            List<Point> LightningSegment = Zone.Line(CurrentLightningPosition.X, CurrentLightningPosition.Y, NextLightning.X, NextLightning.Y);
+
+            Lightning.AddRange(LightningSegment);
+
+            CurrentLightningPosition = NextLightning;
+
+            AddPlayerMessage("TargetCell X" + TargetCell.X);
+            AddPlayerMessage("TargetCell Y" + TargetCell.Y);
+
+
+            while (CurrentLightningPosition.X != TargetCell.X || CurrentLightningPosition.Y != TargetCell.Y)
+            {
+                if (Stat.Random(0, 100) <= 50 && CurrentLightningPosition.Y < TargetCell.Y)
+                {
+                    RandomLength = Stat.Random(1.0f, 10.0f);
+
+                    DeltaX = Stat.Random(-1.0f, 1.0f);
+                    DeltaY = Stat.Random(0.0f, 1.0f);
+                }
+                else
+                {
+                    DeltaX = TargetCell.X - CurrentLightningPosition.X;
+                    DeltaY = TargetCell.Y - CurrentLightningPosition.Y;
+
+                    RandomLength = Stat.Random(0.0f, 0.50f);
+                }
+
+                NextLightning = new Point(CurrentLightningPosition.X + (int)Math.Round(DeltaX * RandomLength, MidpointRounding.AwayFromZero), CurrentLightningPosition.Y + (int)Math.Round(DeltaY * RandomLength, MidpointRounding.AwayFromZero));
+
+                LightningSegment = Zone.Line(CurrentLightningPosition.X, CurrentLightningPosition.Y, NextLightning.X, NextLightning.Y);
+
+                AddPlayerMessage("CurrentLightningPosition X" + CurrentLightningPosition.X);
+                AddPlayerMessage("CurrentLightningPosition Y" + CurrentLightningPosition.Y);
+
+                AddPlayerMessage("NextLightning X" + NextLightning.X);
+                AddPlayerMessage("NextLightning Y" + NextLightning.Y);
+
+                AddPlayerMessage("TargetCell X" + TargetCell.X);
+                AddPlayerMessage("TargetCell Y" + TargetCell.Y);
+
+                Lightning.AddRange(LightningSegment);
+
+                CurrentLightningPosition = NextLightning;
+            }
 
             List<string> SparkySparkyChars = new List<string>() { "\xf8", "*", "." };
 
-            for (int index = 0; index < Lightningline.Count; index++)
+            Buffer.Fill(0, 0, zone.Width, zone.Height, 'Û', 'W');
+
+            _TextConsole.DrawBuffer(Buffer);
+
+            System.Threading.Thread.Sleep(90);
+
+            Core.XRLCore.Core.RenderMapToBuffer(Buffer);
+
+            for (int index = 0; index < Lightning.Count; index++)
             {
-                Point point = Lightningline[index];
+
+                Point point = Lightning[index];
                 Cell cell = zone.GetCell(point);
 
-                int Jaggeds = Stat.Random(1,7);
+                GameObject SteamObj = GameObject.create("Steam");
+                var SteamProps = SteamObj.GetPart<Gas>();
+                SteamProps.Density = 10;
+
+                cell.AddObject(SteamObj);
+
+                int Jaggeds = Stat.Random(1, 7);
 
                 char DisplayBeam;
 
@@ -540,73 +613,21 @@ namespace XRL.World.Parts.Mutation
                 { DisplayBeam = '\\'; }
 
                 Buffer.Goto(cell.X, cell.Y);
-                Buffer.Write("&Y^b" + DisplayBeam);
+                Buffer.Write("&Y^B" + DisplayBeam);
 
                 Cell SparkyBeam = cell.GetRandomLocalAdjacentCell();
                 Buffer.Goto(SparkyBeam.X, SparkyBeam.Y);
                 Buffer.Write("&Y" + SparkySparkyChars.GetRandomElement());
-                _TextConsole.DrawBuffer(Buffer);
-                System.Threading.Thread.Sleep(18);
 
             }
 
+            _TextConsole.DrawBuffer(Buffer);
+            // System.Threading.Thread.Sleep(180);
 
+            Buffer.Shake(Stat.Random(50, 250), 25, Popup._TextConsole);
 
-            // foreach (var C in line)
-            // {
-            //     GameObject Target = C.GetFirstObjectWithPart("Combat");
+            EMPMutationPart.EMP(TargetCell, 3, 1, true);
 
-            //     AddPlayerMessage("Target: " + Target.DisplayName);
-
-            //     Cell TargetCell = Target.CurrentCell;
-
-            //     AddPlayerMessage("Target Cell Found?: " + TargetCell.DebugName);
-
-            //     Zone TargetsZone = Target.CurrentZone;
-
-            //     AddPlayerMessage("Target Zone Found?: " + TargetsZone.DebugName);
-
-
-
-            //     AddPlayerMessage("Sky Cell Found?: " + SkyCell.DebugName);
-
-
-            //     List<string> ElectricChars = new List<string>() { "\xf8", "*", "." };
-            //     // List<Point> Lightningline = Zone.Line(line[0].X, line[0].Y, TargetCell.X, SkyCell.Y);
-
-            //     int num = 1;
-
-            //     int dx = Math.Abs(num - num), sx = num < -num ? 1 : -1;
-            //     int dy = Math.Abs(num - num), sy = num < -num ? 1 : -1;
-
-            //     XRLCore.ParticleManager.Add(ElectricChars.GetRandomElement(), TargetCell.X, SkyCell.Y, -dx, -dy, 1, 0f, 0f);
-
-            //     AddPlayerMessage("Lightining Code Fired.");
-
-            //     // for (int index = 1; index < line.Count; index++)
-            //     // {
-            //     //     Cell cell = line[index];
-            //     //     char DisplayLightning = Lightningline[index].DisplayChar;
-            //     //     Buffer.Goto(cell.X, cell.Y);
-            //     //     Buffer.Write("&B^b" + DisplayLightning);
-
-            //     //     Cell LightningStrike = cell.GetRandomLocalAdjacentCell();
-            //     //     Buffer.Goto(LightningStrike.X, LightningStrike.Y);
-            //     //     Buffer.Write("&W" + ElectricChars.GetRandomElement());
-            //     //     _TextConsole.DrawBuffer(Buffer);
-            //     //     System.Threading.Thread.Sleep(18);
-            //     //     // Find a solid object and combat id on obj in line, to hit in this cell.
-            //     //     GameObject obj = cell.FindObject(o => (o.HasPart("Combat")));
-
-
-            //     //     if (obj != null)
-            //     //     {
-            //     //         TargetCell = cell;
-            //     //         break;
-            //     //     }
-            //     // }
-            //     break;
-            // }
         }
         public void ReverseParticleText(string Text, float Velocity, int Life)
         {
@@ -647,7 +668,6 @@ namespace XRL.World.Parts.Mutation
                     XVelocity = ParentObject.CurrentCell.X - X;
 
                     float Magnitude = (float)Math.Sqrt((XVelocity * XVelocity) + (YVelocity * YVelocity));
-
 
                     XVelocity = -(XVelocity / Life);
                     YVelocity = -(YVelocity / Life);
@@ -765,10 +785,13 @@ namespace XRL.World.Parts.Mutation
             {
                 ParentObject.AddPart<ShimmeringShroudHandler>();
             }
+
             ActivateShimmeringShroudAbilityID = base.AddMyActivatedAbility("Activate Shroud", "CommandShimmeringShroud", "Mental Mutation", null, "*", null, false, false, false, false, false);
             ChargePotentialAbilityID = base.AddMyActivatedAbility("Charge Potential", "CommandChargePotencyShroud", "Mental Mutation", null, "*", null, true, false, true, false, false);
             PotencyForChargesAbility = base.AddMyActivatedAbility("Recharge Battery", "ChargeBatteryEvent", "Electrokinesis", null, "~", null, false, false, true, false, false);
             ElectrokinesisGauge = base.AddMyActivatedAbility("Electrokinesis", "ElectroToggleEvent", "Mutation");
+            ThunderStrikeAbility = base.AddMyActivatedAbility("Thunder Strike", "ThunderingStrikeEvent", "Electrokinesis", "Call forth an thundering strike upon your enemies.", "p", null);
+
 
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);

@@ -103,7 +103,7 @@ namespace XRL.World.Parts.Mutation
                 else if (parameter.HasAttribute("Melee"))
                     parameter.Amount -= (int)((double)parameter.Amount * (0.25 * (int)new Decimal(2)));
                 else if (parameter.HasAttribute("Ranged"))
-                    parameter.Amount += (int)((double)parameter.Amount * (1 + (0.25 * (int)new Decimal(2))));
+                    parameter.Amount += (int)((double)parameter.Amount * (0.25 * (int)new Decimal(2)));
 
                 if (ParentObject.CurrentCell != null && parameter.Amount != 0)
                 {

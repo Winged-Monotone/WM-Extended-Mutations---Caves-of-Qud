@@ -116,12 +116,12 @@ namespace XRL.World.Parts.Mutation
                     AddPlayerMessage("That's not a valid amount of charges.");
                     return;
                 }
-                if (Charges > 1 + ParentsEgoMod + ParentsLevelMod && !ParentObject.HasEffect("Psiburdening"))
+                if (Charges > 1 + ParentsEgoMod + ParentsLevelMod / 3 && !ParentObject.HasEffect("Psiburdening"))
                 {
                     int fatigueVar = 25;
                     ParentObject.ApplyEffect(new Psiburdening(fatigueVar * Charges));
                 }
-                ActuallyFire(Charges);
+                ActuallyFire(1);
             }
         }
 
