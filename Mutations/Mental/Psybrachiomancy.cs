@@ -178,6 +178,7 @@ namespace XRL.World.Parts.Mutation
                 }
                 else if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue || ParentObject.Statistics["PsiCharges"].BaseValue <= 0)
                 {
+                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
                     AddPlayerMessage(ParentObject.It + " do not have enough {{red|maximum charges}} to materialize a new limb.");
                     return true;
                 }
