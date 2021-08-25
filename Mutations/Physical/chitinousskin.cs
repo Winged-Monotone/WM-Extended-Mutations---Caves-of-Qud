@@ -78,7 +78,7 @@ namespace XRL.World.Parts.Mutation
             return "+{{cyan|" + (object)(1 + Math1) + "}} AV\n"
            + "+{{cyan|" + (object)(1 + Math1) + "}} Strength Score\n"
            + "-{{cyan|" + (object)(3 + Math2) + "}} to saves vs. Disease\n"
-           + "Take {{cyan|" + (object)(10 * Math1) + "%}} more Poison Damage\n";
+           + "Take {{cyan|" + (object)(Math1 + 1) + "x}} more Poison Damage\n";
         }
 
         // the method to call for the E.ID registers that were registered above. Everytime an event list an ID in the registry list, it will call it.
@@ -150,14 +150,12 @@ namespace XRL.World.Parts.Mutation
                 int roll = E.GetIntParameter("Roll", 0) - (3 + (int)Math.Ceiling((Decimal)this.Level / new Decimal(3)));
                 E.SetParameter("Roll", roll);
             }
-
             else if (E.ID == "BeforeApplyDamage")
             {
                 Damage parameter = E.GetParameter("Damage") as Damage;
                 if (parameter.HasAttribute("Poison"))
-                    parameter.Amount = (int)((double)parameter.Amount * (1 + (0.10 * (int)Math.Ceiling((Decimal)Level / new Decimal(2)))));
+                    parameter.Amount = (int)((double)parameter.Amount * (((Level / 2) + 1)));
             }
-
             else if (E.ID == "EndTurn")
             {
                 if (turnsTilMolt > 0)
@@ -185,8 +183,6 @@ namespace XRL.World.Parts.Mutation
                 }
                 GetMutationTimerAssistant();
             }
-
-
             else if (E.ID == "CommandMolt")
             {
                 if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
@@ -224,7 +220,6 @@ namespace XRL.World.Parts.Mutation
                     Popup.Show("You must stop travelling before you can molt.");
                 }
             }
-
             else if (E.ID == "CommandChitinHarden")
             {
                 turnsTilMolt = (int)Stat.GaussianRandom(360001.0f, 77664.06416574f);

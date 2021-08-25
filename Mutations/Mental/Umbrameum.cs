@@ -71,10 +71,10 @@ namespace XRL.World.Parts.Mutation
                 return "{{white|Cast a deep shadow on an area or emit a constant fume of darkness around yourself, hampering the visibility of your enemies and yourself. You are innately more difficult to sense through the glimmer, abilities like clairvoyance, and sense psychic are less effective on you.\n"
                 + "\n"
                 + "Glimmer Reduced by {{cyan|50%}}\n"
-                + "Radius: {{cyan|" + 8 + Level + "}}\n"
+                + "Radius: {{cyan|" + (8 + Level) + "}}\n"
                 + "Self-cast Duration {{cyan|}}: " + ((Level * (10) / 2)) + "}}";
             else
-                return "Radius: {{cyan|" + 8 + Level + "}}\n"
+                return "Radius: {{cyan|" + (8 + Level) + "}}\n"
                 + "Self-cast Duration {{cyan|}}: " + ((Level * (10) / 2)) + "}}";
 
         }
@@ -130,59 +130,60 @@ namespace XRL.World.Parts.Mutation
 
                 int Ran1 = Stat.Random(1, 100);
 
-                if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
-                {
-                    if (Stat.Random(1, 100) < Ran1)
-                        base.PlayWorldSound("darknesscast", 15f, 0, true, null);
-                    else
-                        base.PlayWorldSound("darknesscastdeep", 15f, 0, true, null);
-
-                    for (int index = 0; index < Cells.Count; index++)
+                if (Cells != null)
+                    if (!this.ParentObject.pPhysics.CurrentCell.ParentZone.IsWorldMap())
                     {
-                        Cell C = Cells[index];
+                        if (Stat.Random(1, 100) < Ran1)
+                            base.PlayWorldSound("darknesscast", 15f, 0, true, null);
+                        else
+                            base.PlayWorldSound("darknesscastdeep", 15f, 0, true, null);
 
-                        if (C.ParentZone.IsActive() && C.IsVisible())
+                        for (int index = 0; index < Cells.Count; index++)
                         {
-                            TextConsole.LoadScrapBuffers();
-                            ScreenBuffer scrapBuffer = TextConsole.ScrapBuffer;
-                            XRLCore.Core.RenderMapToBuffer(TextConsole.ScrapBuffer);
-                            scrapBuffer.Goto(C.X, C.Y);
-                            scrapBuffer.Write(GetDarknesBlips() + "\a");
-                            Popup._TextConsole.DrawBuffer(scrapBuffer);
-                            Thread.Sleep(10);
-                            XRLCore.Core.RenderMapToBuffer(scrapBuffer);
-                            scrapBuffer.Goto(C.X, C.Y);
-                            scrapBuffer.Write(GetDarknesBlips() + "\u0489");
-                            Popup._TextConsole.DrawBuffer(scrapBuffer);
-                            Thread.Sleep(5);
+                            Cell C = Cells[index];
 
-                            var Roll = Stat.Random(1, 100);
-                            if (Roll <= 10)
+                            if (C.ParentZone.IsActive() && C.IsVisible())
                             {
-                                base.PlayWorldSound("darkness", 15f, 0, true, null);
-                            }
+                                TextConsole.LoadScrapBuffers();
+                                ScreenBuffer scrapBuffer = TextConsole.ScrapBuffer;
+                                XRLCore.Core.RenderMapToBuffer(TextConsole.ScrapBuffer);
+                                scrapBuffer.Goto(C.X, C.Y);
+                                scrapBuffer.Write(GetDarknesBlips() + "\a");
+                                Popup._TextConsole.DrawBuffer(scrapBuffer);
+                                Thread.Sleep(10);
+                                XRLCore.Core.RenderMapToBuffer(scrapBuffer);
+                                scrapBuffer.Goto(C.X, C.Y);
+                                scrapBuffer.Write(GetDarknesBlips() + "\u0489");
+                                Popup._TextConsole.DrawBuffer(scrapBuffer);
+                                Thread.Sleep(5);
 
-                            if (C.HasObjectWithPart("Combat") || C.HasObjectWithPart("Brain"))
-                            {
-                                var cObj = C.GetFirstObjectWithPart("Combat");
-                                if (cObj != ParentObject)
+                                var Roll = Stat.Random(1, 100);
+                                if (Roll <= 10)
                                 {
-                                    if (cObj.MakeSave(Stat: "Ego", Difficulty: 5 + Level, Attacker: ParentObject, AttackerStat: "Ego"))
-                                        cObj.ApplyEffect(new Confused(ParentsEgoModifer * 10, Level, (ParentsEgoModifer + Level) / 2));
+                                    base.PlayWorldSound("darkness", 15f, 0, true, null);
                                 }
+
+                                if (C.HasObjectWithPart("Combat") || C.HasObjectWithPart("Brain"))
+                                {
+                                    var cObj = C.GetFirstObjectWithPart("Combat");
+                                    if (cObj != ParentObject)
+                                    {
+                                        if (cObj.MakeSave(Stat: "Ego", Difficulty: 5 + Level, Attacker: ParentObject, AttackerStat: "Ego"))
+                                            cObj.ApplyEffect(new Confused(ParentsEgoModifer * 10, Level, (ParentsEgoModifer + Level) / 2));
+                                    }
+                                }
+
+                                GameObject gameObject = C.AddObject("MagicalDarkness");
+
+                                MagicalDarkness Darkness = gameObject.GetPart<MagicalDarkness>();
+
+                                // AddPlayerMessage("Status Check: Setting up Objects");
+
+                                int Ran2 = Stat.Random(0, 3);
+                                Darkness.Duration = ((Level * (10 + ParentsEgoModifer) / 2) + Ran2);
                             }
-
-                            GameObject gameObject = C.AddObject("MagicalDarkness");
-
-                            MagicalDarkness Darkness = gameObject.GetPart<MagicalDarkness>();
-
-                            // AddPlayerMessage("Status Check: Setting up Objects");
-
-                            int Ran2 = Stat.Random(0, 3);
-                            Darkness.Duration = ((Level * (10 + ParentsEgoModifer) / 2) + Ran2);
                         }
                     }
-                }
                 CooldownMyActivatedAbility(ShadowAreaEffectActivatedAbilityID, 60);
 
             }

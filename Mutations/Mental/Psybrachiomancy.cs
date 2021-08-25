@@ -163,6 +163,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (E.ID == "CommandManifestLimb")
             {
+                // AddPlayerMessage("Summoning Arm.");
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)
                 {
@@ -176,11 +177,9 @@ namespace XRL.World.Parts.Mutation
                     focusPsi.UpdateCharges();
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
-                else if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue || ParentObject.Statistics["PsiCharges"].BaseValue <= 0)
+                else
                 {
-                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
                     AddPlayerMessage(ParentObject.It + " do not have enough {{red|maximum charges}} to materialize a new limb.");
-                    return true;
                 }
             }
             if (E.ID == "CommandDismissLimb")
@@ -192,6 +191,8 @@ namespace XRL.World.Parts.Mutation
                     RemovePsionicArms();
                     AddPlayerMessage(ParentObject.It + " dismiss " + ParentObject.its + " psionic arms.");
                     ArmCounter -= 1;
+                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
+                    NewArmCost = ArmCost;
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
             }
@@ -211,6 +212,7 @@ namespace XRL.World.Parts.Mutation
                 // AddPlayerMessage("ArmCounter: " + ArmCounter);
                 // AddPlayerMessage("CurrentID: " + ManagerID + ArmCounter);
                 // AddPlayerMessage("ArmCost: " + ArmCost);
+                // AddPlayerMessage("NewArmCost: " + NewArmCost);
                 // AddPlayerMessage("PsiMaximum: " + focusPsi.maximumPsiCharge());
                 // AddPlayerMessage("PsiArmCounter: " + focusPsi.ArmCounter);
                 // AddPlayerMessage("PsiArmcost: " + focusPsi.ArmCost);
