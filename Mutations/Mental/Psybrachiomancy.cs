@@ -73,7 +73,7 @@ namespace XRL.World.Parts.Mutation
         //     var EgoSum = ParentObject.Statistics["Ego"].Modifier;
         //     var Attacker = E.Actor;
         //     var Defender = E.Object;
-        //     var GetEquippedPsionicLimb = E.Weapon?.EquippedOn();
+        //     var AttackersBody = E.Actor.Body.GetParts();
 
 
 
@@ -83,16 +83,50 @@ namespace XRL.World.Parts.Mutation
 
         //     // AddPlayerMessage("LimbAttacking? : " + GetEquippedPsionicLimb.Description);
 
-
-        //     if (E.Actor == ParentObject && (GetEquippedPsionicLimb?.VariantType == "Psionic Hands") && E.Projectile == null)
-        //     {
-        //         AddPlayerMessage("Firing Damage reduction for multiple arms.");
-        //         var aDamage = E.Damage.Amount;
-        //         E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
-        //     }
+        //     foreach (var B in AttackersBody)
+        //         if (B.VariantType == "Psionic Hand")
+        //         {
+        //             AddPlayerMessage("Firing Damage reduction for multiple arms.");
+        //             var aDamage = E.Damage.Amount;
+        //             E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
+        //         }
         //     return base.HandleEvent(E);
-        // } 
+        // }
+        public override bool HandleEvent(AttackerDealingDamageEvent E)
+        {
+            var EgoSum = ParentObject.Statistics["Ego"].Modifier;
+            var Attacker = E.Actor;
+            var Defender = E.Object;
+            var GetEquippedPsionicLimb = ParentObject.Body?.FindDefaultOrEquippedItem(E.Weapon);
 
+            // AddPlayerMessage("Attacker : " + Attacker.DisplayName);
+
+            // AddPlayerMessage("Defender : " + Defender.DisplayName);
+
+            // AddPlayerMessage("LimbAttacking? : " + GetEquippedPsionicLimb.Description);
+
+            // AddPlayerMessage("Limb Name : " + GetEquippedPsionicLimb?.Name);
+
+            // AddPlayerMessage("Limb VariantType : " + GetEquippedPsionicLimb?.VariantType);
+
+            // AddPlayerMessage("Limb Type : " + GetEquippedPsionicLimb?.Type);
+
+            // AddPlayerMessage("Limb null: " + (GetEquippedPsionicLimb == null));
+
+            // AddPlayerMessage("Weapon Event Var: " + E.Weapon);
+
+            // AddPlayerMessage("Weapon Equipped: " + E.Weapon?.Equipped);
+
+            // AddPlayerMessage("Weapon in BodyList: " + ParentObject.Body?.FindDefaultOrEquippedItem(E.Weapon));
+
+            if (E.Actor == ParentObject && (GetEquippedPsionicLimb?.VariantType == "Psionic Hand") && E.Projectile == null)
+            {
+                // AddPlayerMessage("Firing Damage reduction for multiple arms.");
+                var aDamage = E.Damage.Amount;
+                E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
+            }
+            return base.HandleEvent(E);
+        }
 
         public override bool Mutate(GameObject GO, int Level)
         {
@@ -120,35 +154,58 @@ namespace XRL.World.Parts.Mutation
             if (SourceBody != null)
             {
                 BodyPart ReadyBody = SourceBody.GetBody();
-                BodyPart AttatchArmTemplate = ReadyBody.AddPartAt("Psionic Arm", 2, null, null, null, null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Arm", new string[4]
+                BodyPart AttatchArmTemplate = ReadyBody.AddPartAt(
+                    Base: "Psionic Arm",
+                    Laterality: Laterality.NONE,
+                    Manager: ManagerID,
+                    InsertAfter: "Arm",
+                    OrInsertBefore: new string[4]
                 {
                 "Hands",
                 "Feet",
                 "Roots",
                 "Thrown Weapon"
                 });
-                AttatchArmTemplate.AddPart("Psionic Hand", 2, null, "Psionic Hands", null, null, ManagerID + ArmCounterStrings(), 17);
-                ReadyBody.AddPartAt(AttatchArmTemplate, "Psionic Arm", 1, null, null, null, null, ManagerID + ArmCounterStrings(), 17).AddPart("Psionic Hand", 1, null, "Psionic Hands", null, null, ManagerID + ArmCounterStrings(), 17);
-                ReadyBody.AddPartAt("Psionic Hands", 0, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[3]
-                {
-                "Feet",
-                "Roots",
-                "Thrown Weapon"
-                });
-                ReadyBody.AddPartAt("Missile Weapon", Laterality.RIGHT, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
-                {
-                "Missile Weapon"
-                });
-                ReadyBody.AddPartAt("Missile Weapon", Laterality.LEFT, null, null, "Psionic Hands", null, ManagerID + ArmCounterStrings(), Category: 17, null, null, null, null, null, null, null, null, null, null, null, "Hands", new string[1]
-                {
-                "Missile Weapon"
-                });
+                AttatchArmTemplate.AddPart(
+                    Base: "Psionic Hand",
+                    Laterality: Laterality.RIGHT,
+                    DefaultBehavior: "Psionic Hands",
+                    Manager: ManagerID);
+                ReadyBody.AddPartAt(
+                    InsertAfter: AttatchArmTemplate,
+                    Base: "Psionic Arm",
+                    Laterality: 1,
+                    Manager: ManagerID).AddPart(
+                                        Base: "Psionic Hand",
+                                        Laterality: Laterality.LEFT,
+                                        SupportsDependent: "Psionic Hands",
+                                        Manager: ManagerID);
+                ReadyBody.AddPartAt(
+                    Base: "Missile Weapon",
+                    Laterality: Laterality.RIGHT,
+                    DependsOn: "Psionic Hands",
+                    Manager: ManagerID,
+                    InsertAfter: "Hands",
+                    OrInsertBefore: new string[1]
+                    {
+                    "Missile Weapon"
+                    });
+                ReadyBody.AddPartAt(
+                    Base: "Missile Weapon",
+                    Laterality: Laterality.LEFT,
+                    DependsOn: "Psionic Hands",
+                    Manager: ManagerID,
+                    InsertAfter: "Hands",
+                    OrInsertBefore: new string[1]
+                    {
+                    "Missile Weapon"
+                    });
             }
         }
 
         public void RemovePsionicArms()
         {
-            ParentObject.RemoveBodyPartsByManager(ManagerID + ArmCounterStrings(), EvenIfDismembered: true);
+            ParentObject.RemoveBodyPartsByManager(ManagerID, true);
         }
         public override void Register(GameObject Object)
         {
@@ -156,6 +213,7 @@ namespace XRL.World.Parts.Mutation
             Object.RegisterPartEvent(this, "Dismember");
             Object.RegisterPartEvent(this, "CommandManifestLimb");
             Object.RegisterPartEvent(this, "CommandDismissLimb");
+            Object.RegisterPartEvent(this, "GetPsychicGlimmer ");
             base.Register(Object);
         }
 
@@ -167,7 +225,7 @@ namespace XRL.World.Parts.Mutation
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)
                 {
-                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
+                    ArmCost = (ArmCounter + (NewArmCost));
                     NewArmCost = ArmCost;
                     ArmCounter += 1;
                     focusPsi.focusPsiCurrentCharges = focusPsi.maximumPsiCharge();
@@ -182,7 +240,7 @@ namespace XRL.World.Parts.Mutation
                     AddPlayerMessage(ParentObject.It + " do not have enough {{red|maximum charges}} to materialize a new limb.");
                 }
             }
-            if (E.ID == "CommandDismissLimb")
+            else if (E.ID == "CommandDismissLimb")
             {
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (ArmCounter >= 1)
@@ -190,13 +248,17 @@ namespace XRL.World.Parts.Mutation
                     focusPsi.UpdateCharges();
                     RemovePsionicArms();
                     AddPlayerMessage(ParentObject.It + " dismiss " + ParentObject.its + " psionic arms.");
-                    ArmCounter -= 1;
+                    ArmCounter = 0;
                     ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
                     NewArmCost = ArmCost;
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
+                else
+                {
+                    AddPlayerMessage("You have no psionic arms manifested at the moment.");
+                }
             }
-            if (E.ID == "Dismember")
+            else if (E.ID == "Dismember")
             {
                 if (E.HasStringParameter("Psionic") || E.HasIntParameter("17"))
                 {
@@ -205,7 +267,7 @@ namespace XRL.World.Parts.Mutation
                     ParentObject.RemoveBodyPartsByManager(ArmInQuestion, EvenIfDismembered: true);
                 }
             }
-            if (E.ID == "EndTurn")
+            else if (E.ID == "EndTurn")
             {
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 focusPsi.UpdateCharges();
@@ -216,6 +278,12 @@ namespace XRL.World.Parts.Mutation
                 // AddPlayerMessage("PsiMaximum: " + focusPsi.maximumPsiCharge());
                 // AddPlayerMessage("PsiArmCounter: " + focusPsi.ArmCounter);
                 // AddPlayerMessage("PsiArmcost: " + focusPsi.ArmCost);
+            }
+            else if (E.ID == "GetPsychicGlimmer")
+            {
+                var eAmount = E.GetIntParameter("Amount");
+
+                eAmount /= 2;
             }
             return base.FireEvent(E);
         }

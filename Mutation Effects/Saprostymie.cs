@@ -9,29 +9,28 @@ using XRL.World.Parts;
 namespace XRL.World.Effects
 {
     [Serializable]
-    public class Psiburdening : Effect
+    public class Saprostymie : Effect
     {
 
-        public Psiburdening() : base()
+        public Saprostymie() : base()
         {
-            base.DisplayName = "{{purple|psi-exhaustion}}";
+            base.DisplayName = "{{brown|Saprostymie}}";
         }
-        public Psiburdening(int Duration)
+        public Saprostymie(int Duration)
         {
             base.Duration = Duration;
         }
 
         public override string GetDetails()
         {
-            return "You are straining your mental powers!\n"
-            + "{{red|-" + 8 + " Willpower.}}\n\n"
-            + "" + "Turns Remaining: " + Duration;
+            return "A fungas infection is causing blockages within your chitin, your agility will be severely hampered until it is cured.\n"
+            + "{{red|-" + 10 + " Agility.}}\n\n";
         }
 
 
         public override bool Apply(GameObject Object)
         {
-            StatShifter.SetStatShift("Willpower", -8);
+            StatShifter.SetStatShift("Agility", -10);
             return true;
         }
 
@@ -42,6 +41,7 @@ namespace XRL.World.Effects
 
         public override void Register(GameObject go)
         {
+
             go.RegisterEffectEvent((Effect)this, "EndTurn");
             base.Register(Object);
         }
@@ -57,7 +57,7 @@ namespace XRL.World.Effects
 
             if (E.ID == "EndTurn")
             {
-                --Duration;
+
                 // AddPlayerMessage("EndTurn - Effect");
                 // AddPlayerMessage("" + Duration + "");
             }

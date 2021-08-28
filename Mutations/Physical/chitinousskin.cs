@@ -15,10 +15,10 @@ namespace XRL.World.Parts.Mutation
         public int totalTurnsTilMolt;
         // int DoubleCheckDuration = 10;
         public int ImmobilityDuration = 0;
-
+        public bool HasSaproStyme = false;
+        public GameObject FungalLimbNode;
 
         // this is the constructor
-
 
         public ChitinousSkin()
         {
@@ -54,6 +54,7 @@ namespace XRL.World.Parts.Mutation
             go.RegisterPartEvent((IPart)this, "CommandMolting");
             go.RegisterPartEvent((IPart)this, "CommandMolt");
             go.RegisterPartEvent((IPart)this, "CommandChitinHarden");
+            go.RegisterPartEvent((IPart)this, "Unequipped");
         }
 
         // this method calls the descriptor of the mutation seen in the mutation description.
@@ -181,6 +182,42 @@ namespace XRL.World.Parts.Mutation
                         ParentObject.RemoveEffect("EncumberingHusk", false);
                     }
                 }
+
+                var ParsBody = ParentObject.Body.GetParts();
+
+                foreach (var B in ParsBody)
+                {
+
+                    if (B != null && B.Equipped != null)
+                    {
+                        // AddPlayerMessage("Passed Null Check");
+                        if (B.Equipped.HasPropertyOrTag("FungalInfection"))
+                        {
+                            // AddPlayerMessage("Adding Sapro");
+                            FungalLimbNode = B.Equipped;
+                            HasSaproStyme = true;
+                            // AddPlayerMessage("Fungal Limb Found :" + FungalLimbNode);
+                        }
+                        if (FungalLimbNode != null && HasSaproStyme == true)
+                        {
+                            // AddPlayerMessage("Fungal Node Adding Effect");
+                            if (!ParentObject.HasEffect("Saprostymie"))
+                            {
+                                ParentObject.ApplyEffect(new Saprostymie(9999));
+                            }
+                        }
+                        else if (FungalLimbNode == null)
+                        {
+                            // AddPlayerMessage("Fungal Node Removing Effect");
+                            if (ParentObject.HasEffect("Saprostymie"))
+                            {
+                                ParentObject.RemoveEffect("Saprostymie");
+                            }
+                        }
+                    }
+                    // AddPlayerMessage("Leaving Sapro Loop");
+                }
+                FungalLimbNode = null;
                 GetMutationTimerAssistant();
             }
             else if (E.ID == "CommandMolt")

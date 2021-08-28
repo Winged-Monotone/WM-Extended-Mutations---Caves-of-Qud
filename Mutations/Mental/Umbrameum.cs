@@ -90,22 +90,23 @@ namespace XRL.World.Parts.Mutation
              || ID == AwardingXPEvent.ID;
         }
 
-        public override bool HandleEvent(AwardingXPEvent E)
-        {
-            try
-            {
-                int CurrentGlimmer = ParentObject.GetPsychicGlimmer();
+        // public override bool HandleEvent(AwardingXPEvent E)
+        // {
+        //     try
+        //     {
+        //         var GlimemrPart = ParentObject.GetPart<GlimmerChangeEvent>();
+        //         int CurrentGlimmer = ParentObject.GetPsychicGlimmer();
 
 
-                ParentObject.SetIntProperty("GlimmerModifier", CurrentGlimmer / 2);
-                ParentObject.SetIntProperty("Glimmer", CurrentGlimmer / 2);
-            }
-            catch
-            {
+        //         ParentObject.SetIntProperty("GlimmerModifier", CurrentGlimmer / 2);
+        //         ParentObject.SetIntProperty("Glimmer", CurrentGlimmer / 2);
+        //     }
+        //     catch
+        //     {
 
-            }
-            return base.HandleEvent(E);
-        }
+        //     }
+        //     return base.HandleEvent(E);
+        // }
 
         public static string[] ColorList = new string[3]
 {
