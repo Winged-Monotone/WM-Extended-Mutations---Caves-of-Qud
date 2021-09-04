@@ -123,7 +123,7 @@ namespace XRL.World.Parts
                 {
                     if (Defender == ParentObject
                     && E.Weapon.HasPart("DischargeOnHit")
-                    || WeaponMeleeHook.Element == "Electric"
+                    || WeaponMeleeHook.Attributes == "Electric"
                     || ProjectileHook.Attributes == "Electric")
                     {
                         ElectroHook.Potency += E.Damage.Amount / 3;

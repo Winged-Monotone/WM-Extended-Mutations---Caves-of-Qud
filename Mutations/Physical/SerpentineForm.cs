@@ -63,6 +63,7 @@ namespace XRL.World.Parts.Mutation
             Object.RegisterPartEvent(this, "ObjectEnteredAdjacentCell");
             Object.RegisterPartEvent(this, "EnteredCell");
             Object.RegisterPartEvent(this, "AIGetOffensiveMutationList");
+            Object.RegisterPartEvent(this, "EndTurn");
 
             base.Register(Object);
         }
@@ -216,6 +217,14 @@ namespace XRL.World.Parts.Mutation
                 {
                     ParentObject.pBrain.Goals.Clear();
                 }
+
+            }
+            else if (E.ID == "EndTurn")
+            {
+                if (Constricted.HasEffect("Constricted"))
+                {
+                    PerformDamage(Constricted);
+                }
             }
             else if (E.ID == "ObjectEnteredAdjacentCell")
             {
@@ -324,14 +333,14 @@ namespace XRL.World.Parts.Mutation
             {
 
                 AddPlayerMessage("You strangle your enemy with miasmic poisons, dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFP(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
+                Target.TakeDamage(PermutationDamagGFP(), Message: "from %t coils", Attributes: "Poison", DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
             else if (HasPermutation(ParentObject) == true && HasSynergyMutation.HasMutation("GelatinousFormAcid") == true)
             {
 
                 AddPlayerMessage("You strangle your enemy with your acidic form dealing extra damage!");
-                Target.TakeDamage(PermutationDamagGFA(), Message: "from %t coils", Attributes: null, DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
+                Target.TakeDamage(PermutationDamagGFA(), Message: "from %t coils", Attributes: "Acid", DeathReason: "Crushed to death by muscled coiling.", Owner: ParentObject, Attacker: ParentObject);
                 PerformDamage(Target);
             }
             else if (Synergies >= 1)

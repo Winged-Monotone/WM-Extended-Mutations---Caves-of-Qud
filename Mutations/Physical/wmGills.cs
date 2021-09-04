@@ -105,21 +105,21 @@ namespace XRL.World.Parts.Mutation
         public override bool FireEvent(Event E)
         {
             //...
-            if (E.ID == "Regenerating" && ParentObject.HasEffect("Submerged"))
+            if (E.ID == "Regenerating" && ParentObject.HasEffect("wmSubmerged"))
             {
                 int RegenerationAmountParameter = E.GetIntParameter("Amount");
                 RegenerationAmountParameter += (int)Math.Ceiling((float)RegenerationAmountParameter);
                 E.SetParameter("Amount", RegenerationAmountParameter);
             }
-            else if (E.ID == "BeginMove" && ParentObject.HasEffect("Submerged"))
+            else if (E.ID == "BeginMove" && ParentObject.HasEffect("wmSubmerged"))
             {
                 Cell Cell = E.GetParameter("DestinationCell") as Cell;
-                if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.IsPlayer() && ParentObject.HasEffect("Submerged")))
+                if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.IsPlayer() && ParentObject.HasEffect("wmSubmerged")))
                 {
                     if (Popup.ShowYesNo("Surface and go ashore?") == (int)DialogResult.Yes)
                     {
                         ParentObject.Splash("{{b|*}}");
-                        ParentObject.RemoveEffect("Submerged");
+                        ParentObject.RemoveEffect("wmSubmerged");
                     }
                     else
                     {
@@ -149,19 +149,19 @@ namespace XRL.World.Parts.Mutation
                     AddPlayerMessage("Its too shallow to dive in!");
                     return false;
                 }
-                else if (ParentObject.HasEffect("Submerged"))
+                else if (ParentObject.HasEffect("wmSubmerged"))
                 {
                     // AddPlayerMessage("Your return to the surface.");
                     ParentObject.Splatter("{{B|*}}");
-                    ParentObject.RemoveEffect("Submerged");
+                    ParentObject.RemoveEffect("wmSubmerged");
                 }
-                else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200 && ParentsMutations.HasMutation("Amphibious"))
+                else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200 && ParentsMutations.HasMutation("Amphibious") && !ParentObject.HasEffect("wmSubmerged"))
                 {
                     AddPlayerMessage("You feel right at home.");
                     ParentObject.Splatter("{{B|*}}");
                     ParentObject.ApplyEffect(new wmSubmerged(Duration: Effect.DURATION_INDEFINITE));
                 }
-                else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200 && !ParentsMutations.HasMutation("Amphibious"))
+                else if ((Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200 && !ParentsMutations.HasMutation("Amphibious") && !!ParentObject.HasEffect("wmSubmerged"))
                 {
                     ParentObject.Splatter("{{B|*}}");
                     ParentObject.ApplyEffect(new wmSubmerged(Duration: Effect.DURATION_INDEFINITE));
@@ -171,34 +171,34 @@ namespace XRL.World.Parts.Mutation
             {
                 Cell Cell = ParentObject.GetCurrentCell();
 
-                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("Submerged")))
+                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("wmSubmerged")))
                 {
                     ParentObject.RemoveEffect(new Flying());
                     AddPlayerMessage("Removing Paradox Incident.");
                 }
-                else if (ParentObject.IsHealingPool() && ParentObject.HasEffect("Submerged"))
+                else if (ParentObject.IsHealingPool() && ParentObject.HasEffect("wmSubmerged"))
                 {
                     ParentObject.Heal(+ParentObject.Statistics["Toughness"].Modifier);
                 }
-                else if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.HasEffect("Submerged")))
+                else if (((!Cell.HasObjectWithPart("LiquidVolume") || (Cell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume < 200) && ParentObject.HasEffect("wmSubmerged")))
                 {
                     ParentObject.Splash("{{b|*}}");
-                    ParentObject.RemoveEffect("Submerged");
+                    ParentObject.RemoveEffect("wmSubmerged");
                     return false;
                 }
             }
             //...---------------------------------------------------------------------------------------------
             else if (E.ID == "DeepStrikeCommand")
             {
-                if (!ParentObject.HasEffect("Submerged") && ParentObject.IsPlayer())
+                if (!ParentObject.HasEffect("wmSubmerged") && ParentObject.IsPlayer())
                 {
                     AddPlayerMessage("You must be submerged in deep pools of liquid to use this attack.");
                 }
-                else if (!ParentObject.HasEffect("Submerged") && !ParentObject.IsPlayer())
+                else if (!ParentObject.HasEffect("wmSubmerged") && !ParentObject.IsPlayer())
                 {
 
                 }
-                else if (ParentObject.HasEffect("Submerged"))
+                else if (ParentObject.HasEffect("wmSubmerged"))
                 {
                     string Direction = E.GetStringParameter("Direction");
 
@@ -231,7 +231,7 @@ namespace XRL.World.Parts.Mutation
                     //AddPlayerMessage("I'mma keel yo ass.");
                     if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
                     {
-                        if (!ParentObject.HasEffect("Submerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)
+                        if (!ParentObject.HasEffect("wmSubmerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)
                         {
                             E.AddAICommand("DiveCommand");
                         }
@@ -246,7 +246,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "BeginTakeAction")
             {
-                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("Submerged")))
+                if (ParentObject.HasEffect("Flying") && (ParentObject.HasEffect("wmSubmerged")))
                 {
                     ParentObject.RemoveEffect(new Flying());
                     AddPlayerMessage("Removing Paradox Incident.");

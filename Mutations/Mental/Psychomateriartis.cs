@@ -18,7 +18,7 @@ namespace XRL.World.Parts.Mutation
         public int PsiCost;
         public int NewPsiCost;
         public int WeaponCounter = 0;
-        private int TensPlaceOfLevel = 0;
+        // private int TensPlaceOfLevel = 0;
         public Guid ManifestPsiWeaponActivatedAbilityID;
         public Guid ReturnPsiWeaponActivatedAbilityID;
         public string PsiWeaponsID => ParentObject.id + "::Psychomaterialus" + WeaponCounter;

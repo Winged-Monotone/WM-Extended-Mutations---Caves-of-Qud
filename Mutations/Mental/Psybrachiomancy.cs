@@ -100,23 +100,14 @@ namespace XRL.World.Parts.Mutation
             var GetEquippedPsionicLimb = ParentObject.Body?.FindDefaultOrEquippedItem(E.Weapon);
 
             // AddPlayerMessage("Attacker : " + Attacker.DisplayName);
-
             // AddPlayerMessage("Defender : " + Defender.DisplayName);
-
             // AddPlayerMessage("LimbAttacking? : " + GetEquippedPsionicLimb.Description);
-
             // AddPlayerMessage("Limb Name : " + GetEquippedPsionicLimb?.Name);
-
             // AddPlayerMessage("Limb VariantType : " + GetEquippedPsionicLimb?.VariantType);
-
             // AddPlayerMessage("Limb Type : " + GetEquippedPsionicLimb?.Type);
-
             // AddPlayerMessage("Limb null: " + (GetEquippedPsionicLimb == null));
-
             // AddPlayerMessage("Weapon Event Var: " + E.Weapon);
-
             // AddPlayerMessage("Weapon Equipped: " + E.Weapon?.Equipped);
-
             // AddPlayerMessage("Weapon in BodyList: " + ParentObject.Body?.FindDefaultOrEquippedItem(E.Weapon));
 
             if (E.Actor == ParentObject && (GetEquippedPsionicLimb?.VariantType == "Psionic Hand") && E.Projectile == null)
@@ -140,10 +131,10 @@ namespace XRL.World.Parts.Mutation
             {
                 GainPSiFocus.AddMutation("FocusPsi", 1);
             }
-            this.ActivatedAbilityID = base.AddMyActivatedAbility("Manifest Limb", "CommandManifestLimb", "Mental Mutation", "Manifest a psychic arm.\n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value.\n\n"
+            this.ActivatedAbilityID = base.AddMyActivatedAbility(Name: "Manifest Limb", Command: "CommandManifestLimb", Class: "Mental Mutation", Description: "Manifest a psychic arm.\n\n Instead of using strength for penetration, a weapon’s penetration when wielded with a psionic arm is limited to your Ego modifier and the weapons’ penetration value.\n\n"
             + "(Dismembered psionic arms may not dissapate and may require re-weaving to repair, no damage is taken from blows that sever psionic limbs.)\n"
-            + "If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-exhaustion' effect temporarily.", ">", null, false, false, false, false, false, false, false, 10, null);
-            this.ActivatedAbilityID = base.AddMyActivatedAbility("Dismiss Limb", "CommandDismissLimb", "Mental Mutation", "Dismiss a psychic arm.\n\n", "<", null, false, false, false, false, false, false, false, 10, null);
+            + "If the set of arms you summon are more than your Willpower Modifier, you will be given the 'psi-exhaustion' effect temporarily.", Icon: ">", Cooldown: 10);
+            this.ActivatedAbilityID = base.AddMyActivatedAbility(Name: "Dismiss Limb", Command: "CommandDismissLimb", Class: "Mental Mutation", Description: "Dismiss a psychic arm.\n\n", Icon: "<", Cooldown: 10);
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }

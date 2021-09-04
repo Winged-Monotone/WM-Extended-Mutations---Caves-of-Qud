@@ -212,7 +212,7 @@ namespace XRL.World.Parts.Mutation
             }
             CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            ActivatedAbilityID = activatedAbilities.AddAbility("Lay Egg", "CommandLayEgg", "Physical Mutation", "Lay an egg.", "O", null, false, false, false, false, false, false, false, true, PlaceHolder);
+            ActivatedAbilityID = activatedAbilities.AddAbility(Name: "Lay Egg", Command: "CommandLayEgg", Class: "Physical Mutation", Description: "Lay an egg.", Icon: "O", Cooldown: PlaceHolder);
             ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }

@@ -66,7 +66,7 @@ namespace XRL.World.Parts.Mutation
             }
 
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            this.ActivatedAbilityID = activatedAbilities.AddAbility("Soulshunt", "CommandSoulShunt", "Mental Mutation", "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{cyan|(+10)}} or be shunted from its body; you assume control of the target's body permanently and its INT, WIL, and EGO become your own. Your new husk will wither over time. On a successful soulshunt you have a {{cyan|10%}} chance to increase your ego score by {{cyan|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", "(O)", null, false, false, false, false, false, false, false, false, -1);
+            this.ActivatedAbilityID = activatedAbilities.AddAbility(Name: "Soulshunt", Command: "CommandSoulShunt", Class: "Mental Mutation", Description: "Shunt the imprints of your victims' mind from their body, and assume the throne of their vessel.\n\n" + "Target makes a Willpower saving-throw vs your Ego Modifier {{cyan|(+10)}} or be shunted from its body; you assume control of the target's body permanently and its INT, WIL, and EGO become your own. Your new husk will wither over time. On a successful soulshunt you have a {{cyan|10%}} chance to increase your ego score by {{cyan|1}}." + "\n\n{{dark gray|Base cooldown: 2400}}", Icon: "(O)", Cooldown: -1);
             return base.Mutate(GO, Level);
         }
 
