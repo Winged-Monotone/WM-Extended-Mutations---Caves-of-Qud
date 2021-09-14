@@ -104,25 +104,19 @@ namespace XRL.World.Parts.Mutation
         {
             if ((E.ID == "BeginTakeAction" || E.ID == "EnteredCell") && !this.ParentObject.HasEffect("Phased") && !this.ParentObject.HasEffect("RealityStabilized") && ReversePhaseActive == false)
             {
-                // AddPlayerMessage("1");
                 this.ParentObject.ApplyEffect(new Phased(9999), null);
             }
             else if ((E.ID == "BeginTakeAction" || E.ID == "EnteredCell") && this.ParentObject.HasEffect("Phased") && !this.ParentObject.HasEffect("RealityStabilized") && ReversePhaseActive == true)
             {
-                // AddPlayerMessage("2");
                 ParentObject.RemoveEffect(new Phased());
             }
             else if ((E.ID == "CommandPhaseOut"))
             {
-                // AddPlayerMessage("3");4
-
                 ReversePhaseActive = false;
                 ParentObject.ApplyEffect(new Phased(9999));
             }
             else if ((E.ID == "CommandPhaseIn"))
             {
-                // AddPlayerMessage("4");
-
                 var PhasedMutInstance = ParentObject.GetPart<Phasing>();
                 UnphasedDuration = 6 + PhasedMutInstance.Level + 1;
 
@@ -131,13 +125,10 @@ namespace XRL.World.Parts.Mutation
             }
             else if ((E.ID == "EndTurn") && UnphasedDuration > 0)
             {
-                // AddPlayerMessage("5");
-
                 --UnphasedDuration;
             }
             else if ((E.ID == "EndTurn") && UnphasedDuration <= 0 && ReversePhaseActive == true)
             {
-                // AddPlayerMessage("6");
                 ReversePhaseActive = false;
                 ParentObject.ApplyEffect(new Phased(9999));
             }

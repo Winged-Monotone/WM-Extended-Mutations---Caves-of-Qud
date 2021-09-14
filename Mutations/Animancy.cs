@@ -62,15 +62,11 @@ namespace XRL.World.Parts.Mutation
 
             if (SavantChance <= 10 + this.Level - 1)
             {
-                // AddPlayerMessage("Unedited XP Award : " + E.Amount);
-                // AddPlayerMessage("Previous EXP : " + ParentObject.Statistics["XP"].Value);
-
                 ProccedAnimaBonus = true;
                 FactorIncreaseHolder = AnimaMultiplier.Next(2, 7);
 
                 E.Amount = currentXPAward * FactorIncreaseHolder;
 
-                // AddPlayerMessage("Edited XP Award : " + E.Amount);
                 if (this.Level >= 10 && Stat.Random(1, 100) <= 10)
                 {
                     int BaseBonusExpAward = currentXPAward * FactorIncreaseHolder;
@@ -88,7 +84,6 @@ namespace XRL.World.Parts.Mutation
             if (ProccedAnimaBonus == true && E.Actor.IsPlayer())
             {
                 AddPlayerMessage("{{blue|You receive a gift from the anima.}} " + "(x" + FactorIncreaseHolder + ")");
-                // AddPlayerMessage("New Total EXP : " + ParentObject.Statistics["XP"].Value);
                 ProccedAnimaBonus = false;
             }
 

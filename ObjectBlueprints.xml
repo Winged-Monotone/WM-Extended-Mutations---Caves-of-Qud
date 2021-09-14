@@ -3,7 +3,39 @@
 <!-- Mutation Items -->
 <objects>
 
+        <object Name="Acid_Humor_Pseudopod" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{G|giant acidic pseudopod}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="0" Skill="Cudgel" Stat="Strength" />
+                <part Name="ElementalDamage" Damage="1d8+12" Attributes="Acid" />
+        </object>
 
+        <object Name="Poison_Humor_Pseudopod" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{poisonous|giant poisonous pseudopod}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="0" Skill="Cudgel" Stat="Strength" />
+                <part Name="ElementalDamage" Damage="1d8+12" Attributes="Poison" />
+        </object>
+
+        <object Name="Slime_Humor_Pseudopod" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{slimy|giant pseudopod}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="1d8+6" Skill="Cudgel" Stat="Strength" />
+        </object> 
+
+        <object Name="Acid_Humor_Tentacle" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{G|giant acidic tentacle}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="0" Skill="Cudgel" Stat="Strength" />
+                <part Name="ElementalDamage" Damage="1d8+12" Attributes="Acid" />
+        </object>
+
+        <object Name="Poison_Humor_Tentacle" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{poisonous|giant poisonous tentacle}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="0" Skill="Cudgel" Stat="Strength" />
+                <part Name="ElementalDamage" Damage="1d8+12" Attributes="Poison" />
+        </object>
+
+        <object Name="Slime_Humor_Tentacle" Inherits="NaturalWeapon">
+                <part Name="Render" DisplayName="{{C|giant tentacle}}" />
+                <part Name="MeleeWeapon" HitBonus="4" MaxStrengthBonus="20" BaseDamage="1d8+6" Skill="Cudgel" Stat="Strength" />
+        </object> 
 
         <object Name="OvipositorEgg" Inherits="Item">
                 <part Name="Render" DisplayName="{{fleshy|strange}} egg" RenderString="]" ColorString="&amp;M" DetailColor="M" Tile="Items/sw_egg.bmp"></part>

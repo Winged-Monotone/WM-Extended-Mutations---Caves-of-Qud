@@ -50,14 +50,8 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            // if (ParentObject != null)
-            // {
-            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Fish", 100, false);
-            //     XRL.Core.XRLCore.Core.Game.PlayerReputation.modify("Frogs", 100, false);
-            // }
-
-            this.DeepStrikeActivatedAbility = base.AddMyActivatedAbility("Submerged-Strike", "DeepStrikeCommand", "Power", null, "v", null, false, false, false, false, false);
-            this.DiveActivatedAbility = base.AddMyActivatedAbility("Dive", "DiveCommand", "Physical Mutation", null, "v", null, false, false, false, false, false);
+            this.DeepStrikeActivatedAbility = base.AddMyActivatedAbility(Name: "Submerged-Strike", Command: "DeepStrikeCommand", Class: "Power", Icon: "v");
+            this.DiveActivatedAbility = base.AddMyActivatedAbility(Name: "Dive", Command: "DiveCommand", Class: "Physical Mutation", Icon: "v");
 
             return base.Mutate(GO, Level);
         }
@@ -151,7 +145,6 @@ namespace XRL.World.Parts.Mutation
                 }
                 else if (ParentObject.HasEffect("wmSubmerged"))
                 {
-                    // AddPlayerMessage("Your return to the surface.");
                     ParentObject.Splatter("{{B|*}}");
                     ParentObject.RemoveEffect("wmSubmerged");
                 }
@@ -228,7 +221,6 @@ namespace XRL.World.Parts.Mutation
             {
                 if (ParentObject.CurrentCell.HasSwimmingDepthLiquid())
                 {
-                    //AddPlayerMessage("I'mma keel yo ass.");
                     if (IsMyActivatedAbilityAIUsable(DiveActivatedAbility))
                     {
                         if (!ParentObject.HasEffect("wmSubmerged") && (ParentObject.CurrentCell.GetFirstObjectWithPart("LiquidVolume") as GameObject).LiquidVolume.Volume >= 200)

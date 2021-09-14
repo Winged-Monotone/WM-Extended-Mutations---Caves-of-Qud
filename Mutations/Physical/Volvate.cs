@@ -66,7 +66,7 @@ namespace XRL.World.Parts.Mutation
         public override bool Mutate(GameObject GO, int Level)
         {
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
-            ActivatedAbilityID = activatedAbilities.AddAbility("Volvate", "wmCommandVolvation", "Physical Mutation", "Volvate.", "O", null, false, false, false, false, false, false, false, true);
+            ActivatedAbilityID = activatedAbilities.AddAbility(Name: "Volvate", Command: "wmCommandVolvation", Class: "Physical Mutation", Description: "Volvate.", Icon: "O");
 
             return base.Mutate(GO, Level);
         }

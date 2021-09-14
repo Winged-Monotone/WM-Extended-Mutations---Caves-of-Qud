@@ -28,7 +28,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            this.FloodActivatedAbilityID = base.AddMyActivatedAbility("Torrent", "TorrentBlastCommand", "Mental Mutation", null, "*", null, false, false, false, false, false, Cooldown: 50);
+            this.FloodActivatedAbilityID = base.AddMyActivatedAbility(Name: "Torrent", Command: "TorrentBlastCommand", Class: "Mental Mutation", Icon: "*", Cooldown: 50);
             return base.Mutate(GO, Level);
         }
 

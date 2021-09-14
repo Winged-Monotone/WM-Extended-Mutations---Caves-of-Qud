@@ -6,21 +6,18 @@ using System.Collections.Generic;
 using ConsoleLib.Console;
 using XRL.Core;
 using XRL.Liquids;
-
+using XRL.World.Capabilities;
 
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
-    public class GelatinousFormPoison : BaseMutation
+    public class GelatinousFormPoison : BaseDefaultEquipmentMutation
     {
         public int nRegrowCount;
         public int nNextLimb = 1000;
-        public int Pairs = 1;
-        public List<int> myLimbs = new List<int>(5);
-        public List<int> myOldLimbs;
+        public string ManagerID => ParentObject.id + "::GelatinousFormPoison";
         public string PoisonIchorObj = "poisonichorpool";
         public int Density = 1;
-        public int PsuedopodID = 0;
         public int OldArmID = 0;
         public int OldHandID = 0;
         public GelatinousFormPoison()
@@ -68,10 +65,47 @@ namespace XRL.World.Parts.Mutation
             return "You lack a muscuskeletal system, your genome chose an amorphous eukaryote's physique. Yours is especially {{poisonous|poisonous.}}\n";
         }
 
+        public void AddPoisonGlobul()
+        {
+            Body SourceBody = ParentObject.GetPart("Body") as Body;
+            if (SourceBody != null)
+            {
+                BodyPart ReadyBody = SourceBody.GetBody();
+                var AttatchPseudotemplate = ReadyBody.AddPartAt(
+                    Base: "Oral Arm",
+                    Laterality: Laterality.UPPER,
+                    Manager: ManagerID,
+                    OrInsertBefore: new string[1]
+                {
+                "Head",
+                });
+                if (Stat.Random(1, 100) <= 50)
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                        Base: "Pseudopod",
+                        Laterality: Laterality.UPPER,
+                        DefaultBehavior: "Poison_Humor_Pseudopod",
+                        Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Poison_Humor_Pseudopod";
+                }
+                else
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                       Base: "Tentacle",
+                       Laterality: Laterality.UPPER,
+                       DefaultBehavior: "Poison_Humor_Tentacle",
+                       Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Poison_Humor_Tentacle";
+                }
+            }
+            SourceBody.UpdateBodyParts();
+        }
+
         public override bool Mutate(GameObject GO, int Level)
         {
             ParentObject.SetStringProperty("BleedLiquid", "poisonichor-1000");
             ParentObject.AddPart<PoisonImmunity>(true);
+            AddPoisonGlobul();
             if (!ParentObject.HasIntProperty("Slimewalking"))
             {
                 ParentObject.SetIntProperty("Slimewalking", 1);
@@ -141,6 +175,7 @@ namespace XRL.World.Parts.Mutation
                     nNextLimb = 1000 - 400 * base.Level + Stat.Roll("1d" + ((11 - Math.Min(base.Level, 10)) * 1000).ToString());
                     ParentObject.FireEvent(Event.New("RegenerateLimb", 0, 0, 0));
                 }
+
                 E.AddParameter("Amount", E.GetIntParameter("Amount") + (20 + base.Level * 4));
                 return true;
             }

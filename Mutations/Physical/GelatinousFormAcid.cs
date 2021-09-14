@@ -10,18 +10,13 @@ using XRL.Core;
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
-    public class GelatinousFormAcid : BaseMutation
+    public class GelatinousFormAcid : BaseDefaultEquipmentMutation
     {
         public int nRegrowCount;
         public int nNextLimb = 1000;
-        public int Pairs = 1;
-        public List<int> myLimbs = new List<int>(5);
-        public List<int> myOldLimbs;
         public string acidPool = "AcidPool";
         public int Density = 1;
-        public int PsuedopodID = 0;
-        public int OldArmID = 0;
-        public int OldHandID = 0;
+        public string ManagerID => ParentObject.id + "::GelatinousFormAcid";
         public bool IsDissolving = false;
         public Guid ActivatedAbilityID = Guid.Empty;
         public int Damage = 2;
@@ -134,7 +129,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     this.Duration += 2;
                     Damage += 1;
-                    ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
+                    ParentObject.TakeDamage(ref Damage, DeathReason: "{{green|Dissolved into visceral soup.}}", Message: "from salt diffusion!");
                 }
             }
             else if (E.ID == "Regenerating")
@@ -188,6 +183,41 @@ namespace XRL.World.Parts.Mutation
             }
             return base.FireEvent(E);
         }
+        public void AddAcidGlobul()
+        {
+            Body SourceBody = ParentObject.GetPart("Body") as Body;
+            if (SourceBody != null)
+            {
+                BodyPart ReadyBody = SourceBody.GetBody();
+                var AttatchPseudotemplate = ReadyBody.AddPartAt(
+                    Base: "Oral Arm",
+                    Laterality: Laterality.UPPER,
+                    Manager: ManagerID,
+                    OrInsertBefore: new string[1]
+                {
+                "Head",
+                });
+                if (Stat.Random(1, 100) <= 50)
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                        Base: "Pseudopod",
+                        Laterality: Laterality.UPPER,
+                        DefaultBehavior: "Acid_Humor_Pseudopod",
+                        Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Acid_Humor_Pseudopod";
+                }
+                else
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                       Base: "Tentacle",
+                       Laterality: Laterality.UPPER,
+                       DefaultBehavior: "Acid_Humor_Tentacle",
+                       Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Acid_Humor_Tentacle";
+                }
+            }
+            SourceBody.UpdateBodyParts();
+        }
         public override bool Mutate(GameObject GO, int Level)
         {
             Unmutate(GO);
@@ -195,7 +225,8 @@ namespace XRL.World.Parts.Mutation
             ParentObject.AddPart<AcidImmunity>(true);
             ParentObject.AddPart<WaterHazardous>(true);
             ParentObject.AddPart<DamagesArmorOnEquipped>(true);
-            ActivatedAbilityID = AddMyActivatedAbility("Spit Acid", "CommandSpitAcid", "Physical Mutation", null, "*", null, false);
+            AddAcidGlobul();
+            ActivatedAbilityID = AddMyActivatedAbility(Name: "Spit Acid", Command: "CommandSpitAcid", Class: "Physical Mutation", Icon: "*");
             if (!ParentObject.HasIntProperty("Slimewalking"))
             {
                 ParentObject.SetIntProperty("Slimewalking", 1);
@@ -232,7 +263,9 @@ namespace XRL.World.Parts.Mutation
                 {
                     return base.HandleEvent(E);
                 }
+
                 AutoAct.Interrupt();
+
                 AddPlayerMessage("This liquid is harmful to you.");
             }
             return base.HandleEvent(E);
@@ -242,19 +275,19 @@ namespace XRL.World.Parts.Mutation
             if (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)) && !ParentObject.HasEffect("Dissolving") && !ParentObject.HasEffect("Flying"))
             {
                 ParentObject.ApplyEffect(new Dissolving(1, ParentObject), ParentObject);
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
+                ParentObject.TakeDamage(Amount: ref Damage, DeathReason: "{{green|Dissolved into visceral soup.}}", Message: "from salt diffusion!");
                 IsDissolving = true;
             }
             else if (IsDissolving == true && (E.Object == ParentObject && E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint))))
             {
                 this.Duration += 2;
                 Damage += 1;
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
+                ParentObject.TakeDamage(Amount: ref Damage, DeathReason: "{{green|Dissolved into visceral soup.}}", Message: "from salt diffusion!");
             }
             else if ((IsDissolving == true && E.Object == ParentObject && (!E.Cell.HasObject(X => WaterThatHurts.Contains(X.Blueprint)))))
             {
                 this.Duration -= 1;
-                ParentObject.TakeDamage(ref Damage, null, "{{green|Dissolved into visceral soup.}}", null, null, null, Message: "from salt diffusion!");
+                ParentObject.TakeDamage(Amount: ref Damage, DeathReason: "{{green|Dissolved into visceral soup.}}", Message: "from salt diffusion!");
             }
             if (Duration <= 0)
             {

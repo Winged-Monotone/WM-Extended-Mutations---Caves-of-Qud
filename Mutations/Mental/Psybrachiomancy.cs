@@ -67,31 +67,6 @@ namespace XRL.World.Parts.Mutation
             return base.WantEvent(ID, cascade)
             || ID == AttackerDealingDamageEvent.ID;
         }
-
-        // public override bool HandleEvent(AttackerDealingDamageEvent E)
-        // {
-        //     var EgoSum = ParentObject.Statistics["Ego"].Modifier;
-        //     var Attacker = E.Actor;
-        //     var Defender = E.Object;
-        //     var AttackersBody = E.Actor.Body.GetParts();
-
-
-
-        //     AddPlayerMessage("Attacker : " + Attacker.DisplayName);
-
-        //     AddPlayerMessage("Defender : " + Defender.DisplayName);
-
-        //     // AddPlayerMessage("LimbAttacking? : " + GetEquippedPsionicLimb.Description);
-
-        //     foreach (var B in AttackersBody)
-        //         if (B.VariantType == "Psionic Hand")
-        //         {
-        //             AddPlayerMessage("Firing Damage reduction for multiple arms.");
-        //             var aDamage = E.Damage.Amount;
-        //             E.Damage.Amount = (aDamage / ArmCounter) + EgoSum + Stat.Random(1, EgoSum);
-        //         }
-        //     return base.HandleEvent(E);
-        // }
         public override bool HandleEvent(AttackerDealingDamageEvent E)
         {
             var EgoSum = ParentObject.Statistics["Ego"].Modifier;
@@ -121,10 +96,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            // string PsybrachiomancyinfoSource = "{ \"Psybrachiomancy\": [\"*cult*, the Asuran\", \"Many-Armed *cult*\"] }";
-            // SimpleJSON.JSONNode PsybrachiomancyInfo = SimpleJSON.JSON.Parse(PsybrachiomancyinfoSource);
 
-            // WMExtendedMutations.History.AddToHistorySpice("spice.extradimensional", PsybrachiomancyInfo["Psybrachiomancy"]);
 
             Mutations GainPSiFocus = GO.GetPart<Mutations>();
             if (!GainPSiFocus.HasMutation("FocusPsi"))
@@ -212,19 +184,25 @@ namespace XRL.World.Parts.Mutation
         {
             if (E.ID == "CommandManifestLimb")
             {
-                // AddPlayerMessage("Summoning Arm.");
                 FocusPsi focusPsi = ParentObject.GetPart<FocusPsi>();
                 if (NewArmCost <= ParentObject.Statistics["PsiCharges"].BaseValue)
                 {
-                    ArmCost = (ArmCounter + (NewArmCost));
-                    NewArmCost = ArmCost;
+
                     ArmCounter += 1;
+                    ArmCost = (ArmCounter + NewArmCost + 1);
+                    NewArmCost = ArmCost;
+
+                    // AddPlayerMessage("Arm Counter :" + ArmCounter);
+                    // AddPlayerMessage("Arm Cost :" + ArmCost);
+                    // AddPlayerMessage("New Arm Cost: " + NewArmCost);
+
                     focusPsi.focusPsiCurrentCharges = focusPsi.maximumPsiCharge();
                     AddPsionicArms();
                     AddPlayerMessage(ParentObject.It + " manifest psionic limbs.");
                     UseEnergy(500);
                     focusPsi.UpdateCharges();
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
+
                 }
                 else
                 {
@@ -240,8 +218,8 @@ namespace XRL.World.Parts.Mutation
                     RemovePsionicArms();
                     AddPlayerMessage(ParentObject.It + " dismiss " + ParentObject.its + " psionic arms.");
                     ArmCounter = 0;
-                    ArmCost = (2 + ArmCounter) + (ArmCounter * NewArmCost) - 1;
-                    NewArmCost = ArmCost;
+                    ArmCost = 1;
+                    NewArmCost = 0;
                     ParentObject.FireEvent(Event.New("FireEventDebuffSystem", 0, 0, 0));
                 }
                 else

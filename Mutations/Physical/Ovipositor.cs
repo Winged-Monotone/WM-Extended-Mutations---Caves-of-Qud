@@ -18,19 +18,13 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class Ovipositor : BaseDefaultEquipmentMutation
     {
-
-        public string BodyPartType = "Tail";
-        public string TailObjectId;
-        public string AdditionsManagerID => ParentObject.id + "::ThickTail::Add";
-        public string ChangesManagerID => ParentObject.id + "::ThickTail::Change";
-        public GameObject TailObject = null;
         public GameObject Mother;
         public string SpawnBlueprint = "OvipositorEgg";
         public Guid ActivatedAbilityID;
 
         public int TailID;
         const int PlaceHolder = 20000;
-        // Make sure to close out your stuff via new list<string>(), these crash if you 
+        // Make sure to close out your stuff via new list<string>(), these crash if you don't
         public List<string> CollectedGeneSpice = new List<string>();
 
         public Ovipositor()
@@ -55,35 +49,6 @@ namespace XRL.World.Parts.Mutation
             return base.WantEvent(ID, cascade)
             || ID == GetWaterRitualLiquidEvent.ID;
         }
-
-        // public override bool HandleEvent(GetWaterRitualLiquidEvent E)
-        // {
-        //     // AddPlayerMessage("1");
-        //     var GeneSpicer = E.Target;
-
-        //     if (E.Actor.IsPlayer() && GeneSpicer != null)
-        //     {
-        //         if (Popup.ShowYesNo("Take on this individuals gene-spice, this will improve your next brood by taking on the mutation aspects of your water-sib?", false, DialogResult.Yes) == DialogResult.Yes)
-        //         {
-        //             var Genes = GeneSpicer.GetPart<Mutations>();
-        //             var GeneList = Genes.MutationList;
-
-        //             foreach (var M in GeneList)
-        //             {
-        //                 var mStringed = M.ToString();
-
-        //                 CollectedGeneSpice.Add(mStringed);
-        //             }
-
-        //             Popup.Show("This will spice up your next brood.");
-        //         }
-        //         else
-        //         {
-
-        //         }
-        //     }
-        //     return base.HandleEvent(E);
-        // }
 
         public void BirthEgg()
         {
@@ -112,8 +77,6 @@ namespace XRL.World.Parts.Mutation
 
         public override bool FireEvent(Event E)
         {
-
-
             if (E.ID == "CommandLayEgg")
             {
                 {
@@ -128,18 +91,14 @@ namespace XRL.World.Parts.Mutation
             else if (E.ID == "ShowConversationChoices")
             {
 
-                // AddPlayerMessage("1");
-
                 var eCurrentNode = E.GetParameter<ConversationNode>("CurrentNode");
                 var eChoice = E.GetParameter<List<ConversationChoice>>("Choices");
 
 
-                // AddPlayerMessage("2");
-
                 if (eCurrentNode.ID == "*waterritual")
                 {
-                    var field = typeof(WaterRitualNode).GetField("currentInitializedSpeaker", BindingFlags.Static | BindingFlags.NonPublic);
-                    var speaker = field?.GetValue(null) as GameObject;
+                    var eField = typeof(WaterRitualNode).GetField("currentInitializedSpeaker", BindingFlags.Static | BindingFlags.NonPublic);
+                    var eSpeaker = eField?.GetValue(null) as GameObject;
 
                     var choice = new ConversationChoice();
 
@@ -149,13 +108,13 @@ namespace XRL.World.Parts.Mutation
 
                     choice.onAction = () =>
                     {
-                        var SpeakerProperty = speaker.HasIntProperty("GeneSpiced");
+                        var SpeakerProperty = eSpeaker.HasIntProperty("GeneSpiced");
 
-                        speaker.SetIntProperty("GeneSpiced", 1);
+                        eSpeaker.SetIntProperty("GeneSpiced", 1);
 
                         if (!SpeakerProperty)
                         {
-                            var Genes = speaker.GetPart<Mutations>();
+                            var Genes = eSpeaker.GetPart<Mutations>();
                             var GeneList = Genes.MutationList;
 
                             foreach (var M in GeneList)
@@ -170,7 +129,7 @@ namespace XRL.World.Parts.Mutation
 
                         return !SpeakerProperty;
                     };
-                    if (!speaker.HasIntProperty("GeneSpiced"))
+                    if (!eSpeaker.HasIntProperty("GeneSpiced"))
                     {
                         eChoice.Add(choice);
                         choice.ParentNode.SortEndChoicesToEnd();
@@ -200,15 +159,12 @@ namespace XRL.World.Parts.Mutation
             {
                 GameObject TailObj = GameObject.create("Ovipositor");
 
-                var body = GO.GetPart<Body>();
-                var core = body.GetBody();
-                var tail = core.AddPartAt(Base: "Tail", DefaultBehavior: "Ovipositor", InsertAfter: "Feet", OrInsertBefore: "Hands");
-                tail.DefaultBehaviorBlueprint = "Ovipositor";
-                tail.DefaultBehavior = TailObj;
-                // Armor part = TailObj.GetPart<Armor>();
-                // part.AV = 1;
-                // part.DV = 0;
-                body.UpdateBodyParts();
+                var mBody = GO.GetPart<Body>();
+                var mBodypart = mBody.GetBody();
+                var mTail = mBodypart.AddPartAt(Base: "Tail", DefaultBehavior: "Ovipositor", InsertAfter: "Feet", OrInsertBefore: "Hands");
+                mTail.DefaultBehaviorBlueprint = "Ovipositor";
+                mTail.DefaultBehavior = TailObj;
+                mBody.UpdateBodyParts();
             }
             CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;
@@ -224,12 +180,11 @@ namespace XRL.World.Parts.Mutation
                 Body SourceBody = GO.GetPart<Body>();
                 if (SourceBody != null)
                 {
-                    var body = ParentObject.GetPart<Body>();
-                    var core = body.GetBody();
-                    var tail = core.GetFirstPart("Tail");
-                    tail.Equipped.ForceUnequipAndRemove();
-                    core.RemovePart(tail);
-
+                    var eBody = ParentObject.GetPart<Body>();
+                    var eBodyPart = eBody.GetBody();
+                    var eTail = eBodyPart.GetFirstPart("Tail");
+                    eTail.Equipped.ForceUnequipAndRemove();
+                    eBodyPart.RemovePart(eTail);
                 }
             }
             catch

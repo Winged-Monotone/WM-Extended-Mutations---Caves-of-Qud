@@ -417,7 +417,7 @@ namespace XRL.World.Parts.Mutation
                 GainPSiFocus.AddMutation("FocusPsi", 1);
                 //AddPlayerMessage("Has Focus Psi.");
             }
-            this.ActivateThermokinesisAbilityID = base.AddMyActivatedAbility("Alter Temperatures", "CommandAlterTemperatures", "Mental Mutation", null, "*", null, false, false, false, false, false);
+            this.ActivateThermokinesisAbilityID = base.AddMyActivatedAbility(Name: "Alter Temperatures", Command: "CommandAlterTemperatures", Class: "Mental Mutation", Icon: "*");
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
         }

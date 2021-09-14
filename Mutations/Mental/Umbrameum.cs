@@ -40,8 +40,8 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            this.ShadowAreaEffectActivatedAbilityID = base.AddMyActivatedAbility("invoke darkness", "CastShadowCommand", "Mental Mutation", null, "\u03A9");
-            this.ShadeSelfActivatedAbilityID = base.AddMyActivatedAbility("shade self", "ShadeSelfCommand", "Mental Mutation", null, "\u03A9");
+            this.ShadowAreaEffectActivatedAbilityID = base.AddMyActivatedAbility(Name: "invoke darkness", Command: "CastShadowCommand", Class: "Mental Mutation", Icon: "\u03A9");
+            this.ShadeSelfActivatedAbilityID = base.AddMyActivatedAbility(Name: "shade self", Command: "ShadeSelfCommand", Class: "Mental Mutation", Icon: "\u03A9");
 
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
@@ -90,23 +90,6 @@ namespace XRL.World.Parts.Mutation
              || ID == AwardingXPEvent.ID;
         }
 
-        // public override bool HandleEvent(AwardingXPEvent E)
-        // {
-        //     try
-        //     {
-        //         var GlimemrPart = ParentObject.GetPart<GlimmerChangeEvent>();
-        //         int CurrentGlimmer = ParentObject.GetPsychicGlimmer();
-
-
-        //         ParentObject.SetIntProperty("GlimmerModifier", CurrentGlimmer / 2);
-        //         ParentObject.SetIntProperty("Glimmer", CurrentGlimmer / 2);
-        //     }
-        //     catch
-        //     {
-
-        //     }
-        //     return base.HandleEvent(E);
-        // }
 
         public static string[] ColorList = new string[3]
 {

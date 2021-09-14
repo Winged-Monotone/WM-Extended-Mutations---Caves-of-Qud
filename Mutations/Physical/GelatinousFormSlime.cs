@@ -10,18 +10,13 @@ using XRL.Core;
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
-    public class GelatinousFormSlime : BaseMutation
+    public class GelatinousFormSlime : BaseDefaultEquipmentMutation
     {
         public int nRegrowCount;
         public int nNextLimb = 1000;
-        public int Pairs = 1;
-        public List<int> myLimbs = new List<int>(5);
-        public List<int> myOldLimbs;
         public string SlimePool = "SlimePool";
+        public string ManagerID => ParentObject.id + "::GelatinousFormSlime";
         public int Density = 1;
-        public int PsuedopodID = 0;
-        public int OldArmID = 0;
-        public int OldHandID = 0;
         public Guid ActivatedAbilityID = Guid.Empty;
         public int Duration;
         public GelatinousFormSlime()
@@ -172,11 +167,46 @@ namespace XRL.World.Parts.Mutation
             }
             return base.FireEvent(E);
         }
+        public void AddSlimeGlobul()
+        {
+            Body SourceBody = ParentObject.GetPart("Body") as Body;
+            if (SourceBody != null)
+            {
+                BodyPart ReadyBody = SourceBody.GetBody();
+                var AttatchPseudotemplate = ReadyBody.AddPartAt(
+                    Base: "Oral Arm",
+                    Laterality: Laterality.UPPER,
+                    Manager: ManagerID,
+                    OrInsertBefore: new string[1]
+                {
+                "Head",
+                });
+                if (Stat.Random(1, 100) <= 50)
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                        Base: "Pseudopod",
+                        Laterality: Laterality.UPPER,
+                        DefaultBehavior: "Slime_Humor_Pseudopod",
+                        Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Slime_Humor_Pseudopod";
+                }
+                else
+                {
+                    var mBodyPart = AttatchPseudotemplate.AddPart(
+                       Base: "Tentacle",
+                       Laterality: Laterality.UPPER,
+                       DefaultBehavior: "Slime_Humor_Tentacle",
+                       Manager: ManagerID);
+                    mBodyPart.DefaultBehaviorBlueprint = "Slime_Humor_Tentacle";
+                }
+            }
+            SourceBody.UpdateBodyParts();
+        }
         public override bool Mutate(GameObject GO, int Level)
         {
             Unmutate(GO);
             ParentObject.SetStringProperty("BleedLiquid", "Slime-1000");
-            ActivatedAbilityID = AddMyActivatedAbility("Spit Slime", "CommandSpitSlime", "Physical Mutation", null, "*", null, false);
+            ActivatedAbilityID = AddMyActivatedAbility(Name: "Spit Slime", Command: "CommandSpitSlime", Class: "Physical Mutation", Icon: "*");
             if (!ParentObject.HasIntProperty("Slimewalking"))
             {
                 ParentObject.SetIntProperty("Slimewalking", 1);
@@ -194,7 +224,5 @@ namespace XRL.World.Parts.Mutation
         {
             return base.WantEvent(ID, cascade) || ID == EquippedEvent.ID || ID == ObjectEnteredCellEvent.ID || ID == ObjectEnteringCellEvent.ID;
         }
-
-
     }
 }

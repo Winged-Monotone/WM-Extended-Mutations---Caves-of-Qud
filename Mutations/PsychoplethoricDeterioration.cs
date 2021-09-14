@@ -286,7 +286,6 @@ namespace XRL.World.Parts.Mutation
 
                 if (!ParentObject.MakeSave("Toughness", (28 + DegradateLevel), null, null, "Husk Deterioration"))
                 {
-                    // StatShifter.SetStatShift(ParentObject, "Hitpoints", -Stat.Random(0, 3), true);
                     ParentObject.Statistics["Hitpoints"].BaseValue -= Stat.Random(0, 3);
                 }
             }
@@ -431,9 +430,6 @@ namespace XRL.World.Parts.Mutation
 
                 if (OriginalBody != null)
                 {
-
-                    // AddPlayerMessage("Original Body: " + OriginalBody + ".");
-                    // AddPlayerMessage("Parent Body: " + ParentObject + ".");
 
                     if (!ParentObject.HasProperName)
                     {

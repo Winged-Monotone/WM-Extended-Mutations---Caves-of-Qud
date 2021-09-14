@@ -786,11 +786,11 @@ namespace XRL.World.Parts.Mutation
                 ParentObject.AddPart<ShimmeringShroudHandler>();
             }
 
-            ActivateShimmeringShroudAbilityID = base.AddMyActivatedAbility("Activate Shroud", "CommandShimmeringShroud", "Mental Mutation", null, "*", null, false, false, false, false, false);
-            ChargePotentialAbilityID = base.AddMyActivatedAbility("Charge Potential", "CommandChargePotencyShroud", "Mental Mutation", null, "*", null, true, false, true, false, false);
-            PotencyForChargesAbility = base.AddMyActivatedAbility("Recharge Battery", "ChargeBatteryEvent", "Electrokinesis", null, "~", null, false, false, true, false, false);
-            ElectrokinesisGauge = base.AddMyActivatedAbility("Electrokinesis", "ElectroToggleEvent", "Mutation");
-            ThunderStrikeAbility = base.AddMyActivatedAbility("Thunder Strike", "ThunderingStrikeEvent", "Electrokinesis", "Call forth an thundering strike upon your enemies.", "p", null);
+            ActivateShimmeringShroudAbilityID = base.AddMyActivatedAbility(Name: "Activate Shroud", Command: "CommandShimmeringShroud", Class: "Mental Mutation", Icon: "*");
+            ChargePotentialAbilityID = base.AddMyActivatedAbility(Name: "Charge Potential", Command: "CommandChargePotencyShroud", Class: "Mental Mutation", Icon: "*");
+            PotencyForChargesAbility = base.AddMyActivatedAbility(Name: "Recharge Battery", Command: "ChargeBatteryEvent", Class: "Electrokinesis", Icon: "~");
+            ElectrokinesisGauge = base.AddMyActivatedAbility(Name: "Electrokinesis", Command: "ElectroToggleEvent", Class: "Mutation");
+            ThunderStrikeAbility = base.AddMyActivatedAbility(Name: "Thunder Strike", Command: "ThunderingStrikeEvent", Class: "Electrokinesis", Description: "Call forth an thundering strike upon your enemies.", Icon: "p");
 
 
             this.ChangeLevel(Level);

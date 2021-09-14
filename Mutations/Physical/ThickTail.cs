@@ -252,81 +252,10 @@ namespace XRL.World.Parts.Mutation
             "Chimera",
         };
 
-        // public bool HasPermutation(GameObject Parent)
-        // {
-        //     Mutations HasSynergyMutation = Parent.GetPart<Mutations>();
-        //     return (SynergyMutations.Any(HasSynergyMutation.HasMutation));
-        // }
-
-        // public BodyPart AddTail(XRL.World.GameObject GO)
-        // {
-        //     return GO?.GetPart<Body>()?.GetBody().AddPartAt("Tail", 0, null, null, null, null, AdditionsManagerID, null, null, null, null, null, null, null, null, null, null, null, null, "Feet", new string[3]
-        //     {
-        //     "Roots",
-        //     "Thrown Weapon",
-        //     "Floating Nearby"
-        //     });
-        // }
-
-        // private BodyPart ProcessChangedLimb(BodyPart Part)
-        // {
-        //     if (Part != null)
-        //     {
-        //         Part.Manager = ChangesManagerID;
-        //     }
-        //     return Part;
-        // }
-        // public override void OnRegenerateDefaultEquipment(Body body)
-        // {
-        //     BodyPart partByID = body.GetPartByManager(AdditionsManagerID);
-        //     AddThickTailTo(partByID);
-        // }
-
         public XRL.World.GameObject findThickTail()
         {
             return ParentObject.GetPart<Body>().FindEquipmentOrDefaultByID(ThickTailObjectId);
         }
-
-        // public void AddThickTailTo(BodyPart part)
-        // {
-        //     if (part.Equipped != null)
-        //     {
-        //         if (part.Equipped.id == ThickTailObjectId)
-        //         {
-        //             return;
-        //         }
-        //         ParentObject.FireEvent(XRL.World.Event.New("CommandForceUnequipObject", "BodyPart", part));
-        //     }
-        //     if (BaseTail == null)
-        //     {
-        //         BaseTail = XRL.World.GameObject.create("BaseThickTail");
-        //     }
-        //     if (BaseTail != null)
-        //     {
-        //         Armor armor = BaseTail.GetPart("Armor") as Armor;
-        //         if (armor != null)
-        //         {
-        //             armor.WornOn = part.Type;
-        //         }
-        //         else
-        //         {
-        //             Debug.LogError("Tail object had no Armor part");
-        //         }
-        //         XRL.World.Event @event = XRL.World.Event.New("CommandForceEquipObject");
-        //         @event.SetParameter("Object", ThickTailObjectId);
-        //         @event.SetParameter("BodyPart", part);
-        //         @event.SetSilent(Silent: true);
-        //         ParentObject.FireEvent(@event);
-        //         if (ParentObject.HasObjectInInventory("BaseThickTail"))
-        //         {
-        //             ParentObject.FindObjectInInventory("BaseThickTail").Destroy(null, true, false);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("Could not create Thick Tail");
-        //     }
-        // }
 
         public struct TailData
         {
