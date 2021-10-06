@@ -14,8 +14,6 @@ namespace XRL.World.Parts
     public class MagicalDarkness : IPart
     {
         public int Duration = 0;
-        public int Radius = 1;
-
         public GameObject Owner = null;
 
         public override bool WantEvent(int ID, int cascade)

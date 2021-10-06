@@ -79,6 +79,10 @@ namespace XRL.World.Parts.Mutation
                 firstPart.DefaultBehavior = SerpentileTail;
 
             }
+            else
+            {
+                return false;
+            }
             this.ActivatedAbilitiesID = base.AddMyActivatedAbility(Name: "Constrict", Command: "CommandConstrict", Class: "Physical Mutation", Description: "Coil around and crush your enemies.", Icon: "@");
             this.ChangeLevel(Level);
             return base.Mutate(GO, Level);
@@ -214,9 +218,16 @@ namespace XRL.World.Parts.Mutation
             }
             else if (E.ID == "EndTurn")
             {
-                if (Constricted.HasEffect("Constricted"))
+                try
                 {
-                    PerformDamage(Constricted);
+                    if (Constricted.HasEffect("Constricted"))
+                    {
+                        PerformDamage(Constricted);
+                    }
+                }
+                catch
+                {
+
                 }
             }
             else if (E.ID == "ObjectEnteredAdjacentCell")
@@ -530,20 +541,41 @@ namespace XRL.World.Parts.Mutation
         }
         public bool PerformDamage(GameObject Target)
         {
-            string Damage = "1d4+" + ParentObject.Statistics["Strength"].Modifier + "+" + Level;
-            if (string.IsNullOrEmpty(Damage))
+            if (ParentObject.Statistics["Strength"].Modifier < 0)
             {
-                return false;
+                string Damage = "1d4+" + ParentObject.Statistics["Strength"].Modifier + "+" + Level;
+                if (string.IsNullOrEmpty(Damage))
+                {
+                    return false;
+                }
+                Damage damage = new Damage(Rules.Stat.Roll(Damage));
+                // damage.AddAttributes(DamageAttributes);
+                Event @event = Event.New("TakeDamage", 0, 0, 0);
+                @event.AddParameter("Damage", damage);
+                @event.AddParameter("Owner", ParentObject);
+                @event.AddParameter("Attacker", ParentObject);
+                @event.AddParameter("Message", "from %O!");
+                bool flag = Target.FireEvent(@event);
+                return flag;
             }
-            Damage damage = new Damage(Rules.Stat.Roll(Damage));
-            // damage.AddAttributes(DamageAttributes);
-            Event @event = Event.New("TakeDamage", 0, 0, 0);
-            @event.AddParameter("Damage", damage);
-            @event.AddParameter("Owner", ParentObject);
-            @event.AddParameter("Attacker", ParentObject);
-            @event.AddParameter("Message", "from %O!");
-            bool flag = Target.FireEvent(@event);
-            return flag;
+            else
+            {
+                string Damage = "1d4+" + 1 + "+" + Level;
+                if (string.IsNullOrEmpty(Damage))
+                {
+                    return false;
+                }
+                Damage damage = new Damage(Rules.Stat.Roll(Damage));
+                // damage.AddAttributes(DamageAttributes);
+                Event @event = Event.New("TakeDamage", 0, 0, 0);
+                @event.AddParameter("Damage", damage);
+                @event.AddParameter("Owner", ParentObject);
+                @event.AddParameter("Attacker", ParentObject);
+                @event.AddParameter("Message", "from %O!");
+                bool flag = Target.FireEvent(@event);
+                return flag;
+            }
+
         }
         public override bool Render(RenderEvent E)
         {

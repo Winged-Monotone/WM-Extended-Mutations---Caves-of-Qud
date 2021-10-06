@@ -11,25 +11,12 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class ThickTail : BaseDefaultEquipmentMutation
     {
-        public string BodyPartType = "Tail";
         public string TailType = "Normal";
         public string AdditionsManagerID => ParentObject.id + "::ThickTail::Add";
-        public string ChangesManagerID => ParentObject.id + "::ThickTail::Change";
-        public int HitBonus = 5;
         public GameObject BaseTail;
-        public GameObject SpikedTail;
-        public GameObject FurryTail;
-        public GameObject ScaledTail;
-        public GameObject GelatonousProbe;
-        public Guid ActivatedAbilityID;
-        public int BasePenModifier;
-        public string BaseDamageModifier;
-        public int BaseToHitModifier;
-        public int TailID;
         public int SwingChanceTextValue;
         public string BaseDamageTextValue;
         public int PenetrationTextValue;
-        const int PlaceHolder = 3000;
         public string ThickTailObjectId;
 
         public ThickTail()

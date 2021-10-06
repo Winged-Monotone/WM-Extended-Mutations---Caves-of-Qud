@@ -19,10 +19,12 @@ using XRL.UI;
 
 namespace XRL.World.Parts
 {
-
     [Serializable]
     public class IntuitLook : IPart
     {
+        public List<string> MutationInformation;
+        private string[] ListOfMutations;
+
         public override bool WantEvent(int ID, int cascade)
         {
 
@@ -34,6 +36,7 @@ namespace XRL.World.Parts
         public string EntityData()
         {
             // AddPlayerMessage("Beginning Entity Data Grab");
+
 
             GameObject Target = ParentObject;
 
@@ -69,6 +72,34 @@ namespace XRL.World.Parts
             string TargetsAcidResist = Target.Statistics.TryGetValue("AcidResistance", out var ares) ? (ares.Bonus + ares.Value).ToString() : "N/A";
             string TargetsElecResist = Target.Statistics.TryGetValue("ElectricResistance", out var eres) ? (eres.Bonus + eres.Value).ToString() : "N/A";
 
+            // var GettingMutations = Target.GetMutationNames();
+
+            // foreach (var M in GettingMutations)
+            // {
+            //     MutationInformation.Add("{{M|" + M + "}}\n");
+            //     ListOfMutations = MutationInformation.ToArray();
+            // }
+
+            // if (GettingMutations != null)
+            //     return "{{w|Intuited Information:}}\n\n" +
+            //     "{{Y|Strength: }}" + TargetsStrengthScore + "{{B|(" + TargetsStrengthMod + ")}}\n" +
+            //     "{{Y|Agility: }}" + TargetsAgilityScore + "{{B|(" + TargetsAgilityMod + ")}}\n" +
+            //     "{{Y|Toughness: }}" + TargetsToughnessScore + "{{B|(" + TargetsToughnessMod + ")}}\n" +
+            //     "{{Y|Intelligence: }}" + TargetsintelligenceScore + "{{B|(" + TargetsintelligenceMod + ")}}\n" +
+            //     "{{Y|Willpower: }}" + TargetsWillpowerScore + "{{B|(" + TargetsWillpowerMod + ")}}\n" +
+            //     "{{Y|Ego: }}" + TargetsEgoScore + "{{B|(" + TargetsEgoMod + ")}}\n\n" +
+            //     "{{Y|AV: }}" + TargetsAV + "\n" +
+            //     "{{Y|DV: }}" + TargetsDV + "\n" +
+            //     "{{Y|MA: }}" + TargetsMA + "\n\n" +
+            //     "{{R|Fire Resistance: }}" + TargetsFireResist + "\n" +
+            //     "{{B|Cold Resistance: }}" + TargetsColdResist + "\n" +
+            //     "{{G|Acid Resistance: }}" + TargetsAcidResist + "\n" +
+            //     "{{W|Lightning Resistance: }}" + TargetsElecResist + "\n" +
+            //     "\n\n" +
+            //     "{{M|Mutations: }}" + "\n\n" +
+
+            //     ;
+            // else
             return "{{w|Intuited Information:}}\n\n" +
             "{{Y|Strength: }}" + TargetsStrengthScore + "{{B|(" + TargetsStrengthMod + ")}}\n" +
             "{{Y|Agility: }}" + TargetsAgilityScore + "{{B|(" + TargetsAgilityMod + ")}}\n" +
@@ -82,8 +113,7 @@ namespace XRL.World.Parts
             "{{R|Fire Resistance: }}" + TargetsFireResist + "\n" +
             "{{B|Cold Resistance: }}" + TargetsColdResist + "\n" +
             "{{G|Acid Resistance: }}" + TargetsAcidResist + "\n" +
-            "{{W|Lightning Resistance: }}" + TargetsElecResist + "\n"
-            ;
+            "{{W|Lightning Resistance: }}" + TargetsElecResist;
         }
 
         public override bool HandleEvent(GetShortDescriptionEvent E)

@@ -19,7 +19,6 @@ namespace XRL.World.Parts.Mutation
     [Serializable]
     public class Umbrameum : BaseMutation
     {
-        //Properties/Member Variables / Not Static, Exist on the Instance of this Class
         public Guid ActivatedAbilitiesID;
         public Guid ShadeSelfActivatedAbilityID;
         public Guid ShadowAreaEffectActivatedAbilityID;
@@ -89,7 +88,6 @@ namespace XRL.World.Parts.Mutation
             return base.WantEvent(ID, cascade)
              || ID == AwardingXPEvent.ID;
         }
-
 
         public static string[] ColorList = new string[3]
 {

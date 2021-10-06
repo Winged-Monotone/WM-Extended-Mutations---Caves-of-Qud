@@ -28,6 +28,7 @@ namespace XRL.World.Parts.Mutation
             {
                 Object.RegisterPartEvent(this, "BeginTakeAction");
                 Object.RegisterPartEvent(this, "EnteredCell");
+                Object.RegisterPartEvent(this, "wmCommandVolvation");
                 base.Register(Object);
             }
             base.Register(Object);
@@ -35,7 +36,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You posses the ability to roll your body into a tightly packed ball, exposing only the hardest portions of integuments, making you a smaller target and allowing you roll away from your enemies; all at the cost of some sight.";
+            return "You possesess the ability to roll your body into a tightly packed ball, exposing only the hardest portions of integuments, making you a smaller target and allowing you roll away from your enemies; all at the cost of some sight.";
         }
 
         public override string GetLevelText(int Level)
@@ -73,11 +74,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Unmutate(GameObject GO)
         {
-            Phased Phased = ParentObject.GetEffect("Phased") as Phased;
-            if (ParentObject.HasEffect("Phased"))
-            {
-                ParentObject.RemoveEffect(Phased);
-            }
+
             return base.Unmutate(GO);
         }
     }

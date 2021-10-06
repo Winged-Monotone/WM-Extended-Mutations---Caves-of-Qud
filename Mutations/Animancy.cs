@@ -11,7 +11,6 @@ namespace XRL.World.Parts.Mutation
     {
         public bool ProccedAnimaBonus = false;
         public int FactorIncreaseHolder = 0;
-        public const string MOD_PREFIX = "Animancy";
 
         public Animancy()
         {

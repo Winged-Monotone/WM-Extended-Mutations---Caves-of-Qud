@@ -12,9 +12,7 @@ namespace XRL.World.Effects
     public class Electravoyance : Effect
     {
         public bool bIdentified;
-
         public int Level = 1;
-
         public GameObject Listener;
 
         public Electravoyance()

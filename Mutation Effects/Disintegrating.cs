@@ -57,8 +57,6 @@ namespace XRL.World.Effects
             if (E.ID == "EndTurn")
             {
                 --Duration;
-                // AddPlayerMessage("EndTurn - Effect");
-                // AddPlayerMessage("" + Duration + "");
             }
 
             return base.FireEvent(E);

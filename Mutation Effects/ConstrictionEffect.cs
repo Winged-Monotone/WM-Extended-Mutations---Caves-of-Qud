@@ -14,8 +14,6 @@ namespace XRL.World.Effects
         public GameObject ConstrictedBy;
         public bool ChangesWereApplied;
         public int TurnsConstricted;
-        public int ConstrictorsPenalty;
-        public int ConstrictedlastDVPenalty;
 
         public Constricted()
         {

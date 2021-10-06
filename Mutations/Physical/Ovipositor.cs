@@ -21,10 +21,8 @@ namespace XRL.World.Parts.Mutation
         public GameObject Mother;
         public string SpawnBlueprint = "OvipositorEgg";
         public Guid ActivatedAbilityID;
-
-        public int TailID;
         const int PlaceHolder = 20000;
-        // Make sure to close out your stuff via new list<string>(), these crash if you don't
+        // Make sure to close out your stuff via new list<string>(), these crash if you 
         public List<string> CollectedGeneSpice = new List<string>();
 
         public Ovipositor()
@@ -132,7 +130,7 @@ namespace XRL.World.Parts.Mutation
                     if (!eSpeaker.HasIntProperty("GeneSpiced"))
                     {
                         eChoice.Add(choice);
-                        choice.ParentNode.SortEndChoicesToEnd();
+                        choice.ParentNode.Choices.Sort();
                     }
 
                 }
@@ -165,6 +163,10 @@ namespace XRL.World.Parts.Mutation
                 mTail.DefaultBehaviorBlueprint = "Ovipositor";
                 mTail.DefaultBehavior = TailObj;
                 mBody.UpdateBodyParts();
+            }
+            else
+            {
+                return false;
             }
             CooldownMyActivatedAbility(ActivatedAbilityID, PlaceHolder, ParentObject);
             ActivatedAbilities activatedAbilities = ParentObject.GetPart("ActivatedAbilities") as ActivatedAbilities;

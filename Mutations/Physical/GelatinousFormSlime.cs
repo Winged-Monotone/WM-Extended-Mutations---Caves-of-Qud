@@ -18,7 +18,6 @@ namespace XRL.World.Parts.Mutation
         public string ManagerID => ParentObject.id + "::GelatinousFormSlime";
         public int Density = 1;
         public Guid ActivatedAbilityID = Guid.Empty;
-        public int Duration;
         public GelatinousFormSlime()
         {
             DisplayName = "Gelatinous Form {{slimy|(Slime)}}";
@@ -111,7 +110,11 @@ namespace XRL.World.Parts.Mutation
                             GameObject SlimeContainer = GameObject.create(this.SlimePool);
                             var SlimeProperties = SlimeContainer.GetPart<LiquidVolume>();
                             SlimeProperties.Volume *= Level;
-                            cell.AddObject(SlimeContainer, true, false, false, false, null);
+                            cell.AddObject(GO: SlimeContainer,
+                                            Forced: true,
+                                            System: false,
+                                            IgnoreGravity: false,
+                                            NoStack: false);
                         }
                     }
                 }

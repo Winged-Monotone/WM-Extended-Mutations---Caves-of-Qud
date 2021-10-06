@@ -13,11 +13,7 @@ namespace XRL.World.Effects
     [Serializable]
     public class Darkening : Effect
     {
-        public bool InitialEffect = true;
-        public int CurrentEffectBoost;
-        public int NewEffectBoost;
         public GameObject Owner;
-        public int Charges = 0;
 
         public Darkening() : base()
         {

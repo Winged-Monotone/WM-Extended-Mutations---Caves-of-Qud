@@ -12,14 +12,13 @@ namespace XRL.World.Parts.Mutation
 {
     [Serializable]
     public class GelatinousFormPoison : BaseDefaultEquipmentMutation
+
     {
         public int nRegrowCount;
         public int nNextLimb = 1000;
         public string ManagerID => ParentObject.id + "::GelatinousFormPoison";
         public string PoisonIchorObj = "poisonichorpool";
         public int Density = 1;
-        public int OldArmID = 0;
-        public int OldHandID = 0;
         public GelatinousFormPoison()
         {
             DisplayName = "Gelatinous Form {{poisonous|(Poison)}}";

@@ -12,8 +12,6 @@ namespace XRL.World.Parts
 
     public class MaxEgoBonus : IPart
     {
-        public const int BONUS_CAP_UNLIMITED = 9999;
-
         public int EgoBonus;
 
         public override bool WantEvent(int ID, int cascade)

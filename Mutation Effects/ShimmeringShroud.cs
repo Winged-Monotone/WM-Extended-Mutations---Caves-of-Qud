@@ -12,10 +12,7 @@ namespace XRL.World.Effects
     public class ShimmeringShroud : Effect
     {
         public int Potency = 1;
-        public int NewPotency;
         public GameObject Owner;
-        public int Charges = 0;
-
 
 
         public ShimmeringShroud() : base()

@@ -116,7 +116,11 @@ namespace XRL.World.Parts.Mutation
                             GameObject AcidContainer = GameObject.create(this.acidPool);
                             var AcidProperties = AcidContainer.GetPart<LiquidVolume>();
                             AcidProperties.Volume *= Level;
-                            cell.AddObject(AcidContainer, true, false, false, false, null);
+                            cell.AddObject(GO: AcidContainer,
+                                            Forced: true,
+                                            System: false,
+                                            IgnoreGravity: false,
+                                            NoStack: false);
                         }
                     }
                 }
